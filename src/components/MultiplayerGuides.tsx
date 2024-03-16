@@ -1,7 +1,7 @@
 import { useOthersMapped, useOthersConnectionIds } from "@/liveblocks.config";
 import { shallow } from "@liveblocks/client";
 import React from "react";
-import { colorToCss } from "@/lib//utils";
+import { colorToCss } from "@/app/lib/utils";
 import Cursor from "./Cursor";
 import Path from "./Path";
 
@@ -18,6 +18,7 @@ function Cursors() {
   const ids = useOthersConnectionIds();
   return (
     <>
+      {/* All the cursors of other users in the room */}
       {ids.map((connectionId) => (
         <Cursor key={connectionId} connectionId={connectionId} />
       ))}

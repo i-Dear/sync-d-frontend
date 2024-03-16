@@ -28,8 +28,7 @@ import {
   Side,
   XYWH,
   Point,
-} from "@/lib/types";
-import styles from "./index.module.css";
+} from "@/app/lib/types";
 import {
   colorToCss,
   connectionIdToColor,
@@ -37,17 +36,18 @@ import {
   penPointsToPathLayer,
   pointerEventToCanvasPoint,
   resizeBounds,
-} from "@/lib/utils";
+} from "@/app/lib/utils";
 import SelectionBox from "./components/SelectionBox";
 import { nanoid } from "nanoid";
 import LayerComponent from "./components/LayerComponent";
 import SelectionTools from "./components/SelectionTools";
-import useDisableScrollBounce from "./hooks/useDisableScrollBounce";
-import useDeleteLayers from "./hooks/useDeleteLayers";
+import useDisableScrollBounce from "../app/hooks/useDisableScrollBounce";
+import useDeleteLayers from "../app/hooks/useDeleteLayers";
 import MultiplayerGuides from "./components/MultiplayerGuides";
 import Path from "./components/Path";
 import ToolsBar from "./components/ToolsBar";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 const MAX_LAYERS = 100;
 
@@ -69,21 +69,24 @@ export default function Room() {
         person: new LiveObject({ name: "Marie", age: 30 }),
       }}
     >
-      <div className={styles.container}>
-        <ClientSideSuspense fallback={<Loading />}>
-          {() => <Canvas />}
-        </ClientSideSuspense>
-      </div>
+      <ClientSideSuspense fallback={<Loading />}>
+        {() => <Canvas />}
+      </ClientSideSuspense>
     </RoomProvider>
   );
 }
 
 function Loading() {
   return (
-    <div className={styles.container}>
-      <div className={styles.loading}>
-        <img src="https://liveblocks.io/loading.svg" alt="Loading" />
-      </div>
+    <div className="absolute w-screen h-screen flex place-content-center place-items-center bg-surface-canvas">
+      <Image
+        className="opacity-20"
+        src="https://liveblocks.io/loading.svg"
+        alt="Loading"
+        width={64}
+        height={64}
+        priority
+      />
     </div>
   );
 }
@@ -502,7 +505,7 @@ function Canvas() {
   return (
     <>
       <div
-        className={styles.canvas}
+        className="bg-surface-canvas touch-none"
         ref={cursorPanel}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
@@ -516,7 +519,7 @@ function Canvas() {
           setLastUsedColor={setLastUsedColor}
         />
         <svg
-          className={styles.renderer_svg}
+          className="w-screen h-screen"
           onWheel={onWheel}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -545,7 +548,7 @@ function Canvas() {
             {canvasState.mode === CanvasMode.SelectionNet &&
               canvasState.current != null && (
                 <rect
-                  className={styles.selection_net}
+                  className="fill-primary opacity-5 stroke-primary stroke-[0.5px]"
                   x={Math.min(canvasState.origin.x, canvasState.current.x)}
                   y={Math.min(canvasState.origin.y, canvasState.current.y)}
                   width={Math.abs(canvasState.origin.x - canvasState.current.x)}

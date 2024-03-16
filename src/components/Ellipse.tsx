@@ -1,5 +1,5 @@
-import { EllipseLayer } from "@/lib/types";
-import { colorToCss } from "@/lib/utils";
+import { EllipseLayer } from "@/app/lib/types";
+import { colorToCss } from "@/app/lib/utils";
 
 type Props = {
   id: string;
