@@ -5,8 +5,7 @@ import EllipseButton from "./EllipseButton";
 import UndoButton from "./UndoButton";
 import RedoButton from "./RedoButton";
 import SelectionButton from "./SelectionButton";
-import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
-import styles from "./index.module.css";
+import { CanvasMode, LayerType, CanvasState } from "@/app/lib/types";
 
 type Props = {
   canvasState: CanvasState;
@@ -26,9 +25,9 @@ export default function ToolsBar({
   canRedo,
 }: Props) {
   return (
-    <div className={styles.tools_panel_container}>
-      <div className={styles.tools_panel}>
-        <div className={styles.tools_panel_section}>
+    <div className="absolute bottom-6 right-0 left-0 flex items-center justify-center">
+      <div className="shadow-popup rounded-xl bg-surface-panel flex items-center justify-center">
+        <div className="flex items-center justify-center p-3">
           <SelectionButton
             isActive={
               canvasState.mode === CanvasMode.None ||
@@ -68,8 +67,8 @@ export default function ToolsBar({
             }
           />
         </div>
-        <div className={styles.seperator}></div>
-        <div className={styles.tools_panel_section}>
+        <div className="w-[1px] bg-black bg-opacity-10 self-stretch"></div>
+        <div className="flex items-center justify-center p-3">
           <UndoButton onClick={undo} disabled={!canUndo} />
           <RedoButton onClick={redo} disabled={!canRedo} />
         </div>
