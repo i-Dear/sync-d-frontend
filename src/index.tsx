@@ -43,11 +43,12 @@ import LayerComponent from "./components/LayerComponent";
 import SelectionTools from "./components/SelectionTools";
 import useDisableScrollBounce from "../app/hooks/useDisableScrollBounce";
 import useDeleteLayers from "../app/hooks/useDeleteLayers";
-import MultiplayerGuides from "./components/MultiplayerGuides";
+import Drafts from "./components/Drafts";
 import Path from "./components/Path";
 import ToolsBar from "./components/ToolsBar";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Cursors from "./components/Cursors";
 
 const MAX_LAYERS = 100;
 
@@ -459,15 +460,6 @@ function Canvas() {
     []
   );
 
-  function handlePointerMove(e: any) {
-    const cursor = { x: Math.floor(e.clientX), y: Math.floor(e.clientY) };
-    updateMyPresence({ cursor });
-  }
-
-  function handlePointerLeave(e: any) {
-    updateMyPresence({ cursor: null });
-  }
-
   const onPointerUp = useMutation(
     ({}, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
@@ -504,12 +496,8 @@ function Canvas() {
 
   return (
     <>
-      <div
-        className="bg-surface-canvas touch-none"
-        ref={cursorPanel}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-      >
+      <div className="bg-surface-canvas touch-none" ref={cursorPanel}>
+        <Cursors cursorPanel={cursorPanel} />
         <SelectionTools
           isAnimated={
             canvasState.mode !== CanvasMode.Translating &&
@@ -557,7 +545,7 @@ function Canvas() {
                   )}
                 />
               )}
-            <MultiplayerGuides />
+            <Drafts />
             {/* Drawing in progress. Still not commited to the storage. */}
             {pencilDraft != null && pencilDraft.length > 0 && (
               <Path
