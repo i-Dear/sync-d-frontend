@@ -1,8 +1,8 @@
-import { useOthersMapped, useUpdateMyPresence } from "@/liveblocks.config";
+import { useOthersMapped, useUpdateMyPresence } from "~/liveblocks.config";
 import Cursor from "./Cursor";
 import { MutableRefObject, useEffect } from "react";
 import { shallow } from "@liveblocks/client";
-import { useBoundingClientRectRef } from "@/app/utils/useBoundingClientRectRef";
+import { useBoundingClientRectRef } from "@/utils/useBoundingClientRectRef";
 
 type Props = {
   cursorPanel: MutableRefObject<HTMLElement | null>;

@@ -1,7 +1,7 @@
-import { useOthersMapped } from "@/liveblocks.config";
+import { useOthersMapped } from "~/liveblocks.config";
 import { shallow } from "@liveblocks/client";
 import React from "react";
-import { colorToCss } from "@/app/lib/utils";
+import { colorToCss } from "@/lib/utils";
 import Path from "./Path";
 
 function Drafts() {

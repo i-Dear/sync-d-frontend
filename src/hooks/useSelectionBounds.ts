@@ -1,5 +1,5 @@
-import { useStorage, useSelf } from "@/liveblocks.config";
-import { Layer, XYWH } from "@/app/lib/types";
+import { useStorage, useSelf } from "~/liveblocks.config";
+import { Layer, XYWH } from "@/lib/types";
 import { shallow } from "@liveblocks/react";
 
 function boundingBox(layers: Layer[]): XYWH | null {

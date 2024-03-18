@@ -1,3 +1,5 @@
+"use client";
+
 import {
   useMutation,
   RoomProvider,
@@ -8,7 +10,7 @@ import {
   useCanUndo,
   useCanRedo,
   useMyPresence,
-} from "@/liveblocks.config";
+} from "~/liveblocks.config";
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import React, {
@@ -28,7 +30,7 @@ import {
   Side,
   XYWH,
   Point,
-} from "@/app/lib/types";
+} from "@/lib/types";
 import {
   colorToCss,
   connectionIdToColor,
@@ -36,19 +38,19 @@ import {
   penPointsToPathLayer,
   pointerEventToCanvasPoint,
   resizeBounds,
-} from "@/app/lib/utils";
-import SelectionBox from "./components/SelectionBox";
+} from "@/lib/utils";
+import SelectionBox from "@/components/SelectionBox";
 import { nanoid } from "nanoid";
-import LayerComponent from "./components/LayerComponent";
-import SelectionTools from "./components/SelectionTools";
-import useDisableScrollBounce from "../app/hooks/useDisableScrollBounce";
-import useDeleteLayers from "../app/hooks/useDeleteLayers";
-import Drafts from "./components/Drafts";
-import Path from "./components/Path";
-import ToolsBar from "./components/ToolsBar";
+import LayerComponent from "@/components/LayerComponent";
+import SelectionTools from "@/components/SelectionTools";
+import useDisableScrollBounce from "../hooks/useDisableScrollBounce";
+import useDeleteLayers from "../hooks/useDeleteLayers";
+import Drafts from "@/components/Drafts";
+import Path from "@/components/Path";
+import ToolsBar from "@/components/ToolsBar";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import Cursors from "./components/Cursors";
+import Cursors from "@/components/Cursors";
 
 const MAX_LAYERS = 100;
 
