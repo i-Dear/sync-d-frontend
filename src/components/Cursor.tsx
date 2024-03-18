@@ -1,5 +1,5 @@
 import { memo, useState, useEffect } from "react";
-import { getContrastingColor } from "@/app/utils/getContrastingColor";
+import { getContrastingColor } from "@/utils/getContrastingColor";
 
 type Props = {
   x: number;

@@ -5,7 +5,7 @@ import EllipseButton from "./EllipseButton";
 import UndoButton from "./UndoButton";
 import RedoButton from "./RedoButton";
 import SelectionButton from "./SelectionButton";
-import { CanvasMode, LayerType, CanvasState } from "@/app/lib/types";
+import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
 
 type Props = {
   canvasState: CanvasState;

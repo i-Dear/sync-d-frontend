@@ -1,8 +1,8 @@
 import { memo } from "react";
 import styles from "./SelectionBox.module.css";
-import useSelectionBounds from "../../app/hooks/useSelectionBounds";
-import { useSelf, useStorage } from "@/liveblocks.config";
-import { LayerType, Side, XYWH } from "@/app/lib/types";
+import useSelectionBounds from "@/hooks/useSelectionBounds";
+import { useSelf, useStorage } from "~/liveblocks.config";
+import { LayerType, Side, XYWH } from "@/lib/types";
 
 type SelectionBoxProps = {
   onResizeHandlePointerDown: (corner: Side, initialBounds: XYWH) => void;

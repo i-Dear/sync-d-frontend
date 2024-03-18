@@ -1,5 +1,5 @@
-import { RectangleLayer } from "@/app/lib/types";
-import { colorToCss } from "@/app/lib/utils";
+import { RectangleLayer } from "@/lib/types";
+import { colorToCss } from "@/lib/utils";
 
 type Props = {
   id: string;
