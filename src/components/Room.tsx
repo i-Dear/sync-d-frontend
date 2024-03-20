@@ -218,6 +218,32 @@ function Canvas() {
     [lastUsedColor]
   );
 
+  const insertInitialLayer = useMutation(
+    ({ storage, setMyPresence }) => {
+      const liveLayers = storage.get("layers");
+      if (liveLayers.size >= MAX_LAYERS) {
+        return;
+      }
+
+      const liveLayerIds = storage.get("layerIds");
+      const layerId = nanoid();
+      const layer = new LiveObject({
+        type: LayerType.Ellipse,
+        x: 100,
+        y: 100,
+        height: 100,
+        width: 100,
+        fill: lastUsedColor,
+      });
+      liveLayerIds.push(layerId);
+      liveLayers.set(layerId, layer as unknown as LiveObject<Layer>);
+
+      setMyPresence({ selection: [layerId] }, { addToHistory: true });
+      setState({ mode: CanvasMode.None });
+    },
+    [lastUsedColor]
+  );
+
   /**
    * Transform the drawing of the current user in a layer and reset the presence to delete the draft.
    */
@@ -496,6 +522,13 @@ function Canvas() {
     ]
   );
 
+  // Insert the first layer when the user joins the room
+  useEffect(() => {
+    if (layerIds.length === 0) {
+      insertInitialLayer();
+    }
+  }, [insertInitialLayer, layerIds.length]);
+
   return (
     <>
       <div className="bg-surface-canvas touch-none" ref={cursorPanel}>
@@ -548,6 +581,7 @@ function Canvas() {
                 />
               )}
             <Drafts />
+            <div className="absolute top-[200px] w-full h-full">gd</div>
             {/* Drawing in progress. Still not commited to the storage. */}
             {pencilDraft != null && pencilDraft.length > 0 && (
               <Path
