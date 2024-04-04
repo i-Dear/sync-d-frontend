@@ -6,21 +6,22 @@ type Props = {
   onClick: () => void;
 };
 
-export default function RectangleButton({ isActive, onClick }: Props) {
+export default function NoteButton({ isActive, onClick }: Props) {
   return (
     <IconButton isActive={isActive} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="36"
         height="36"
-        viewBox="-7 -7 38 38"
+        viewBox="-8 -7 38 38"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <rect width="18" height="18" x="3" y="3" rx="2" />
+        <path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z" />
+        <path d="M15 3v4a2 2 0 0 0 2 2h4" />
       </svg>
     </IconButton>
   );

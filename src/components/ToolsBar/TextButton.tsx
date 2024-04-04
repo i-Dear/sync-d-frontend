@@ -6,7 +6,7 @@ type Props = {
   onClick: () => void;
 };
 
-export default function RectangleButton({ isActive, onClick }: Props) {
+export default function TextButton({ isActive, onClick }: Props) {
   return (
     <IconButton isActive={isActive} onClick={onClick}>
       <svg
@@ -20,7 +20,9 @@ export default function RectangleButton({ isActive, onClick }: Props) {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <rect width="18" height="18" x="3" y="3" rx="2" />
+        <polyline points="4 7 4 4 20 4 20 7" />
+        <line x1="9" x2="15" y1="20" y2="20" />
+        <line x1="12" x2="12" y1="4" y2="20" />
       </svg>
     </IconButton>
   );
