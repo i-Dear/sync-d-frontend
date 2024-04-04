@@ -2,6 +2,7 @@
 
 import useUserInfoStore from "@/hooks/useUserInfoStore";
 import useAuth from "@/hooks/useAuth";
+import Link from "next/link";
 
 const DashboardPage = () => {
   const userInfo = useUserInfoStore();
@@ -14,7 +15,9 @@ const DashboardPage = () => {
       <h3>호스팅 중인 방</h3>
       <ul>
         {userInfo.hostingRooms.map((room) => (
-          <li key={room}>{room}</li>
+          <Link key={room} href={`/board/${room}`}>
+            <li key={room}>{room}</li>
+          </Link>
         ))}
       </ul>
       <h3>참여 중인 방</h3>
