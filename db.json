@@ -14,8 +14,8 @@
       "userId": "dhehdwo",
       "name": "오동재",
       "color": "#002A95",
-      "hostingRooms": ["room-5", "room-6"],
-      "joinedRooms": ["room-7", "room-8"],
+      "hostingRooms": ["room-3", "room-4"],
+      "joinedRooms": ["room-1", "room-2"],
       "token": "token2"
     },
     {
@@ -23,8 +23,8 @@
       "userId": "dlckswn",
       "name": "이찬주",
       "color": "#6116FF",
-      "hostingRooms": ["room-9", "room-10"],
-      "joinedRooms": ["room-11", "room-12"],
+      "hostingRooms": ["room-5", "room-6"],
+      "joinedRooms": ["room-7", "room-8"],
       "token": "token3"
     },
     {
@@ -32,8 +32,8 @@
       "userId": "rlaxodnr",
       "name": "김태욱",
       "color": "#0EC4D1",
-      "hostingRooms": ["room-13", "room-14"],
-      "joinedRooms": ["room-15", "room-16"],
+      "hostingRooms": ["room-7", "room-8"],
+      "joinedRooms": ["room-5", "room-6"],
       "token": "token4"
     },
     {
@@ -41,8 +41,8 @@
       "userId": "dlwowns",
       "name": "이재준",
       "color": "#FF00C3",
-      "hostingRooms": ["room-17", "room-18"],
-      "joinedRooms": ["room-19", "room-20"],
+      "hostingRooms": ["room-1", "room-5"],
+      "joinedRooms": ["room-7", "room-4"],
       "token": "token5"
     }
   ]
