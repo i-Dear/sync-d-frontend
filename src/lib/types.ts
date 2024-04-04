@@ -8,6 +8,7 @@ export enum LayerType {
   Rectangle,
   Ellipse,
   Path,
+  Sticker,
 }
 
 export type Camera = {
@@ -15,7 +16,7 @@ export type Camera = {
   y: number;
 };
 
-export type Layer = RectangleLayer | EllipseLayer | PathLayer;
+export type Layer = RectangleLayer | EllipseLayer | PathLayer | StickerLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -28,6 +29,15 @@ export type RectangleLayer = {
 
 export type EllipseLayer = {
   type: LayerType.Ellipse;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill: Color;
+};
+
+export type StickerLayer = {
+  type: LayerType.Sticker;
   x: number;
   y: number;
   height: number;
