@@ -6,6 +6,8 @@ import UndoButton from "./UndoButton";
 import RedoButton from "./RedoButton";
 import SelectionButton from "./SelectionButton";
 import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
+import TextButton from "./TextButton";
+import NoteButton from "./NoteButton";
 
 type Props = {
   canvasState: CanvasState;
@@ -38,9 +40,19 @@ export default function ToolsBar({
             }
             onClick={() => setCanvasState({ mode: CanvasMode.None })}
           />
+
           <PencilButton
             isActive={canvasState.mode === CanvasMode.Pencil}
             onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
+          />
+          <TextButton
+            isActive={canvasState.mode === CanvasMode.Inserting}
+            onClick={() =>
+              setCanvasState({
+                mode: CanvasMode.Inserting,
+                layerType: LayerType.Text,
+              })
+            }
           />
           <RectangleButton
             isActive={
@@ -63,6 +75,18 @@ export default function ToolsBar({
               setCanvasState({
                 mode: CanvasMode.Inserting,
                 layerType: LayerType.Ellipse,
+              })
+            }
+          />
+          <NoteButton
+            isActive={
+              canvasState.mode === CanvasMode.Inserting &&
+              canvasState.layerType === LayerType.Text
+            }
+            onClick={() =>
+              setCanvasState({
+                mode: CanvasMode.Inserting,
+                layerType: LayerType.Text,
               })
             }
           />
