@@ -5,6 +5,7 @@ import Path from "./Path";
 import { CanvasMode, LayerType } from "@/lib/types";
 import { colorToCss } from "@/lib/utils";
 import Rectangle from "./Rectangle";
+import Sticker from "./Sticker";
 
 type Props = {
   id: string;
@@ -48,6 +49,15 @@ const LayerComponent = memo(
       case LayerType.Rectangle:
         return (
           <Rectangle
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        );
+      case LayerType.Sticker:
+        return (
+          <Sticker
             id={id}
             layer={layer}
             onPointerDown={onLayerPointerDown}
