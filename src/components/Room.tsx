@@ -138,7 +138,6 @@ function Canvas() {
           }
         }
       }
-      initialLayer(LayerType.Sticker, { x: 200, y: 200 });
     }
 
     document.addEventListener("keydown", onKeyDown);
@@ -197,36 +196,6 @@ function Canvas() {
     ) => {
       const liveLayers = storage.get("layers");
       if (liveLayers.size >= MAX_LAYERS) {
-        return;
-      }
-
-      const liveLayerIds = storage.get("layerIds");
-      const layerId = nanoid();
-      const layer = new LiveObject({
-        type: layerType,
-        x: position.x,
-        y: position.y,
-        height: 100,
-        width: 100,
-        fill: lastUsedColor,
-      });
-      liveLayerIds.push(layerId);
-      liveLayers.set(layerId, layer);
-
-      setMyPresence({ selection: [layerId] }, { addToHistory: true });
-      setState({ mode: CanvasMode.None });
-    },
-    [lastUsedColor]
-  );
-
-  const initialLayer = useMutation(
-    (
-      { storage, setMyPresence },
-      layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Sticker,
-      position: Point
-    ) => {
-      const liveLayers = storage.get("layers");
-      if (liveLayers.size >= 2) {
         return;
       }
 
