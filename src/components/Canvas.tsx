@@ -149,7 +149,11 @@ const Canvas = () => {
   const insertLayer = useMutation(
     (
       { storage, setMyPresence },
-      layerType: LayerType.Ellipse | LayerType.Rectangle,
+      layerType:
+        | LayerType.Ellipse
+        | LayerType.Rectangle
+        | LayerType.Note
+        | LayerType.Text,
       position: Point
     ) => {
       const liveLayers = storage.get("layers");
