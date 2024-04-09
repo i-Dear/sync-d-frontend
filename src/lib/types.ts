@@ -10,7 +10,6 @@ export enum LayerType {
   Path,
   Text,
   Note,
-  Sticker,
 }
 
 export type Camera = {
@@ -23,7 +22,7 @@ export type Layer =
   | EllipseLayer
   | PathLayer
   | TextLayer
-  | StickerLayer;
+  | NoteLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -43,8 +42,8 @@ export type EllipseLayer = {
   fill: Color;
 };
 
-export type StickerLayer = {
-  type: LayerType.Sticker;
+export type NoteLayer = {
+  type: LayerType.Note;
   x: number;
   y: number;
   height: number;
