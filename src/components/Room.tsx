@@ -20,6 +20,7 @@ const Room = ({ roomId }: RoomProps) => {
         cursor: null,
         pencilDraft: null,
         penColor: null,
+        currentProcess: 1,
       }}
       initialStorage={{
         layers: new LiveMap<string, LiveObject<Layer>>(),

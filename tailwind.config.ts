@@ -26,6 +26,7 @@ const config: Config = {
       boxShadow: {
         popup:
           "0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.05)",
+        avatar: "0 0 0 2px white",
       },
     },
   },
