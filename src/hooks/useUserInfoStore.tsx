@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type UserInfoStoreType = {
+export type UserInfoStoreType = {
   _id: string;
   name: string;
   color: string;
