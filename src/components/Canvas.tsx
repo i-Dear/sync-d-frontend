@@ -18,7 +18,7 @@ import {
   useCanRedo,
   useMyPresence,
 } from "~/liveblocks.config";
-import { LiveList, LiveMap, LiveObject, Room } from "@liveblocks/client";
+import { LiveObject } from "@liveblocks/client";
 import {
   Color,
   Layer,
@@ -49,6 +49,7 @@ import ToolsBar from "@/components/ToolsBar";
 import Cursors from "@/components/Cursors";
 import { useUserInfoStore } from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
+import LiveAvatars from "./LiveAvatars";
 
 const MAX_LAYERS = 100;
 
@@ -493,6 +494,9 @@ const Canvas = () => {
 
   return (
     <div className="w-full h-full relative bg-surface-canvas touch-none">
+      <div className="w-40 h-20 absolute top-0 right-0 z-10">
+        <LiveAvatars />
+      </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div
         className="w-full h-full relative bg-surface-canvas touch-none"
@@ -571,20 +575,5 @@ const Canvas = () => {
     </div>
   );
 };
-
-// /**
-//  * This function is used when deploying an example on liveblocks.io.
-//  * You can ignore it completely if you run the example locally.
-//  */
-// function useOverrideRoomId(roomId: string) {
-//   const searchParams = useSearchParams();
-//   const queryRoomId = searchParams.get("roomId");
-
-//   const overrideRoomId = useMemo(() => {
-//     return queryRoomId ? `${roomId}-${queryRoomId}` : roomId;
-//   }, [queryRoomId, roomId]);
-
-//   return overrideRoomId;
-// }
 
 export default Canvas;
