@@ -20,6 +20,7 @@ type Presence = {
   cursor: Point | null;
   pencilDraft: [x: number, y: number, pressure: number][] | null;
   penColor: Color | null;
+  currentProcess: number;
 };
 
 // Optionally, Storage represents the shared document that persists in the
@@ -43,7 +44,7 @@ type UserMeta = {
   info: {
     name: string;
     color: [string, string];
-    avatar: string;
+    avatar?: string;
   };
 };
 
