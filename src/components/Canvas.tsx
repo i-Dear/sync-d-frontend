@@ -46,14 +46,14 @@ import useDeleteLayers from "../hooks/useDeleteLayers";
 import Drafts from "@/components/Drafts";
 import Path from "@/components/Path";
 import ToolsBar from "@/components/ToolsBar";
-import Image from "next/image";
 import Cursors from "@/components/Cursors";
-import { useSearchParams } from "next/navigation";
+import { useUserInfoStore } from "@/hooks/useUserInfoStore";
+import ProcessSideNav from "./ProcessSideNav";
 
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
-  const [myPresence, updateMyPresence] = useMyPresence();
+  const userInfo = useUserInfoStore();
   const layerIds = useStorage((root) => root.layerIds);
   const cursorPanel = useRef(null);
 
@@ -492,8 +492,12 @@ const Canvas = () => {
   }, [insertInitialLayer, layerIds.length]);
 
   return (
-    <>
-      <div className="bg-surface-canvas touch-none" ref={cursorPanel}>
+    <div className="w-full h-full relative bg-surface-canvas touch-none">
+      <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
+      <div
+        className="w-full h-full relative bg-surface-canvas touch-none"
+        ref={cursorPanel}
+      >
         <Cursors cursorPanel={cursorPanel} />
         <SelectionTools
           isAnimated={
@@ -564,7 +568,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
-    </>
+    </div>
   );
 };
 
