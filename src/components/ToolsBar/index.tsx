@@ -46,7 +46,10 @@ export default function ToolsBar({
             onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
           />
           <TextButton
-            isActive={canvasState.mode === CanvasMode.Inserting}
+            isActive={
+              canvasState.mode === CanvasMode.Inserting &&
+              canvasState.layerType === LayerType.Text
+            }
             onClick={() =>
               setCanvasState({
                 mode: CanvasMode.Inserting,
@@ -81,12 +84,12 @@ export default function ToolsBar({
           <NoteButton
             isActive={
               canvasState.mode === CanvasMode.Inserting &&
-              canvasState.layerType === LayerType.Text
+              canvasState.layerType === LayerType.Note
             }
             onClick={() =>
               setCanvasState({
                 mode: CanvasMode.Inserting,
-                layerType: LayerType.Text,
+                layerType: LayerType.Note,
               })
             }
           />

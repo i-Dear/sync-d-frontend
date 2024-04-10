@@ -1,14 +1,14 @@
-import { StickerLayer } from "@/lib/types";
+import { NoteLayer } from "@/lib/types";
 import { colorToCss } from "@/lib/utils";
 
 type Props = {
   id: string;
-  layer: StickerLayer;
+  layer: NoteLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
   selectionColor?: string;
 };
 
-export default function Sticker({
+export default function Note({
   layer,
   onPointerDown,
   id,

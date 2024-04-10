@@ -45,3 +45,5 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
     </foreignObject>
   );
 };
+
+export default Text;
