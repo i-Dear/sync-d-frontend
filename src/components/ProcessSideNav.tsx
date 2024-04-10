@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -7,6 +8,7 @@ import { SetStateAction, useEffect } from "react";
 import { Camera } from "@/lib/types";
 import { useUpdateMyPresence } from "~/liveblocks.config";
 import ProcessAvatars from "./ProcessAvatars";
+
 
 const ProcessSideNav = ({
   userInfo,
