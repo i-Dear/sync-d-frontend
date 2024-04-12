@@ -23,6 +23,11 @@ const Room = ({ roomId }: RoomProps) => {
         currentProcess: 1,
       }}
       initialStorage={{
+        music: new LiveObject({
+          musicState: "paused",
+          musicTime: 0,
+          musicIndex: 0,
+        }),
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layerIds: new LiveList(),
         person: new LiveObject({ name: "Marie", age: 30 }),
