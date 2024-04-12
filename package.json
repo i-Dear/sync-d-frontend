@@ -12,6 +12,8 @@
     "@liveblocks/client": "^1.10.2",
     "@liveblocks/node": "^1.10.2",
     "@liveblocks/react": "^1.10.2",
+    "@radix-ui/react-slider": "^1.1.2",
+    "@wavesurfer/react": "^1.0.5",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.25",
     "nanoid": "^5.0.6",
@@ -20,6 +22,7 @@
     "react": "^18",
     "react-contenteditable": "^3.3.7",
     "react-dom": "^18",
+    "react-feather": "^2.0.10",
     "tailwind-merge": "^2.2.2",
     "tailwind-scrollbar-hide": "^1.1.7",
     "zustand": "^4.5.2"
