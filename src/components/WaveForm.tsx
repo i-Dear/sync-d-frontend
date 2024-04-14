@@ -22,7 +22,7 @@ type Props = {
 
 export function WaveForm({ percentage, src }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const wavesurferRef = useRef<any>(null);
+  const wavesurferRef = useRef<WaveSurfer | null>(null);
   const [hoverOffset, setHoverOffset] = useState(0);
 
   useEffect(() => {
