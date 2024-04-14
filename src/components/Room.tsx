@@ -23,6 +23,7 @@ const Room = ({ roomId }: RoomProps) => {
         currentProcess: 1,
       }}
       initialStorage={{
+        groupCallId: new LiveObject({ roomId: "" }),
         music: new LiveObject({
           musicState: "paused",
           musicTime: 0,
