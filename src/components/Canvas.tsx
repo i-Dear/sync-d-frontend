@@ -51,6 +51,7 @@ import { useUserInfoStore } from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
 import LiveAvatars from "./LiveAvatars";
 import { MusicPlayer } from "./MusicPlayer";
+import GroupCallButton from "./GroupCallButton";
 
 const MAX_LAYERS = 100;
 
@@ -500,6 +501,9 @@ const Canvas = () => {
       </div>
       <div className="w-fit h-fit absolute top-0 left-40 z-10">
         <MusicPlayer />
+      </div>
+      <div className="w-fit h-10 absolute bottom-20 right-4 z-10">
+        <GroupCallButton />
       </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div
