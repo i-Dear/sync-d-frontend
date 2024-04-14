@@ -35,6 +35,9 @@ type Storage = {
     musicTime: number;
     musicIndex: number;
   }>;
+  groupCallId: LiveObject<{
+    roomId: string;
+  }>;
   layers: LiveMap<string, LiveObject<Layer>>;
   layerIds: LiveList<string>;
   person: LiveObject<{
