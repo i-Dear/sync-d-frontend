@@ -290,7 +290,7 @@ export function MusicPlayer() {
           max={1}
           step={0.01}
           value={[volume]}
-          onValueChange={([value]) => {
+          onValueChange={(value as number) => {
             if (!audioRef.current) {
               return;
             }
