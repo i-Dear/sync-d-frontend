@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import WaveSurfer from "wavesurfer.js";
 
 const WavesurferPlayer = dynamic(() => import("@wavesurfer/react"), {
   ssr: false,
@@ -22,7 +23,7 @@ type Props = {
 
 export function WaveForm({ percentage, src }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const wavesurferRef = useRef<any>(null);
+  const wavesurferRef = useRef<WaveSurfer | null>(null);
   const [hoverOffset, setHoverOffset] = useState(0);
 
   useEffect(() => {
