@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import WaveSurfer from "wavesurfer.js";
 
 const WavesurferPlayer = dynamic(() => import("@wavesurfer/react"), {
   ssr: false,
