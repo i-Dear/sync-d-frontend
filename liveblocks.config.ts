@@ -1,9 +1,4 @@
-import {
-  LiveList,
-  LiveMap,
-  LiveObject,
-  createClient,
-} from "@liveblocks/client";
+import { LiveList, LiveMap, LiveObject, createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { Color, Layer, Point } from "@/lib/types";
 
@@ -39,6 +34,10 @@ type Storage = {
   layerIds: LiveList<string>;
   person: LiveObject<{
     name: string;
+  }>;
+  time: LiveObject<{
+    timerState: boolean;
+    timerTime: number;
   }>;
   // animals: LiveList<string>,
   // ...
