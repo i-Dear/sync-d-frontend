@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -8,15 +7,10 @@ import { SetStateAction, useEffect } from "react";
 import { Camera } from "@/lib/types";
 import { useUpdateMyPresence } from "~/liveblocks.config";
 import ProcessAvatars from "./ProcessAvatars";
+import { useState } from "react";
+import Timer from "./Timer";
 
-
-const ProcessSideNav = ({
-  userInfo,
-  setCamera,
-}: {
-  userInfo: UserInfoStoreType;
-  setCamera: React.Dispatch<SetStateAction<Camera>>;
-}) => {
+const ProcessSideNav = ({ userInfo, setCamera }: { userInfo: UserInfoStoreType; setCamera: React.Dispatch<SetStateAction<Camera>> }) => {
   const updateMyPresence = useUpdateMyPresence();
 
   const updateCurrentProcess = (step: number) => {
@@ -24,6 +18,8 @@ const ProcessSideNav = ({
       currentProcess: step,
     });
   };
+
+  const [timerToggle, setTimerToggle] = useState<boolean>(false);
 
   return (
     <nav className="absolute left-0 h-full w-40 bg-gray-900 z-10 overflow-y-scroll scrollbar-hide">
@@ -34,7 +30,7 @@ const ProcessSideNav = ({
         <li className="p-4 text-white">
           <Link href={`/dashboard/${userInfo._id}`}>대시보드</Link>
         </li>
-        {steps.map((step) => (
+        {steps.map(step => (
           <li key={step.step} className="p-4 text-white">
             <div
               className="cursor-pointer flex"
@@ -44,14 +40,17 @@ const ProcessSideNav = ({
                   y: step.camera.y,
                 }));
                 updateCurrentProcess(step.step);
-              }}
-            >
+              }}>
               {`${step.step}단계`}
               <ProcessAvatars step={step.step} />
             </div>
           </li>
         ))}
       </ul>
+      <div className="bg-white" onClick={() => setTimerToggle(!timerToggle)}>
+        타이머
+      </div>
+      <Timer timerToggle={timerToggle} />
     </nav>
   );
 };
