@@ -298,7 +298,6 @@ export function MusicPlayer() {
               if (!audioRef.current) {
                 return;
               }
-
               setVolume(value);
               audioRef.current.volume = value;
             }}
