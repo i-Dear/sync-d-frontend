@@ -20,7 +20,8 @@ export default function StickerButton({ isActive, onClick }: Props) {
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
-          strokeLinejoin="round">
+          strokeLinejoin="round"
+        >
           <path d="M22 11v1a10 10 0 1 1-9-10" />
           <path d="M8 14s1.5 2 4 2 4-2 4-2" />
           <line x1="9" x2="9.01" y1="9" y2="9" />
