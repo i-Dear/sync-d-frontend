@@ -27,7 +27,14 @@ type Presence = {
 // Room, even after all Users leave. Fields under Storage typically are
 // LiveList, LiveMap, LiveObject instances, for which updates are
 // automatically persisted and synced to all connected clients.
+export type MusicStates = "playing" | "seeking" | "paused";
+
 type Storage = {
+  music: LiveObject<{
+    musicState: MusicStates;
+    musicTime: number;
+    musicIndex: number;
+  }>;
   layers: LiveMap<string, LiveObject<Layer>>;
   layerIds: LiveList<string>;
   person: LiveObject<{

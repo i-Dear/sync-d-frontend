@@ -50,6 +50,7 @@ import Cursors from "@/components/Cursors";
 import { useUserInfoStore } from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
 import LiveAvatars from "./LiveAvatars";
+import { MusicPlayer } from "./MusicPlayer";
 
 const MAX_LAYERS = 100;
 
@@ -496,6 +497,9 @@ const Canvas = () => {
     <div className="w-full h-full relative bg-surface-canvas touch-none">
       <div className="w-40 h-20 absolute top-0 right-0 z-10">
         <LiveAvatars />
+      </div>
+      <div className="w-fit h-fit absolute top-0 left-40 z-10">
+        <MusicPlayer />
       </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div

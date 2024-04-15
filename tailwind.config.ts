@@ -28,6 +28,13 @@ const config: Config = {
           "0px 2px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.05)",
         avatar: "0 0 0 2px white",
       },
+      animation: {
+        "spin-slow": "spin 10s linear infinite",
+      },
+      transitionTimingFunction: {
+        "out-back": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "out-expo": "cubic-bezier(0.19, 1, 0.22, 1)",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],
