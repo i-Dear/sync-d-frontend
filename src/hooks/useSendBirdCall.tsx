@@ -7,7 +7,7 @@ interface AuthOptionType {
 
 const useSendBirdInit = async ({ userId, accessToken }: AuthOptionType) => {
   SendBirdCall.init(process.env.NEXT_PUBLIC_SENDBIRD_APP_ID!);
-  SendBirdCall.useMedia({ audio: true, video: false });
+  SendBirdCall.useMedia({ audio: true, video: true });
 
   const authOption = { userId, accessToken };
   try {
