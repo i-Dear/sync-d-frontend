@@ -8,6 +8,7 @@ import SelectionButton from "./SelectionButton";
 import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
 import TextButton from "./TextButton";
 import NoteButton from "./NoteButton";
+import StickerButton from "./StickerButton";
 
 type Props = {
   canvasState: CanvasState;
@@ -18,14 +19,7 @@ type Props = {
   canRedo: boolean;
 };
 
-export default function ToolsBar({
-  canvasState,
-  setCanvasState,
-  undo,
-  redo,
-  canUndo,
-  canRedo,
-}: Props) {
+export default function ToolsBar({ canvasState, setCanvasState, undo, redo, canUndo, canRedo }: Props) {
   return (
     <div className="absolute bottom-6 right-0 left-0 flex items-center justify-center">
       <div className="shadow-popup rounded-xl bg-surface-panel flex items-center justify-center">
@@ -41,15 +35,9 @@ export default function ToolsBar({
             onClick={() => setCanvasState({ mode: CanvasMode.None })}
           />
 
-          <PencilButton
-            isActive={canvasState.mode === CanvasMode.Pencil}
-            onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
-          />
+          <PencilButton isActive={canvasState.mode === CanvasMode.Pencil} onClick={() => setCanvasState({ mode: CanvasMode.Pencil })} />
           <TextButton
-            isActive={
-              canvasState.mode === CanvasMode.Inserting &&
-              canvasState.layerType === LayerType.Text
-            }
+            isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Text}
             onClick={() =>
               setCanvasState({
                 mode: CanvasMode.Inserting,
@@ -58,10 +46,7 @@ export default function ToolsBar({
             }
           />
           <RectangleButton
-            isActive={
-              canvasState.mode === CanvasMode.Inserting &&
-              canvasState.layerType === LayerType.Rectangle
-            }
+            isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Rectangle}
             onClick={() =>
               setCanvasState({
                 mode: CanvasMode.Inserting,
@@ -70,10 +55,7 @@ export default function ToolsBar({
             }
           />
           <EllipseButton
-            isActive={
-              canvasState.mode === CanvasMode.Inserting &&
-              canvasState.layerType === LayerType.Ellipse
-            }
+            isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Ellipse}
             onClick={() =>
               setCanvasState({
                 mode: CanvasMode.Inserting,
@@ -82,14 +64,20 @@ export default function ToolsBar({
             }
           />
           <NoteButton
-            isActive={
-              canvasState.mode === CanvasMode.Inserting &&
-              canvasState.layerType === LayerType.Note
-            }
+            isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Note}
             onClick={() =>
               setCanvasState({
                 mode: CanvasMode.Inserting,
                 layerType: LayerType.Note,
+              })
+            }
+          />
+          <StickerButton
+            isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Sticker}
+            onClick={() =>
+              setCanvasState({
+                mode: CanvasMode.Inserting,
+                layerType: LayerType.Sticker,
               })
             }
           />
