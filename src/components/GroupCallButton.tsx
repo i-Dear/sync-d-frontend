@@ -1,18 +1,22 @@
 import { useUserInfoStore } from "@/hooks/useUserInfoStore";
 import SendBirdCall from "sendbird-calls";
-import { useMutation, useStorage } from "~/liveblocks.config";
+import { useMutation } from "~/liveblocks.config";
 import { useSendBirdInit } from "@/hooks/useSendBirdCall";
+import { memo } from "react";
 
-const GroupCallButton = () => {
+interface TypeGroupCallId {
+  roomId: string;
+}
+
+const GroupCallButton = memo((groupCallId: TypeGroupCallId) => {
   const userInfo = useUserInfoStore();
-  const groupCallId = useStorage((root) => root.groupCallId);
 
   const roomParams = {
     roomType: SendBirdCall.RoomType.SMALL_ROOM_FOR_VIDEO,
   };
 
   const enterParams = {
-    videoEnabled: false,
+    videoEnabled: true,
     audioEnabled: true, // 오디오만 출력
   };
 
@@ -49,6 +53,13 @@ const GroupCallButton = () => {
       room.addEventListener("remoteParticipantEntered", (participant) => {
         console.log("다른 참가자가 입장했습니다. 참가자:", participant);
       });
+
+      room.addEventListener("remoteAudioSettingsChanged", (participant) => {
+        console.log(
+          "참가자의 오디오 설정이 변경되었습니다. 참가자:",
+          participant
+        );
+      });
     });
   };
 
@@ -73,6 +84,8 @@ const GroupCallButton = () => {
       </button>
     </div>
   );
-};
+});
+
+GroupCallButton.displayName = "GroupCallButton";
 
 export default GroupCallButton;

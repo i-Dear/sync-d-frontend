@@ -58,6 +58,7 @@ const MAX_LAYERS = 100;
 const Canvas = () => {
   const userInfo = useUserInfoStore();
   const layerIds = useStorage((root) => root.layerIds);
+  const groupCallId = useStorage((root) => root.groupCallId);
   const cursorPanel = useRef(null);
 
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
@@ -503,7 +504,8 @@ const Canvas = () => {
         <MusicPlayer />
       </div>
       <div className="w-fit h-10 absolute bottom-20 right-4 z-10">
-        <GroupCallButton />
+        {/* GroupCallMusic memo */}
+        <GroupCallButton roomId={groupCallId.roomId} />
       </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div
