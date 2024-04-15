@@ -25,6 +25,11 @@ type Presence = {
 export type MusicStates = "playing" | "seeking" | "paused";
 
 type Storage = {
+  timer: LiveObject<{
+    timerState: boolean;
+    currentTime: number;
+    defaultTime: number;
+  }>;
   music: LiveObject<{
     musicState: MusicStates;
     musicTime: number;
@@ -35,10 +40,7 @@ type Storage = {
   person: LiveObject<{
     name: string;
   }>;
-  time: LiveObject<{
-    timerState: boolean;
-    timerTime: number;
-  }>;
+
   // animals: LiveList<string>,
   // ...
 };

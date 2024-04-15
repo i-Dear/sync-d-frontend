@@ -6,24 +6,27 @@ interface TimerProps {
 }
 
 const Timer = ({ timerToggle }: TimerProps) => {
-  const [time, setTime] = useState<number>(3 * 60); // Default time is 3 minutes (3 * 60 seconds)
-  const [isActive, setIsActive] = useState<boolean>(false);
   const timerRef = useRef<HTMLDivElement>(null);
+  const storageTimer = useStorage((root) => root.timer);
+  console.log(storageTimer);
+  const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
+  const [time, setTime] = useState<number>(storageTimer.defaultTime);
 
-  const projectTimer = useStorage((root) => root.time);
-
+  //타이머의 업데이트하는 함수 (진행,멈춤)
   const updateTimerState = useMutation(({ storage }, isActive: boolean) => {
-    const projectTimer = storage.get("time");
-    projectTimer.set("timerState", isActive);
+    const storageTimer = storage.get("timer");
+    storageTimer.set("timerState", isActive);
     setIsActive(isActive);
   }, []);
 
-  const updateTimerCurrent = useMutation(({ storage }, time: number) => {
-    const projectTimer = storage.get("time");
-    projectTimer.set("timerTime", time);
-    console.log(storage.get("time").get("timerTime"));
+  //타이머의 현재 시간을 업데이트하는 함수
+  const updateCurrentTime = useMutation(({ storage }, time: number) => {
+    const storageTimer = storage.get("timer");
+    storageTimer.set("currentTime", time);
+    console.log(storage.get("timer").get("currentTime"));
   }, []);
 
+  //타이머 로직
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
 
@@ -32,14 +35,10 @@ const Timer = ({ timerToggle }: TimerProps) => {
         setTime((prevTime) => {
           if (prevTime <= 0) {
             clearInterval(interval);
-            setIsActive(false);
-            updateTimerState(isActive);
+            updateTimerState(false);
             return 0;
           }
-          if (projectTimer.timerState !== false) {
-            updateTimerState(isActive);
-          }
-          updateTimerCurrent(prevTime - 1);
+          updateCurrentTime(prevTime - 1);
           return prevTime - 1;
         });
       }, 1000);
@@ -48,7 +47,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
     }
 
     return () => clearInterval(interval);
-  }, [isActive, updateTimerState, updateTimerCurrent]);
+  }, [isActive, updateTimerState, updateCurrentTime, storageTimer]);
 
   const handleEdit = () => {
     if (!isActive) {
@@ -60,13 +59,23 @@ const Timer = ({ timerToggle }: TimerProps) => {
 
   const handleIncrement = (amount: number) => {
     setTime((prevTime) => Math.max(0, prevTime + amount));
-    updateTimerCurrent(time + amount);
+    updateCurrentTime(time + amount);
   };
 
   const formatTime = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
+
+  const onClickTimerRun = () => {
+    setIsActive(!isActive);
+    updateTimerState(!isActive);
+  };
+
+  const onClickTimerReset = () => {
+    setTime(storageTimer.defaultTime);
+    updateCurrentTime(storageTimer.defaultTime);
   };
 
   return timerToggle ? (
@@ -77,7 +86,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
         suppressContentEditableWarning={true}
         onClick={handleEdit}
         className="flex justify-center bg-red-200">
-        {formatTime(projectTimer.timerTime)}
+        {formatTime(storageTimer.currentTime)}
       </div>
       <div className="flex justify-center bg-blue-200">
         <button onClick={() => handleIncrement(60)}>+1 Minute</button>
@@ -86,8 +95,8 @@ const Timer = ({ timerToggle }: TimerProps) => {
         <button onClick={() => handleIncrement(-10)}>-10 Seconds</button>
       </div>
       <div className="flex justify-center gap-8 bg-white">
-        <button onClick={() => setIsActive(!isActive)}>{isActive ? "Stop" : "Start"}</button>
-        <button onClick={() => setTime(projectTimer.timerTime)} disabled={isActive}>
+        <button onClick={onClickTimerRun}>{storageTimer.timerState ? "Stop" : "Start"}</button>
+        <button onClick={onClickTimerReset} disabled={isActive}>
           Reset
         </button>
       </div>
