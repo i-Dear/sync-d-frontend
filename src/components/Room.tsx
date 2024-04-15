@@ -31,7 +31,7 @@ const Room = ({ roomId }: RoomProps) => {
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layerIds: new LiveList(),
         person: new LiveObject({ name: "Marie", age: 30 }),
-        time: new LiveObject({ timerState: false, timerTime: 180 }),
+        timer: new LiveObject({ timerState: false, currentTime: 180, defaultTime: 180 }),
       }}>
       <ClientSideSuspense fallback={<Loading />}>{() => <Canvas />}</ClientSideSuspense>
     </RoomProvider>
