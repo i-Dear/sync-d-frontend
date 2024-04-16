@@ -1,35 +1,10 @@
 "use client";
 
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { nanoid } from "nanoid";
-import {
-  useMutation,
-  useHistory,
-  useStorage,
-  useSelf,
-  useOthersMapped,
-  useCanUndo,
-  useCanRedo,
-  useMyPresence,
-} from "~/liveblocks.config";
+import { useMutation, useHistory, useStorage, useSelf, useOthersMapped, useCanUndo, useCanRedo, useMyPresence } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
-import {
-  Color,
-  Layer,
-  LayerType,
-  CanvasState,
-  CanvasMode,
-  Camera,
-  Side,
-  XYWH,
-  Point,
-} from "@/lib/types";
+import { Color, Layer, LayerType, CanvasState, CanvasMode, Camera, Side, XYWH, Point } from "@/lib/types";
 import {
   colorToCss,
   connectionIdToColor,
@@ -112,10 +87,7 @@ const Canvas = () => {
    */
   const onLayerPointerDown = useMutation(
     ({ self, setMyPresence }, e: React.PointerEvent, layerId: string) => {
-      if (
-        canvasState.mode === CanvasMode.Pencil ||
-        canvasState.mode === CanvasMode.Inserting
-      ) {
+      if (canvasState.mode === CanvasMode.Pencil || canvasState.mode === CanvasMode.Inserting) {
         return;
       }
 
@@ -151,11 +123,7 @@ const Canvas = () => {
   const insertLayer = useMutation(
     (
       { storage, setMyPresence },
-      layerType:
-        | LayerType.Ellipse
-        | LayerType.Rectangle
-        | LayerType.Note
-        | LayerType.Text,
+      layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Note | LayerType.Text | LayerType.Sticker,
       position: Point
     ) => {
       const liveLayers = storage.get("layers");
@@ -215,20 +183,13 @@ const Canvas = () => {
     ({ storage, self, setMyPresence }) => {
       const liveLayers = storage.get("layers");
       const { pencilDraft } = self.presence;
-      if (
-        pencilDraft == null ||
-        pencilDraft.length < 2 ||
-        liveLayers.size >= MAX_LAYERS
-      ) {
+      if (pencilDraft == null || pencilDraft.length < 2 || liveLayers.size >= MAX_LAYERS) {
         setMyPresence({ pencilDraft: null });
         return;
       }
 
       const id = nanoid();
-      liveLayers.set(
-        id,
-        new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor))
-      );
+      liveLayers.set(id, new LiveObject(penPointsToPathLayer(pencilDraft, lastUsedColor)));
 
       const liveLayerIds = storage.get("layerIds");
       liveLayerIds.push(id);
@@ -277,11 +238,7 @@ const Canvas = () => {
         return;
       }
 
-      const bounds = resizeBounds(
-        canvasState.initialBounds,
-        canvasState.corner,
-        point
-      );
+      const bounds = resizeBounds(canvasState.initialBounds, canvasState.corner, point);
 
       const liveLayers = storage.get("layers");
       const layer = liveLayers.get(self.presence.selection[0]);
@@ -317,20 +274,14 @@ const Canvas = () => {
   const continueDrawing = useMutation(
     ({ self, setMyPresence }, point: Point, e: React.PointerEvent) => {
       const { pencilDraft } = self.presence;
-      if (
-        canvasState.mode !== CanvasMode.Pencil ||
-        e.buttons !== 1 ||
-        pencilDraft == null
-      ) {
+      if (canvasState.mode !== CanvasMode.Pencil || e.buttons !== 1 || pencilDraft == null) {
         return;
       }
 
       setMyPresence({
         cursor: point,
         pencilDraft:
-          pencilDraft.length === 1 &&
-          pencilDraft[0][0] === point.x &&
-          pencilDraft[0][1] === point.y
+          pencilDraft.length === 1 && pencilDraft[0][0] === point.x && pencilDraft[0][1] === point.y
             ? pencilDraft
             : [...pencilDraft, [point.x, point.y, e.pressure]],
       });
@@ -364,12 +315,7 @@ const Canvas = () => {
         origin: origin,
         current,
       });
-      const ids = findIntersectingLayersWithRectangle(
-        layerIds,
-        layers,
-        origin,
-        current
-      );
+      const ids = findIntersectingLayersWithRectangle(layerIds, layers, origin, current);
       setMyPresence({ selection: ids });
     },
     [layerIds]
@@ -436,30 +382,16 @@ const Canvas = () => {
       }
       setMyPresence({ cursor: current });
     },
-    [
-      camera,
-      canvasState,
-      continueDrawing,
-      resizeSelectedLayer,
-      startMultiSelection,
-      translateSelectedLayers,
-      updateSelectionNet,
-    ]
+    [camera, canvasState, continueDrawing, resizeSelectedLayer, startMultiSelection, translateSelectedLayers, updateSelectionNet]
   );
 
-  const onPointerLeave = useMutation(
-    ({ setMyPresence }) => setMyPresence({ cursor: null }),
-    []
-  );
+  const onPointerLeave = useMutation(({ setMyPresence }) => setMyPresence({ cursor: null }), []);
 
   const onPointerUp = useMutation(
     ({}, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
-      if (
-        canvasState.mode === CanvasMode.None ||
-        canvasState.mode === CanvasMode.Pressing
-      ) {
+      if (canvasState.mode === CanvasMode.None || canvasState.mode === CanvasMode.Pressing) {
         unselectLayers();
         setState({
           mode: CanvasMode.None,
@@ -475,15 +407,7 @@ const Canvas = () => {
       }
       history.resume();
     },
-    [
-      camera,
-      canvasState,
-      history,
-      insertLayer,
-      insertPath,
-      setState,
-      unselectLayers,
-    ]
+    [camera, canvasState, history, insertLayer, insertPath, setState, unselectLayers]
   );
 
   // Insert the first layer when the user joins the room
@@ -502,16 +426,10 @@ const Canvas = () => {
         <MusicPlayer />
       </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
-      <div
-        className="w-full h-full relative bg-surface-canvas touch-none"
-        ref={cursorPanel}
-      >
+      <div className="w-full h-full relative bg-surface-canvas touch-none" ref={cursorPanel}>
         <Cursors cursorPanel={cursorPanel} />
         <SelectionTools
-          isAnimated={
-            canvasState.mode !== CanvasMode.Translating &&
-            canvasState.mode !== CanvasMode.Resizing
-          }
+          isAnimated={canvasState.mode !== CanvasMode.Translating && canvasState.mode !== CanvasMode.Resizing}
           camera={camera}
           setLastUsedColor={setLastUsedColor}
         />
@@ -521,13 +439,11 @@ const Canvas = () => {
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerLeave={onPointerLeave}
-          onPointerUp={onPointerUp}
-        >
+          onPointerUp={onPointerUp}>
           <g
             style={{
               transform: `translate(${camera.x}px, ${camera.y}px)`,
-            }}
-          >
+            }}>
             {layerIds.map((layerId) => (
               <LayerComponent
                 key={layerId}
@@ -538,44 +454,25 @@ const Canvas = () => {
               />
             ))}
             {/* Blue square that show the selection of the current users. Also contains the resize handles. */}
-            <SelectionBox
-              onResizeHandlePointerDown={onResizeHandlePointerDown}
-            />
+            <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown} />
             {/* Selection net that appears when the user is selecting multiple layers at once */}
-            {canvasState.mode === CanvasMode.SelectionNet &&
-              canvasState.current != null && (
-                <rect
-                  className="fill-primary opacity-5 stroke-primary stroke-[0.5px]"
-                  x={Math.min(canvasState.origin.x, canvasState.current.x)}
-                  y={Math.min(canvasState.origin.y, canvasState.current.y)}
-                  width={Math.abs(canvasState.origin.x - canvasState.current.x)}
-                  height={Math.abs(
-                    canvasState.origin.y - canvasState.current.y
-                  )}
-                />
-              )}
+            {canvasState.mode === CanvasMode.SelectionNet && canvasState.current != null && (
+              <rect
+                className="fill-primary opacity-5 stroke-primary stroke-[0.5px]"
+                x={Math.min(canvasState.origin.x, canvasState.current.x)}
+                y={Math.min(canvasState.origin.y, canvasState.current.y)}
+                width={Math.abs(canvasState.origin.x - canvasState.current.x)}
+                height={Math.abs(canvasState.origin.y - canvasState.current.y)}
+              />
+            )}
             <Drafts />
             <div className="absolute top-[200px] w-full h-full">gd</div>
             {/* Drawing in progress. Still not commited to the storage. */}
-            {pencilDraft != null && pencilDraft.length > 0 && (
-              <Path
-                points={pencilDraft}
-                fill={colorToCss(lastUsedColor)}
-                x={0}
-                y={0}
-              />
-            )}
+            {pencilDraft != null && pencilDraft.length > 0 && <Path points={pencilDraft} fill={colorToCss(lastUsedColor)} x={0} y={0} />}
           </g>
         </svg>
       </div>
-      <ToolsBar
-        canvasState={canvasState}
-        setCanvasState={setState}
-        undo={history.undo}
-        redo={history.redo}
-        canUndo={canUndo}
-        canRedo={canRedo}
-      />
+      <ToolsBar canvasState={canvasState} setCanvasState={setState} undo={history.undo} redo={history.redo} canUndo={canUndo} canRedo={canRedo} />
     </div>
   );
 };
