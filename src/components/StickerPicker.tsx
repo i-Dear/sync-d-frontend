@@ -5,6 +5,8 @@ import stickerData from "@/lib/sticker.json";
 import Image from "next/image";
 import useStickerStore from "@/store/useStickerSrcStore";
 
+import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
+
 const StickerPicker = () => {
   const { setStickerSrc } = useStickerStore();
 
