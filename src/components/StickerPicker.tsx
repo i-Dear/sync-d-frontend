@@ -1,6 +1,8 @@
 import stickerData from "@/lib/sticker.json";
 import Image from "next/image";
 
+import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
+
 const StickerPicker = () => {
   return (
     <div className="absolute bottom-1/2 transform -translate-x-1/2 -translate-y-1/4 bg-white p-4 rounded-lg shadow-md z-10 flex flex-col items-center justify-center max-w-600">
