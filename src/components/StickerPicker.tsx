@@ -1,17 +1,13 @@
 // StickerPicker.js
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { StickerContext } from "./context/StickerContext";
 import stickerData from "@/lib/sticker.json";
 import Image from "next/image";
-import { useUpdateMyPresence } from "~/liveblocks.config";
-type Props = {
-  onSelectSticker: (src: string) => void;
-};
 
-const StickerPicker = ({ onSelectSticker }: Props) => {
-  const setSticker = (stickerSrc: string) => {
-    onSelectSticker(stickerSrc);
-  };
+const StickerPicker = () => {
+  const { setSticker } = useContext(StickerContext);
+
   return (
     <div className="absolute bottom-1/2 transform -translate-x-1/2 -translate-y-1/4 bg-white p-4 rounded-lg shadow-md z-10 flex flex-col items-center justify-center max-w-600">
       <div className="flex gap-4  flex-wrap justify-center">
