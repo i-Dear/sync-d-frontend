@@ -6,13 +6,17 @@ interface StickerContextValue {
   setSticker: React.Dispatch<React.SetStateAction<string>>;
 }
 
+interface ProviderProps {
+  children: React.ReactNode;
+}
+
 const defaultSrc =
   //   name: stickerData[0].name,
   stickerData[0].src;
 
 export const StickerContext = createContext<StickerContextValue>({ stickerSrc: defaultSrc, setSticker: () => {} });
 
-export const StickerProvider = ({ children }) => {
+export const StickerProvider = ({ children }: ProviderProps) => {
   const [stickerSrc, setSticker] = useState(defaultSrc);
   return <StickerContext.Provider value={{ stickerSrc, setSticker }}>{children}</StickerContext.Provider>;
 };
