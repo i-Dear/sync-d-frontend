@@ -20,7 +20,13 @@ export type Camera = {
   y: number;
 };
 
-export type Layer = RectangleLayer | EllipseLayer | PathLayer | TextLayer | NoteLayer | StickerLayer;
+export type Layer =
+  | RectangleLayer
+  | EllipseLayer
+  | PathLayer
+  | TextLayer
+  | NoteLayer
+  | StickerLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -93,6 +99,7 @@ export type StickerLayer = {
   height: number;
   width: number;
   fill: Color;
+  stickerSrc: string;
 };
 
 export type Point = {
@@ -129,7 +136,12 @@ export type CanvasState =
     }
   | {
       mode: CanvasMode.Inserting;
-      layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Text | LayerType.Note | LayerType.Sticker;
+      layerType:
+        | LayerType.Ellipse
+        | LayerType.Rectangle
+        | LayerType.Text
+        | LayerType.Note
+        | LayerType.Sticker;
     }
   | {
       mode: CanvasMode.Pencil;
