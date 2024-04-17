@@ -31,11 +31,8 @@ const Room = ({ roomId }: RoomProps) => {
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layerIds: new LiveList(),
         person: new LiveObject({ name: "Marie", age: 30 }),
-      }}
-    >
-      <ClientSideSuspense fallback={<Loading />}>
-        {() => <Canvas />}
-      </ClientSideSuspense>
+      }}>
+      <ClientSideSuspense fallback={<Loading />}>{() => <Canvas />}</ClientSideSuspense>
     </RoomProvider>
   );
 };
