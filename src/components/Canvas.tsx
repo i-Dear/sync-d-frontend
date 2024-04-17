@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { useMutation, useHistory, useStorage, useSelf, useOthersMapped, useCanUndo, useCanRedo, useMyPresence } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
@@ -26,6 +26,8 @@ import { useUserInfoStore } from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
 import LiveAvatars from "./LiveAvatars";
 import { MusicPlayer } from "./MusicPlayer";
+import { StickerContext } from "./context/StickerContext";
+
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
@@ -46,7 +48,8 @@ const Canvas = () => {
   const history = useHistory();
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
-  const [stickerSrc, setStickerSrc] = useState<string | null>(null);
+
+  const { stickerSrc } = useContext(StickerContext);
 
   useDisableScrollBounce();
 
@@ -120,9 +123,6 @@ const Canvas = () => {
   /**
    * Insert an ellipse or a rectangle at the given position and select it
    */
-  const changeStickerSrc = (src: string) => {
-    setStickerSrc(src);
-  };
 
   const insertLayer = useMutation(
     (
@@ -134,6 +134,7 @@ const Canvas = () => {
       if (liveLayers.size >= MAX_LAYERS) {
         return;
       }
+
       const liveLayerIds = storage.get("layerIds");
       const layerId = nanoid();
       const layer = new LiveObject({
@@ -476,17 +477,7 @@ const Canvas = () => {
           </g>
         </svg>
       </div>
-      <ToolsBar
-        onSelectSticker={(src) => {
-          changeStickerSrc(src);
-        }}
-        canvasState={canvasState}
-        setCanvasState={setState}
-        undo={history.undo}
-        redo={history.redo}
-        canUndo={canUndo}
-        canRedo={canRedo}
-      />
+      <ToolsBar canvasState={canvasState} setCanvasState={setState} undo={history.undo} redo={history.redo} canUndo={canUndo} canRedo={canRedo} />
     </div>
   );
 };
