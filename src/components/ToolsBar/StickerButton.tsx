@@ -5,14 +5,9 @@ import StickerPicker from "../StickerPicker";
 type Props = {
   isActive: boolean;
   onClick: () => void;
-  onSelectSticker: (stickerSrc: string) => void;
 };
 
-export default function StickerButton({
-  isActive,
-  onClick,
-  onSelectSticker,
-}: Props) {
+export default function StickerButton({ isActive, onClick }: Props) {
   return (
     <>
       <IconButton isActive={isActive} onClick={onClick}>
@@ -35,15 +30,7 @@ export default function StickerButton({
           <path d="M19 2v6" />
         </svg>
       </IconButton>
-      <div>
-        {isActive && (
-          <StickerPicker
-            onSelectSticker={stickerSrc => {
-              onSelectSticker(stickerSrc);
-            }}
-          />
-        )}
-      </div>
+      <div>{isActive && <StickerPicker />}</div>
     </>
   );
 }

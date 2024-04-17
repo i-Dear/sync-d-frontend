@@ -17,10 +17,9 @@ type Props = {
   redo: () => void;
   canUndo: boolean;
   canRedo: boolean;
-  onSelectSticker?: (stickerSrc: string) => void; // ? 추가
 };
 
-export default function ToolsBar({ canvasState, setCanvasState, undo, redo, canUndo, canRedo, onSelectSticker }: Props) {
+export default function ToolsBar({ canvasState, setCanvasState, undo, redo, canUndo, canRedo }: Props) {
   return (
     <div className="absolute bottom-6 right-0 left-0 flex items-center justify-center">
       <div className="shadow-popup rounded-xl bg-surface-panel flex items-center justify-center">
@@ -81,9 +80,6 @@ export default function ToolsBar({ canvasState, setCanvasState, undo, redo, canU
                 layerType: LayerType.Sticker,
               })
             }
-            onSelectSticker={(stickerSrc) => {
-              onSelectSticker(stickerSrc);
-            }}
           />
         </div>
 
