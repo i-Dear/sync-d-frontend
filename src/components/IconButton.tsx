@@ -5,12 +5,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export default function IconButton({
-  onClick,
-  children,
-  isActive,
-  disabled,
-}: Props) {
+export default function IconButton({ onClick, children, isActive, disabled }: Props) {
   return (
     <button
       className={`
@@ -18,15 +13,10 @@ export default function IconButton({
         ${disabled ? "opacity-50 cursor-default" : "cursor-pointer"}
         ${!disabled && "hover:text-foreground-400 focus:text-foreground-400"}
         ${!disabled && "active:text-foreground-600"}
-        ${
-          isActive && !disabled
-            ? "text-primary bg-surface-subtle hover:text-primary focus:text-primary active:text-primary"
-            : "text-foreground-200"
-        }
+        ${isActive && !disabled ? "text-primary bg-surface-subtle hover:text-primary focus:text-primary active:text-primary" : "text-foreground-200"}
       `}
       onClick={onClick}
-      disabled={disabled}
-    >
+      disabled={disabled}>
       {children}
     </button>
   );
