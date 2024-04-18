@@ -36,7 +36,7 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
       <ContentEditable
         html={"Text"}
         onChange={() => {}}
-        className="h-full w-full flex items-center justify-center text-center drop-shadow-md outline-none"
+        className="flex h-full w-full items-center justify-center text-center outline-none drop-shadow-md"
         style={{
           fontSize: calculateFontSize(width, height),
           color: fill ? colorToCss(fill) : "black",

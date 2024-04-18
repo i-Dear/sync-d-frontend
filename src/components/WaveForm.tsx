@@ -43,13 +43,13 @@ export function WaveForm({ percentage, src }: Props) {
       const left = containerRef.current.getBoundingClientRect().left;
       setHoverOffset(event.clientX - left);
     },
-    []
+    [],
   );
 
   return (
     <div
       ref={containerRef}
-      className="[--hover-percentage:0%] group relative w-full h-[--wave-height] overflow-hidden isolate"
+      className="group relative isolate h-[--wave-height] w-full overflow-hidden [--hover-percentage:0%]"
       style={{ "--hover-amount": `${hoverOffset}px` } as CSSProperties}
       onPointerMove={handlePointerMove}
     >
@@ -64,7 +64,7 @@ export function WaveForm({ percentage, src }: Props) {
         backend="WebAudio"
         onReady={(ws) => (wavesurferRef.current = ws)}
       />
-      <div className="absolute inset-0 h-full opacity-0 lg:group-hover:opacity-100 transition-opacity duration-150 ease-out translate-x-[calc(-100%+var(--hover-amount))] pointer-events-none bg-neutral-50/30 z-10" />
+      <div className="pointer-events-none absolute inset-0 z-10 h-full translate-x-[calc(-100%+var(--hover-amount))] bg-neutral-50/30 opacity-0 transition-opacity duration-150 ease-out lg:group-hover:opacity-100" />
     </div>
   );
 }
@@ -76,7 +76,7 @@ function getHeight() {
 
   return parseInt(
     getComputedStyle(
-      document.querySelector(":root") as HTMLElement
-    ).getPropertyValue("--wave-height")
+      document.querySelector(":root") as HTMLElement,
+    ).getPropertyValue("--wave-height"),
   );
 }

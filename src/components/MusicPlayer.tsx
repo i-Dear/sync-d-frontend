@@ -130,7 +130,7 @@ export function MusicPlayer() {
       audioRef.current.currentTime = value;
       audioRef.current.play();
     },
-    [updateMusicState, updateMusicTime]
+    [updateMusicState, updateMusicTime],
   );
 
   // skipTo 이벤트 받아서 시간 업데이트하는 로직 (hooks의 useSkipToListener 사용)
@@ -187,19 +187,19 @@ export function MusicPlayer() {
             muted={mute}
             autoPlay
           />
-          <div className="w-full flex items-center justify-center gap-4">
+          <div className="flex w-full items-center justify-center gap-4">
             <div
               className={cn(
-                "relative bg-neutral-900 w-20 aspect-square rounded-3xl overflow-hidden transition-transform ease-out-back duration-300 shadow-2xl",
-                "after:absolute after:inset-0 after:rounded-[inherit] after:bg-gradient-to-br after:from-transparent after:via-white/5 after:pointer-events-none after:to-transparent",
+                "relative aspect-square w-20 overflow-hidden rounded-3xl bg-neutral-900 shadow-2xl transition-transform duration-300 ease-out-back",
+                "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-gradient-to-br after:from-transparent after:via-white/5 after:to-transparent",
                 {
                   "scale-95": !playing,
-                }
+                },
               )}
             >
               <div className="scale-75">
                 <Image
-                  className="rounded-full animate-spin-slow select-none"
+                  className="animate-spin-slow select-none rounded-full"
                   style={{
                     animationPlayState: playing ? "running" : "paused",
                   }}
@@ -212,33 +212,33 @@ export function MusicPlayer() {
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <button
                   type="button"
-                  className="size-4 shadow-xl rounded-full hover:scale-120 transition-transform ease-out-expo duration-500"
+                  className="hover:scale-120 size-4 rounded-full shadow-xl transition-transform duration-500 ease-out-expo"
                   onClick={togglePlay}
                   title={playing ? "Pause" : "Play"}
                 >
                   <span className="sr-only">{playing ? "Pause" : "Play"}</span>
                   <PauseIcon
                     className={cn(
-                      "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-transparent fill-neutral-900 transition duration-300 ease-out-expo",
+                      "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 fill-neutral-900 text-transparent transition duration-300 ease-out-expo",
                       {
                         "scale-50 opacity-0": !playing,
-                      }
+                      },
                     )}
                   />
                   <PlayIcon
                     className={cn(
-                      "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-transparent fill-neutral-900 ml-0.5 transition duration-300 ease-out-expo",
+                      "absolute left-1/2 top-1/2 ml-0.5 -translate-x-1/2 -translate-y-1/2 fill-neutral-900 text-transparent transition duration-300 ease-out-expo",
                       {
                         "scale-50 opacity-0": playing,
-                      }
+                      },
                     )}
                   />
                 </button>
               </span>
             </div>
             <div className="flex flex-col items-center text-center">
-              <span className="font-medium text-lg">{musics[0].title}</span>
-              <span className="text-neutral-600 text-sm">
+              <span className="text-lg font-medium">{musics[0].title}</span>
+              <span className="text-sm text-neutral-600">
                 {musics[0].artist}
               </span>
             </div>
@@ -248,7 +248,7 @@ export function MusicPlayer() {
           {/* Range slider for audio time and waveform */}
           {duration ? (
             <Slider.Root
-              className="relative flex-1 flex items-center select-none touch-none w-full h-full"
+              className="relative flex h-full w-full flex-1 touch-none select-none items-center"
               min={0}
               max={duration}
               step={1}
@@ -289,7 +289,7 @@ export function MusicPlayer() {
         </div>
         <div>
           <Slider.Root
-            className="relative flex items-center select-none touch-none w-50 h-5"
+            className="w-50 relative flex h-5 touch-none select-none items-center"
             min={0}
             max={1}
             step={0.01}
@@ -302,9 +302,9 @@ export function MusicPlayer() {
               audioRef.current.volume = value;
             }}
           >
-            <Slider.Track className="relative bg-neutral-200 flex-grow rounded-full h-1" />
-            <Slider.Range className="absolute bg-white rounded-full h-1" />
-            <Slider.Thumb className="block w-3 h-3 bg-primary rounded-full" />
+            <Slider.Track className="relative h-1 flex-grow rounded-full bg-neutral-200" />
+            <Slider.Range className="absolute h-1 rounded-full bg-white" />
+            <Slider.Thumb className="block h-3 w-3 rounded-full bg-primary" />
           </Slider.Root>
         </div>
       </div>

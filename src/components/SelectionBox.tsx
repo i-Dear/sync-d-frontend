@@ -15,12 +15,12 @@ const SelectionBox = memo(
     // We should show resize handles if exactly one shape is selected and it's
     // not a path layer
     const soleLayerId = useSelf((me) =>
-      me.presence.selection.length === 1 ? me.presence.selection[0] : null
+      me.presence.selection.length === 1 ? me.presence.selection[0] : null,
     );
 
     const isShowingHandles = useStorage(
       (root) =>
-        soleLayerId && root.layers.get(soleLayerId)?.type !== LayerType.Path
+        soleLayerId && root.layers.get(soleLayerId)?.type !== LayerType.Path,
     );
 
     const bounds = useSelectionBounds();
@@ -31,7 +31,7 @@ const SelectionBox = memo(
     return (
       <>
         <rect
-          className="fill-transparent stroke-1 stroke-primary pointer-events-none"
+          className="pointer-events-none fill-transparent stroke-primary stroke-1"
           style={{
             transform: `translate(${bounds.x}px, ${bounds.y}px)`,
           }}
@@ -43,7 +43,7 @@ const SelectionBox = memo(
         {isShowingHandles && (
           <>
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -60,7 +60,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -77,7 +77,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -94,7 +94,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -111,7 +111,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -128,7 +128,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -145,7 +145,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -162,7 +162,7 @@ const SelectionBox = memo(
               }}
             />
             <rect
-              className="fill-white stroke-1 stroke-primary"
+              className="fill-white stroke-primary stroke-1"
               x={0}
               y={0}
               style={{
@@ -182,7 +182,7 @@ const SelectionBox = memo(
         )}
       </>
     );
-  }
+  },
 );
 
 SelectionBox.displayName = "SelectionBox";

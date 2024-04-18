@@ -12,7 +12,7 @@ const BoardIdPage = ({
 }) => {
   useAuth();
   return (
-    <main className="w-full h-full relative bg-surface-canvas touch-none">
+    <main className="relative h-full w-full touch-none bg-surface-canvas">
       <Room roomId={params.boardId} />
     </main>
   );

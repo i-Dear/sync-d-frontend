@@ -32,11 +32,11 @@ export default function ProcessAvatars({ step }: { step: number }) {
       currentProcess: other.presence.currentProcess,
       info: other.info,
     }),
-    shallow
+    shallow,
   );
 
   const processOthers = others.filter(
-    (other) => other[1].currentProcess === step
+    (other) => other[1].currentProcess === step,
   );
 
   const hasMoreUsers = processOthers.length > MAX_OTHERS;

@@ -17,7 +17,7 @@ const initialRect = {
  * Updates on window changes
  */
 export function useBoundingClientRectRef(
-  ref: MutableRefObject<Element | null>
+  ref: MutableRefObject<Element | null>,
 ) {
   const rectRef = useRef<DOMRect>(initialRect);
 

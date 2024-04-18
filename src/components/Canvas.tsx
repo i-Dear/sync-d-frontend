@@ -62,7 +62,7 @@ const Canvas = () => {
   const groupCall = useStorage((root) => root.groupCall);
   const cursorPanel = useRef(null);
 
-  const pencilDraft = useSelf(me => me.presence.pencilDraft);
+  const pencilDraft = useSelf((me) => me.presence.pencilDraft);
   const [canvasState, setState] = useState<CanvasState>({
     mode: CanvasMode.None,
   });
@@ -382,7 +382,7 @@ const Canvas = () => {
     [layerIds],
   );
 
-  const selections = useOthersMapped(other => other.presence.selection);
+  const selections = useOthersMapped((other) => other.presence.selection);
 
   /**
    * Create a map layerId to color based on the selection of all the users in the room
@@ -402,7 +402,7 @@ const Canvas = () => {
 
   const onWheel = useCallback((e: React.WheelEvent) => {
     // Pan the camera based on the wheel delta
-    setCamera(camera => ({
+    setCamera((camera) => ({
       x: camera.x - e.deltaX,
       y: camera.y - e.deltaY,
     }));
@@ -508,7 +508,7 @@ const Canvas = () => {
       <div className="absolute left-40 top-0 z-10 h-fit w-fit">
         <MusicPlayer />
       </div>
-      <div className="w-fit h-10 absolute bottom-24 right-4 z-10">
+      <div className="absolute bottom-24 right-4 z-10 h-10 w-fit">
         <GroupCall roomId={groupCall.roomId} />
       </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
@@ -538,7 +538,7 @@ const Canvas = () => {
               transform: `translate(${camera.x}px, ${camera.y}px)`,
             }}
           >
-            {layerIds.map(layerId => (
+            {layerIds.map((layerId) => (
               <LayerComponent
                 key={layerId}
                 id={layerId}

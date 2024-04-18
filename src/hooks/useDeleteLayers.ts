@@ -20,6 +20,6 @@ export default function useDeleteLayers() {
       }
       setMyPresence({ selection: [] }, { addToHistory: true });
     },
-    [selection]
+    [selection],
   );
 }

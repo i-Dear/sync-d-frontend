@@ -6,9 +6,9 @@ import { ActiveUserInfo } from "~/liveblocks.config";
 
 const LiveCallUser = ({ user }: { user: ActiveUserInfo }) => {
   return (
-    <div className="w-fit h-fit flex items-center justify-between px-4 py-2 border-b border-gray-200">
+    <div className="flex h-fit w-fit items-center justify-between border-b border-gray-200 px-4 py-2">
       <div className="flex items-center space-x-2">
-        <div className="relative w-8 h-8">
+        <div className="relative h-8 w-8">
           {user.avatar && (
             <Image
               src={user.avatar}
@@ -19,12 +19,12 @@ const LiveCallUser = ({ user }: { user: ActiveUserInfo }) => {
             />
           )}
           {!user.avatar && (
-            <div className="w-full h-full bg-gray-200 rounded-full">
+            <div className="h-full w-full rounded-full bg-gray-200">
               {user.name[0]}
             </div>
           )}
         </div>
-        <div className="flex flex-col justify-center items-start gap-2">
+        <div className="flex flex-col items-start justify-center gap-2">
           <span className="font-semibold">{user.name}</span>
           <span className="text-xs text-gray-500">
             {formatDuration(user.enteredAt)}

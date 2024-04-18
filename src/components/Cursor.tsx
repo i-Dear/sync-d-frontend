@@ -18,7 +18,7 @@ function Cursor({ x, y, color = ["", ""], name = "" }: Props) {
 
   return (
     <div
-      className="absolute top-0 left-0 pointer-events-none select-none"
+      className="pointer-events-none absolute left-0 top-0 select-none"
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
         transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
@@ -26,7 +26,7 @@ function Cursor({ x, y, color = ["", ""], name = "" }: Props) {
     >
       <div className="relative">
         <svg
-          className="absolute top-0 left-0"
+          className="absolute left-0 top-0"
           width="32"
           height="44"
           viewBox="0 0 24 36"
@@ -44,14 +44,14 @@ function Cursor({ x, y, color = ["", ""], name = "" }: Props) {
           />
         </svg>
         <div
-          className="absolute overflow-hidden top-4 left-4 py-1 px-2 font-medium text-sm whitespace-nowrap rounded-lg"
+          className="absolute left-4 top-4 overflow-hidden whitespace-nowrap rounded-lg px-2 py-1 text-sm font-medium"
           style={{
             backgroundImage: `linear-gradient(to bottom right, ${color[0]}, ${color[1]})`,
             color: textColor,
             transition: "background-image 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
-          <div className="z-10 relative">{name}</div>
+          <div className="relative z-10">{name}</div>
         </div>
       </div>
     </div>

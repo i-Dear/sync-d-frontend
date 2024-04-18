@@ -38,8 +38,8 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
 
     groupCallActiveUsers.delete(
       groupCallActiveUsers.findIndex(
-        (user: ActiveUserInfo) => user.userId === userInfo._id
-      )
+        (user: ActiveUserInfo) => user.userId === userInfo._id,
+      ),
     );
   }, []);
 
@@ -60,7 +60,7 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
 
       if (
         room.participants.filter(
-          (participant) => participant.user.userId === userInfo._id
+          (participant) => participant.user.userId === userInfo._id,
         ).length > 0
       ) {
         console.log("이미 참여한 방입니다.");
@@ -93,7 +93,7 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
         room.addEventListener("remoteAudioSettingsChanged", (participant) => {
           console.log(
             "참가자의 오디오 설정이 변경되었습니다. 참가자:",
-            participant
+            participant,
           );
         });
       }
@@ -120,13 +120,13 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
     <div className="flex gap-2">
       <audio ref={audioRef} autoPlay />
       <button
-        className="rounded-xl w-36 h-10 bg-purple-400 text-white"
+        className="h-10 w-36 rounded-xl bg-purple-400 text-white"
         onClick={joinGroupCall}
       >
         그룹콜 참여
       </button>
       <button
-        className="rounded-xl w-36 h-10 bg-purple-400 text-white"
+        className="h-10 w-36 rounded-xl bg-purple-400 text-white"
         onClick={exitGroupCall}
       >
         그룹콜 나가기

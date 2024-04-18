@@ -16,7 +16,7 @@ const Cursors = ({ cursorPanel }: Props) => {
       cursor: other.presence.cursor,
       info: other.info,
     }),
-    shallow
+    shallow,
   );
   const rectRef = useBoundingClientRectRef(cursorPanel);
 
