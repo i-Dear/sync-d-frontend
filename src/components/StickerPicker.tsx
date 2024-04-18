@@ -9,11 +9,11 @@ const StickerPicker = () => {
   const { setStickerSrc } = useStickerStore();
 
   return (
-    <div className="absolute bottom-1/2 transform -translate-x-1/2 -translate-y-1/4 bg-white p-4 rounded-lg shadow-md z-10 flex flex-col items-center justify-center max-w-600">
-      <div className="flex gap-4  flex-wrap justify-center">
+    <div className="max-w-600 absolute bottom-1/2 z-10 flex -translate-x-1/2 -translate-y-1/4 transform flex-col items-center justify-center rounded-lg bg-white p-4 shadow-md">
+      <div className="flex flex-wrap  justify-center gap-4">
         {stickerData.map((sticker, i) => (
           <Image
-            className="hover:bg-gray-200 cursor-pointer"
+            className="cursor-pointer hover:bg-gray-200"
             src={sticker.src}
             alt=""
             key={i}

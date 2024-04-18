@@ -10,7 +10,12 @@ type Props = {
   selectionColor?: string;
 };
 
-export default function Sticker({ layer, onPointerDown, id, selectionColor }: Props) {
+export default function Sticker({
+  layer,
+  onPointerDown,
+  id,
+  selectionColor,
+}: Props) {
   const { x, y, width, height, fill, stickerSrc } = layer;
 
   return (
@@ -26,7 +31,13 @@ export default function Sticker({ layer, onPointerDown, id, selectionColor }: Pr
         pointerEvents="none" // Prevent the rectangle from intercepting pointer events
       />
       <foreignObject x={x} y={y} width={width} height={height}>
-        <Image width={x} height={y} alt="" src={stickerSrc ? stickerSrc : stickerData[0].src} onPointerDown={(e) => onPointerDown(e, id)} />
+        <Image
+          width={x}
+          height={y}
+          alt=""
+          src={stickerSrc ? stickerSrc : stickerData[0].src}
+          onPointerDown={e => onPointerDown(e, id)}
+        />
       </foreignObject>
     </g>
   );
