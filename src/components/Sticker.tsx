@@ -16,20 +16,10 @@ export default function Sticker({
   id,
   selectionColor,
 }: Props) {
-  const { x, y, width, height, fill, stickerSrc } = layer;
+  const { x, y, width, height, stickerSrc } = layer;
 
   return (
     <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        strokeWidth={1}
-        fill={"none"}
-        stroke={selectionColor || "transparent"}
-        pointerEvents="none" // Prevent the rectangle from intercepting pointer events
-      />
       <foreignObject x={x} y={y} width={width} height={height}>
         <Image
           width={x}
