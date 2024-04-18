@@ -84,6 +84,7 @@ export type StickerLayer = {
   height: number;
   width: number;
   stickerSrc: string;
+  fill: Color;
 };
 
 export type Point = {
