@@ -9,7 +9,6 @@ interface TimerProps {
 const Timer = ({ timerToggle }: TimerProps) => {
   const timerRef = useRef<HTMLDivElement>(null);
   const storageTimer = useStorage(root => root.timer);
-  console.log(storageTimer);
   const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
   const [time, setTime] = useState<number>(storageTimer.defaultTime);
 
@@ -24,7 +23,6 @@ const Timer = ({ timerToggle }: TimerProps) => {
   const updateCurrentTime = useMutation(({ storage }, time: number) => {
     const storageTimer = storage.get("timer");
     storageTimer.set("currentTime", time);
-    console.log(storage.get("timer").get("currentTime"));
   }, []);
 
   //타이머 로직
