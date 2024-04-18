@@ -8,6 +8,7 @@ import SelectionButton from "./SelectionButton";
 import { CanvasMode, LayerType, CanvasState } from "@/lib/types";
 import TextButton from "./TextButton";
 import NoteButton from "./NoteButton";
+import StickerButton from "./StickerButton";
 
 type Props = {
   canvasState: CanvasState;
@@ -27,8 +28,8 @@ export default function ToolsBar({
   canRedo,
 }: Props) {
   return (
-    <div className="absolute bottom-6 right-0 left-0 flex items-center justify-center">
-      <div className="shadow-popup rounded-xl bg-surface-panel flex items-center justify-center">
+    <div className="absolute bottom-6 left-0 right-0 flex items-center justify-center">
+      <div className="flex items-center justify-center rounded-xl bg-surface-panel shadow-popup">
         <div className="flex items-center justify-center p-3">
           <SelectionButton
             isActive={
@@ -93,8 +94,21 @@ export default function ToolsBar({
               })
             }
           />
+          <StickerButton
+            isActive={
+              canvasState.mode === CanvasMode.Inserting &&
+              canvasState.layerType === LayerType.Sticker
+            }
+            onClick={() =>
+              setCanvasState({
+                mode: CanvasMode.Inserting,
+                layerType: LayerType.Sticker,
+              })
+            }
+          />
         </div>
-        <div className="w-[1px] bg-black bg-opacity-10 self-stretch"></div>
+
+        <div className="w-[1px] self-stretch bg-black bg-opacity-10"></div>
         <div className="flex items-center justify-center p-3">
           <UndoButton onClick={undo} disabled={!canUndo} />
           <RedoButton onClick={redo} disabled={!canRedo} />
