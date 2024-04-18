@@ -8,7 +8,7 @@ interface TimerProps {
 
 const Timer = ({ timerToggle }: TimerProps) => {
   const timerRef = useRef<HTMLDivElement>(null);
-  const storageTimer = useStorage(root => root.timer);
+  const storageTimer = useStorage((root) => root.timer);
   const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
   const [time, setTime] = useState<number>(storageTimer.defaultTime);
 
@@ -31,7 +31,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
 
     if (isActive) {
       interval = setInterval(() => {
-        setTime(prevTime => {
+        setTime((prevTime) => {
           if (prevTime <= 0) {
             clearInterval(interval);
             updateTimerState(false);
@@ -57,7 +57,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
   };
 
   const handleIncrement = (amount: number) => {
-    setTime(prevTime => Math.max(0, prevTime + amount));
+    setTime((prevTime) => Math.max(0, prevTime + amount));
     updateCurrentTime(time + amount);
   };
 

@@ -18,7 +18,7 @@ type Props = {
 
 const LayerComponent = memo(
   ({ mode, onLayerPointerDown, id, selectionColor }: Props) => {
-    const layer = useStorage(root => root.layers.get(id));
+    const layer = useStorage((root) => root.layers.get(id));
     if (!layer) {
       return null;
     }
@@ -41,7 +41,7 @@ const LayerComponent = memo(
           <Path
             key={id}
             points={layer.points}
-            onPointerDown={e => onLayerPointerDown(e, id)}
+            onPointerDown={(e) => onLayerPointerDown(e, id)}
             x={layer.x}
             y={layer.y}
             fill={layer.fill ? colorToCss(layer.fill) : "#CCC"}

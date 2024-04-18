@@ -61,8 +61,8 @@ export function Avatar({
         ...style,
       }}
       className={cn(
-        "flex relative place-content-center shadow-avatar",
-        className
+        "relative flex place-content-center shadow-avatar",
+        className,
       )}
       data-tooltip={name}
       onClick={() => console.log("Clicked avatar", name)}
@@ -87,7 +87,7 @@ export function Avatar({
       {statusColor ? (
         <span
           style={{ backgroundColor: statusColor }}
-          className="block absolute right-0 bottom-0 w-3 h-3 rounded-full shadow-avatar"
+          className="absolute bottom-0 right-0 block h-3 w-3 rounded-full shadow-avatar"
         />
       ) : null}
     </div>
@@ -101,7 +101,7 @@ function LetterCircle({
 }: Pick<PictureProps, "name" | "color" | "borderRadius">) {
   const textColor = useMemo(
     () => (color ? getContrastingColor(color[1]) : undefined),
-    [color]
+    [color],
   );
   return (
     <div
@@ -109,10 +109,10 @@ function LetterCircle({
         backgroundImage: `linear-gradient(to bottom right, ${color[0]}, ${color[1]})`,
         borderRadius,
       }}
-      className="flex isolate overflow-hidden absolute inset-0 justify-center items-center rounded-full"
+      className="absolute inset-0 isolate flex items-center justify-center overflow-hidden rounded-full"
     >
       <div
-        className="z-10 text-white font-semibold text-sm"
+        className="z-10 text-sm font-semibold text-white"
         style={{ color: textColor }}
       >
         {name ? name.charAt(0) : null}
@@ -145,7 +145,7 @@ function MoreCircle({
   return (
     <div
       style={{ borderRadius }}
-      className="flex absolute inset-0 pr-1 bg-slate-500 text-white font-semibold text-sm justify-center items-center"
+      className="absolute inset-0 flex items-center justify-center bg-slate-500 pr-1 text-sm font-semibold text-white"
     >
       +{count}
     </div>

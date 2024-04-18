@@ -36,7 +36,7 @@ const ProcessSideNav = ({
         <li className="p-4 text-white">
           <Link href={`/dashboard/${userInfo._id}`}>대시보드</Link>
         </li>
-        {steps.map(step => (
+        {steps.map((step) => (
           <li key={step.step} className="p-4 text-white">
             <div
               className="flex cursor-pointer"

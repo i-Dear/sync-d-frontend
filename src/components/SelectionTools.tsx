@@ -17,7 +17,7 @@ function SelectionTools({
   camera,
   setLastUsedColor,
 }: SelectionToolsProps) {
-  const selection = useSelf(me => me.presence.selection);
+  const selection = useSelf((me) => me.presence.selection);
 
   /**
    * Move all the selected layers to the front
@@ -75,7 +75,7 @@ function SelectionTools({
     ({ storage }, fill: Color) => {
       const liveLayers = storage.get("layers");
       setLastUsedColor(fill);
-      selection.forEach(id => {
+      selection.forEach((id) => {
         liveLayers.get(id)?.set("fill", fill);
       });
     },

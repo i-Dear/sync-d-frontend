@@ -62,7 +62,7 @@ export function resizeBounds(bounds: XYWH, corner: Side, point: Point): XYWH {
 export function findIntersectingLayerWithPoint(
   layerIds: string[],
   layers: Map<string, Layer>,
-  point: Point
+  point: Point,
 ) {
   for (let i = layerIds.length - 1; i >= 0; i--) {
     const layerId = layerIds[i];
@@ -117,7 +117,7 @@ export function findIntersectingLayersWithRectangle(
   layerIds: readonly string[],
   layers: ReadonlyMap<string, Layer>,
   a: Point,
-  b: Point
+  b: Point,
 ) {
   const rect = {
     x: Math.min(a.x, b.x),
@@ -157,7 +157,7 @@ export function getSvgPathFromStroke(stroke: number[][]) {
       acc.push(x0, y0, (x0 + x1) / 2, (y0 + y1) / 2);
       return acc;
     },
-    ["M", ...stroke[0], "Q"]
+    ["M", ...stroke[0], "Q"],
   );
 
   d.push("Z");
@@ -166,7 +166,7 @@ export function getSvgPathFromStroke(stroke: number[][]) {
 
 export function penPointsToPathLayer(
   points: number[][],
-  color: Color
+  color: Color,
 ): PathLayer {
   if (points.length < 2) {
     throw new Error("Can't transform points with less than 2 points");
@@ -206,7 +206,7 @@ export function penPointsToPathLayer(
 
 export function pointerEventToCanvasPoint(
   e: React.PointerEvent,
-  camera: Camera
+  camera: Camera,
 ): Point {
   return {
     x: Math.round(e.clientX) - camera.x,

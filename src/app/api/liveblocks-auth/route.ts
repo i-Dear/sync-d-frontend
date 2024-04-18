@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       name: NAMES[userIndex],
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
       avatar: `https://liveblocks.io/avatars/avatar-${Math.floor(
-        Math.random() * 30
+        Math.random() * 30,
       )}.png`,
     },
   });
