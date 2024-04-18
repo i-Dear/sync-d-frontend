@@ -36,7 +36,6 @@ const LoginPage = () => {
     useUserInfoStore.setState({
       _id: userInfo._id,
       name: userInfo.name,
-      color: userInfo.color,
       hostingRooms: userInfo.hostingRooms,
       joinedRooms: userInfo.joinedRooms,
       token: userInfo.token,
