@@ -5,7 +5,7 @@ import {
   createClient,
 } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
-import { Color, Layer, Point } from "@/lib/types";
+import { Color, Layer, Point, UserInfo } from "@/lib/types";
 
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
@@ -29,39 +29,34 @@ type Presence = {
 // automatically persisted and synced to all connected clients.
 export type MusicStates = "playing" | "seeking" | "paused";
 
+export type ActiveUserInfo = UserInfo & {
+  userId: string;
+  enteredAt: number;
+};
+
 type Storage = {
   music: LiveObject<{
     musicState: MusicStates;
     musicTime: number;
     musicIndex: number;
   }>;
-  groupCallId: LiveObject<{
+  groupCall: LiveObject<{
     roomId: string;
+    activeUsers: LiveList<ActiveUserInfo>;
   }>;
   layers: LiveMap<string, LiveObject<Layer>>;
   layerIds: LiveList<string>;
-  person: LiveObject<{
-    name: string;
-  }>;
-  // animals: LiveList<string>,
-  // ...
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each User, as
 // provided by your own custom auth backend (if used). Useful for data that
 // will not change during a session, like a User's name or avatar.
-type UserMeta = {
+export type UserMeta = {
   info: {
     name: string;
     color: [string, string];
     avatar?: string;
   };
-};
-
-// Event types, 유니온 타입 가능
-type RoomEvent = {
-  type: "TOAST";
-  message: string;
 };
 
 // Optionally, the type of custom events broadcasted and listened for in this

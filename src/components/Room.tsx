@@ -23,7 +23,10 @@ const Room = ({ roomId }: RoomProps) => {
         currentProcess: 1,
       }}
       initialStorage={{
-        groupCallId: new LiveObject({ roomId: "" }),
+        groupCall: new LiveObject({
+          roomId: "",
+          activeUsers: new LiveList(),
+        }),
         music: new LiveObject({
           musicState: "paused",
           musicTime: 0,
@@ -31,7 +34,6 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layerIds: new LiveList(),
-        person: new LiveObject({ name: "Marie", age: 30 }),
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>
