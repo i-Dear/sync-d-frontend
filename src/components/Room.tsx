@@ -6,7 +6,6 @@ import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { Layer } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
-import { StickerProvider } from "./context/StickerContext";
 
 interface RoomProps {
   roomId: string;
