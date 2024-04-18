@@ -1,4 +1,9 @@
-import { LiveList, LiveMap, LiveObject, createClient } from "@liveblocks/client";
+import {
+  LiveList,
+  LiveMap,
+  LiveObject,
+  createClient,
+} from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { Color, Layer, Point } from "@/lib/types";
 
