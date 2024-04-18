@@ -1,16 +1,16 @@
 "use client";
 
-import { useUserInfoStore } from "@/hooks/useUserInfoStore";
+import useUserInfoStore from "@/hooks/useUserInfoStore";
 import SendBirdCall from "sendbird-calls";
-import { useMutation } from "~/liveblocks.config";
+import { ActiveUserInfo, useMutation } from "~/liveblocks.config";
 import { useSendBirdInit } from "@/hooks/useSendBirdCall";
-import { memo, useRef } from "react";
+import { useRef } from "react";
 
 interface TypeGroupCallId {
   roomId: string;
 }
 
-const GroupCallButton = memo((groupCallId: TypeGroupCallId) => {
+const GroupCallButton = (groupCallId: TypeGroupCallId) => {
   const userInfo = useUserInfoStore();
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -23,10 +23,24 @@ const GroupCallButton = memo((groupCallId: TypeGroupCallId) => {
     audioEnabled: true, // 오디오만 출력
   };
 
-  // 프로젝트 내 그룹 콜 ID 설정
   const updateRoomId = useMutation(({ storage }, roomId: string) => {
-    const groupCallId = storage.get("groupCallId");
+    const groupCallId = storage.get("groupCall");
     groupCallId.set("roomId", roomId);
+  }, []);
+
+  const addToActiveUsers = useMutation(({ storage }, user: ActiveUserInfo) => {
+    const groupCallActiveUsers = storage.get("groupCall").get("activeUsers");
+    groupCallActiveUsers.push(user);
+  }, []);
+
+  const exitFromActiveUsers = useMutation(({ storage }) => {
+    const groupCallActiveUsers = storage.get("groupCall").get("activeUsers");
+
+    groupCallActiveUsers.delete(
+      groupCallActiveUsers.findIndex(
+        (user: ActiveUserInfo) => user.userId === userInfo._id
+      )
+    );
   }, []);
 
   const authOption = { userId: userInfo._id, accessToken: userInfo.token }; // Authentication options using user information
@@ -61,6 +75,12 @@ const GroupCallButton = memo((groupCallId: TypeGroupCallId) => {
             room.setAudioForLargeRoom(audioRef.current); // 오디오 설정
             audioRef.current!.volume = 0.5; // 볼륨 설정
             audioRef.current!.muted = false; // 음소거 설정
+
+            addToActiveUsers({
+              name: userInfo.name,
+              userId: userInfo._id,
+              enteredAt: Date.now(),
+            });
           })
           .catch((error) => {
             console.error("입장 실패: ", error);
@@ -83,12 +103,21 @@ const GroupCallButton = memo((groupCallId: TypeGroupCallId) => {
   const exitGroupCall = () => {
     const room = SendBirdCall.getCachedRoomById(groupCallId.roomId);
     try {
+      if (!room) {
+        console.log("방이 존재하지 않습니다.");
+        return;
+      }
       room.exit();
-    } catch (error) {}
+      exitFromActiveUsers();
+    } catch (error) {
+      console.log("방에 참여하지 않은 상태입니다.");
+    }
   };
 
+  window.addEventListener("beforeunload", exitGroupCall);
+
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex gap-2">
       <audio ref={audioRef} autoPlay />
       <button
         className="rounded-xl w-36 h-10 bg-purple-400 text-white"
@@ -104,8 +133,6 @@ const GroupCallButton = memo((groupCallId: TypeGroupCallId) => {
       </button>
     </div>
   );
-});
-
-GroupCallButton.displayName = "GroupCallButton";
+};
 
 export default GroupCallButton;
