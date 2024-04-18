@@ -21,8 +21,7 @@ export default function Sticker({
     <g>
       <foreignObject x={x} y={y} stroke={selectionColor || "transparent"}  strokeWidth={1} width={width} height={height}>
         <Image
-          width={x}
-          height={y}
+          layout="fill"
           alt=""
           src={stickerSrc ? stickerSrc : stickerData[0].src}
           onPointerDown={e => onPointerDown(e, id)}
