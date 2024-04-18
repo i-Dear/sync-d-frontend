@@ -34,6 +34,11 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layerIds: new LiveList(),
+        timer: new LiveObject({
+          timerState: false,
+          currentTime: 180,
+          defaultTime: 180,
+        }),
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>
