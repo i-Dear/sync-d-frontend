@@ -47,18 +47,18 @@ import Drafts from "@/components/Drafts";
 import Path from "@/components/Path";
 import ToolsBar from "@/components/ToolsBar";
 import Cursors from "@/components/Cursors";
-import { useUserInfoStore } from "@/hooks/useUserInfoStore";
+import useUserInfoStore from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
 import LiveAvatars from "./LiveAvatars";
 import { MusicPlayer } from "./MusicPlayer";
-import GroupCallButton from "./GroupCallButton";
+import GroupCall from "./GroupCall";
 
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
   const userInfo = useUserInfoStore();
   const layerIds = useStorage((root) => root.layerIds);
-  const groupCallId = useStorage((root) => root.groupCallId);
+  const groupCall = useStorage((root) => root.groupCall);
   const cursorPanel = useRef(null);
 
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
@@ -503,9 +503,8 @@ const Canvas = () => {
       <div className="w-fit h-fit absolute top-0 left-40 z-10">
         <MusicPlayer />
       </div>
-      <div className="w-fit h-10 absolute bottom-20 right-4 z-10">
-        {/* GroupCallMusic memo */}
-        <GroupCallButton roomId={groupCallId.roomId} />
+      <div className="w-fit h-10 absolute bottom-24 right-4 z-10">
+        <GroupCall roomId={groupCall.roomId} />
       </div>
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div
