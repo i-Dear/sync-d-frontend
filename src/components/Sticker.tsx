@@ -7,14 +7,12 @@ type Props = {
   id: string;
   layer: StickerLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
-  selectionColor?: string;
 };
 
 export default function Sticker({
   layer,
   onPointerDown,
   id,
-  selectionColor,
 }: Props) {
   const { x, y, width, height, stickerSrc } = layer;
 
