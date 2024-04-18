@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export type Color = {
   r: number;
   g: number;
@@ -10,6 +12,7 @@ export enum LayerType {
   Path,
   Text,
   Note,
+  Sticker,
 }
 
 export type Camera = {
@@ -27,7 +30,8 @@ export type Layer =
   | EllipseLayer
   | PathLayer
   | TextLayer
-  | NoteLayer;
+  | NoteLayer
+  | StickerLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -78,6 +82,16 @@ export type TextLayer = {
   value?: string;
 };
 
+export type StickerLayer = {
+  type: LayerType.Sticker;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  stickerSrc: string;
+  fill: Color;
+};
+
 export type Point = {
   x: number;
   y: number;
@@ -116,7 +130,8 @@ export type CanvasState =
         | LayerType.Ellipse
         | LayerType.Rectangle
         | LayerType.Text
-        | LayerType.Note;
+        | LayerType.Note
+        | LayerType.Sticker;
     }
   | {
       mode: CanvasMode.Pencil;

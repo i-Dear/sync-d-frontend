@@ -35,6 +35,11 @@ export type ActiveUserInfo = UserInfo & {
 };
 
 type Storage = {
+  timer: LiveObject<{
+    timerState: boolean;
+    currentTime: number;
+    defaultTime: number;
+  }>;
   music: LiveObject<{
     musicState: MusicStates;
     musicTime: number;

@@ -17,7 +17,7 @@ function SelectionTools({
   camera,
   setLastUsedColor,
 }: SelectionToolsProps) {
-  const selection = useSelf((me) => me.presence.selection);
+  const selection = useSelf(me => me.presence.selection);
 
   /**
    * Move all the selected layers to the front
@@ -38,11 +38,11 @@ function SelectionTools({
       for (let i = indices.length - 1; i >= 0; i--) {
         liveLayerIds.move(
           indices[i],
-          arr.length - 1 - (indices.length - 1 - i)
+          arr.length - 1 - (indices.length - 1 - i),
         );
       }
     },
-    [selection]
+    [selection],
   );
 
   /**
@@ -65,7 +65,7 @@ function SelectionTools({
         liveLayerIds.move(indices[i], i);
       }
     },
-    [selection]
+    [selection],
   );
 
   /**
@@ -75,11 +75,11 @@ function SelectionTools({
     ({ storage }, fill: Color) => {
       const liveLayers = storage.get("layers");
       setLastUsedColor(fill);
-      selection.forEach((id) => {
+      selection.forEach(id => {
         liveLayers.get(id)?.set("fill", fill);
       });
     },
-    [selection, setLastUsedColor]
+    [selection, setLastUsedColor],
   );
 
   const deleteLayers = useDeleteLayers();
@@ -93,7 +93,7 @@ function SelectionTools({
   const y = selectionBounds.y + camera.y;
   return (
     <div
-      className="absolute p-3 rounded-xl shadow-popup flex flex-row bg-surface-panel select-none"
+      className="absolute flex select-none flex-row rounded-xl bg-surface-panel p-3 shadow-popup"
       style={{
         transform: `translate(calc(${x}px - 50%), calc(${y - 16}px - 100%))`,
       }}
@@ -122,7 +122,7 @@ function SelectionTools({
           </svg>
         </IconButton>
       </div>
-      <div className="flex items-center pl-2 ml-2 border-l border-divider">
+      <div className="ml-2 flex items-center border-l border-divider pl-2">
         <IconButton onClick={deleteLayers}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
