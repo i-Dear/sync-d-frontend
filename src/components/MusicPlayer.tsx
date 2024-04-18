@@ -97,11 +97,13 @@ export function MusicPlayer() {
       audioRef.current.muted = true;
     } else {
       audioRef.current.muted = false;
-      audioRef.current.play();
+      if (projectMusic.musicState === "playing") {
+        audioRef.current.play();
+      }
     }
     setMute(!mute);
     audioRef.current.muted = !mute;
-  }, [mute]);
+  }, [mute, projectMusic.musicState]);
 
   // 슬라이더 변경 시, 시간 업데이트
   const handleSliderChange = useCallback(([value]: [number]) => {
@@ -159,7 +161,6 @@ export function MusicPlayer() {
       setPlaying(false);
       audioRef.current.pause();
     }
-    console.log("togglePlay", projectMusic.musicState);
   }, [projectMusic.musicState]);
 
   // 음악 전체 재생 시간 변경 시, 시간 업데이트
@@ -237,7 +238,9 @@ export function MusicPlayer() {
             </div>
             <div className="flex flex-col items-center text-center">
               <span className="font-medium text-lg">{musics[0].title}</span>
-              <span className="text-neutral-600 text-sm">{musics[0].artist}</span>
+              <span className="text-neutral-600 text-sm">
+                {musics[0].artist}
+              </span>
             </div>
           </div>
         </div>
@@ -275,7 +278,7 @@ export function MusicPlayer() {
               />
             ) : (
               <Image
-                src="/sound.svg"
+                src="/mute-off.svg"
                 alt="Unmute"
                 width={24}
                 height={24}
@@ -295,7 +298,6 @@ export function MusicPlayer() {
               if (!audioRef.current) {
                 return;
               }
-  
               setVolume(value);
               audioRef.current.volume = value;
             }}
@@ -307,5 +309,5 @@ export function MusicPlayer() {
         </div>
       </div>
     </>
-      );
+  );
 }

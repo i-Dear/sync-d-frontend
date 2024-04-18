@@ -20,6 +20,11 @@ export type Camera = {
   y: number;
 };
 
+export type UserInfo = {
+  name: string;
+  avatar?: string;
+};
+
 export type Layer =
   | RectangleLayer
   | EllipseLayer
