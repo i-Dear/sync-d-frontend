@@ -92,16 +92,6 @@ export type StickerLayer = {
   stickerSrc: string;
 };
 
-export type StickerLayer = {
-  type: LayerType.Sticker;
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-  fill: Color;
-  stickerSrc: string;
-};
-
 export type Point = {
   x: number;
   y: number;
