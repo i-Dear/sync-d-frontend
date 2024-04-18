@@ -1,8 +1,9 @@
 import stickerData from "@/lib/sticker.json";
 import Image from "next/image";
+import useStickerStore from "@/store/useStickerSrcStore";
 
 const StickerPicker = () => {
-  const { setSticker } = useContext(StickerContext);
+  const { setStickerSrc } = useStickerStore();
 
   return (
     <div className="max-w-600 absolute bottom-1/2 z-10 flex -translate-x-1/2 -translate-y-1/4 transform flex-col items-center justify-center rounded-lg bg-white p-4 shadow-md">
@@ -15,7 +16,7 @@ const StickerPicker = () => {
             key={i}
             width={48}
             height={48}
-            onClick={() => setSticker(sticker.src)}
+            onClick={() => setStickerSrc(sticker.src)}
           />
         ))}
       </div>
