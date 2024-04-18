@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useMutation, useStorage } from "~/liveblocks.config";
+import formatTime from "@/utils/formatTimer";
 
 interface TimerProps {
   timerToggle: boolean;
@@ -7,7 +8,7 @@ interface TimerProps {
 
 const Timer = ({ timerToggle }: TimerProps) => {
   const timerRef = useRef<HTMLDivElement>(null);
-  const storageTimer = useStorage((root) => root.timer);
+  const storageTimer = useStorage(root => root.timer);
   console.log(storageTimer);
   const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
   const [time, setTime] = useState<number>(storageTimer.defaultTime);
@@ -32,7 +33,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
 
     if (isActive) {
       interval = setInterval(() => {
-        setTime((prevTime) => {
+        setTime(prevTime => {
           if (prevTime <= 0) {
             clearInterval(interval);
             updateTimerState(false);
@@ -58,14 +59,8 @@ const Timer = ({ timerToggle }: TimerProps) => {
   };
 
   const handleIncrement = (amount: number) => {
-    setTime((prevTime) => Math.max(0, prevTime + amount));
+    setTime(prevTime => Math.max(0, prevTime + amount));
     updateCurrentTime(time + amount);
-  };
-
-  const formatTime = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   const onClickTimerRun = () => {
@@ -79,13 +74,14 @@ const Timer = ({ timerToggle }: TimerProps) => {
   };
 
   return timerToggle ? (
-    <div className="w-80 h-full bg-white border border-black fixed">
+    <div className="fixed h-full w-80 border border-black bg-white">
       <div
         ref={timerRef}
         contentEditable={!isActive}
         suppressContentEditableWarning={true}
         onClick={handleEdit}
-        className="flex justify-center bg-red-200">
+        className="flex justify-center bg-red-200"
+      >
         {formatTime(storageTimer.currentTime)}
       </div>
       <div className="flex justify-center bg-blue-200">
@@ -95,7 +91,9 @@ const Timer = ({ timerToggle }: TimerProps) => {
         <button onClick={() => handleIncrement(-10)}>-10 Seconds</button>
       </div>
       <div className="flex justify-center gap-8 bg-white">
-        <button onClick={onClickTimerRun}>{storageTimer.timerState ? "Stop" : "Start"}</button>
+        <button onClick={onClickTimerRun}>
+          {storageTimer.timerState ? "Stop" : "Start"}
+        </button>
         <button onClick={onClickTimerReset} disabled={isActive}>
           Reset
         </button>
