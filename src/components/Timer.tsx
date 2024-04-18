@@ -9,7 +9,6 @@ interface TimerProps {
 const Timer = ({ timerToggle }: TimerProps) => {
   const timerRef = useRef<HTMLDivElement>(null);
   const storageTimer = useStorage(root => root.timer);
-  console.log(storageTimer);
   const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
   const [time, setTime] = useState<number>(storageTimer.defaultTime);
 
@@ -24,7 +23,6 @@ const Timer = ({ timerToggle }: TimerProps) => {
   const updateCurrentTime = useMutation(({ storage }, time: number) => {
     const storageTimer = storage.get("timer");
     storageTimer.set("currentTime", time);
-    console.log(storage.get("timer").get("currentTime"));
   }, []);
 
   //타이머 로직
@@ -48,7 +46,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
     }
 
     return () => clearInterval(interval);
-  }, [isActive, updateTimerState, updateCurrentTime, storageTimer]);
+  }, [isActive, updateTimerState, updateCurrentTime]);
 
   const handleEdit = () => {
     if (!isActive) {
@@ -73,6 +71,13 @@ const Timer = ({ timerToggle }: TimerProps) => {
     updateCurrentTime(storageTimer.defaultTime);
   };
 
+  useEffect(() => {
+    console.log("타이머 업데이트", storageTimer.currentTime);
+    setTime(storageTimer.currentTime);
+  }, [storageTimer.currentTime]);
+
+  const formattedTime = formatTime(storageTimer.currentTime);
+
   return timerToggle ? (
     <div className="fixed h-full w-80 border border-black bg-white">
       <div
@@ -82,7 +87,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
         onClick={handleEdit}
         className="flex justify-center bg-red-200"
       >
-        {formatTime(storageTimer.currentTime)}
+        {formattedTime}
       </div>
       <div className="flex justify-center bg-blue-200">
         <button onClick={() => handleIncrement(60)}>+1 Minute</button>

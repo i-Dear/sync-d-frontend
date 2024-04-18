@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "liveblocks.io",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
     ],
   },
 };

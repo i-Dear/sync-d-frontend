@@ -14,15 +14,11 @@ export default function IconButton({
   return (
     <button
       className={`
-        min-w-7 min-h-7 rounded-md flex items-center justify-center
-        ${disabled ? "opacity-50 cursor-default" : "cursor-pointer"}
+        flex min-h-7 min-w-7 items-center justify-center rounded-md
+        ${disabled ? "cursor-default opacity-50" : "cursor-pointer"}
         ${!disabled && "hover:text-foreground-400 focus:text-foreground-400"}
         ${!disabled && "active:text-foreground-600"}
-        ${
-          isActive && !disabled
-            ? "text-primary bg-surface-subtle hover:text-primary focus:text-primary active:text-primary"
-            : "text-foreground-200"
-        }
+        ${isActive && !disabled ? "bg-surface-subtle text-primary hover:text-primary focus:text-primary active:text-primary" : "text-foreground-200"}
       `}
       onClick={onClick}
       disabled={disabled}
