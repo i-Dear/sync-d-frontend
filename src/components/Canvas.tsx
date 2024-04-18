@@ -26,7 +26,7 @@ import { useUserInfoStore } from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
 import LiveAvatars from "./LiveAvatars";
 import { MusicPlayer } from "./MusicPlayer";
-import { StickerContext } from "./context/StickerContext";
+import useStickerStore from "@/store/useStickerSrcStore";
 
 const MAX_LAYERS = 100;
 
@@ -49,8 +49,7 @@ const Canvas = () => {
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
 
-  const { stickerSrc } = useContext(StickerContext);
-
+  const { stickerSrc } = useStickerStore();
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();

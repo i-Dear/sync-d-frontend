@@ -6,7 +6,6 @@ import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { Layer } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
-import { StickerProvider } from "./context/StickerContext";
 
 interface RoomProps {
   roomId: string;
@@ -33,9 +32,7 @@ const Room = ({ roomId }: RoomProps) => {
         layerIds: new LiveList(),
         person: new LiveObject({ name: "Marie", age: 30 }),
       }}>
-      <StickerProvider>
-        <ClientSideSuspense fallback={<Loading />}>{() => <Canvas />}</ClientSideSuspense>
-      </StickerProvider>
+      <ClientSideSuspense fallback={<Loading />}>{() => <Canvas />}</ClientSideSuspense>
     </RoomProvider>
   );
 };
