@@ -2,14 +2,22 @@
 
 import { useStorage } from "~/liveblocks.config";
 import LiveCallUser from "./LiveCallUser";
-import { memo } from "react";
 
-const LiveCallUsers = memo(() => {
+const LiveCallUsers = () => {
   const activeUsers = useStorage((storage) => storage.groupCall.activeUsers);
 
   return (
-    <div className="flex h-fit w-fit flex-col gap-2 rounded-xl bg-blue-300 p-4">
-      <ul>
+    <div className="flex h-fit w-fit flex-col rounded-xl ">
+      <ul
+        className="
+        flex h-[fit-content]
+        flex-col
+        gap-[12px]
+        overflow-y-auto
+        py-[12px]
+        scrollbar-hide
+      "
+      >
         {activeUsers.map((user, idx) => (
           <li key={idx}>
             <LiveCallUser user={user} />
@@ -18,8 +26,6 @@ const LiveCallUsers = memo(() => {
       </ul>
     </div>
   );
-});
-
-LiveCallUsers.displayName = "LiveCallUsers";
+};
 
 export default LiveCallUsers;
