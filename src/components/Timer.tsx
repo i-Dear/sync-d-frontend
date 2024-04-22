@@ -87,35 +87,42 @@ const Timer = () => {
       </div>
       <div className="flex w-full justify-center gap-[12px]">
         <button
-          className="w-[64px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] font-bold text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
           onClick={() => handleIncrement(60)}
         >
           + 60
         </button>
         <button
-          className="w-[64px] cursor-pointer rounded-2xl  bg-primary p-2 text-center text-[18px] font-bold text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
           onClick={() => handleIncrement(-60)}
         >
           - 60
         </button>
         <button
-          className="w-[64px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] font-bold text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
           onClick={() => handleIncrement(10)}
         >
           + 10
         </button>
         <button
-          className="w-[64px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] font-bold text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
           onClick={() => handleIncrement(-10)}
         >
           - 10
         </button>
       </div>
-      <div className="flex justify-center gap-4 bg-white">
-        <button onClick={onClickTimerRun}>
+      <div className="flex w-full justify-center gap-12 ">
+        <button
+          className="w-[80px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] text-white"
+          onClick={onClickTimerRun}
+        >
           {storageTimer.timerState ? "Stop" : "Start"}
         </button>
-        <button onClick={onClickTimerReset} disabled={isActive}>
+        <button
+          className="w-[80px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] text-white"
+          onClick={onClickTimerReset}
+          disabled={isActive}
+        >
           Reset
         </button>
       </div>
