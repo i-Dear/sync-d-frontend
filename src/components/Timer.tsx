@@ -74,8 +74,8 @@ const Timer = () => {
   const formattedTime = formatTime(storageTimer.currentTime);
 
   return (
-    <div className="mb-[8px] flex h-fit w-full flex-col items-start justify-center gap-[12px] rounded-xl bg-light-gray-100 p-[16px]">
-      <div className="text-2xl  font-bold text-div-text">Timer</div>
+    <div className="mb-[8px] flex h-fit w-full flex-col items-start justify-center gap-[18px] rounded-xl bg-light-gray-100 p-[16px]">
+      <div className="text-4xl  font-bold text-div-text">Timer</div>
       <div
         ref={timerRef}
         contentEditable={!isActive}
@@ -85,30 +85,30 @@ const Timer = () => {
       >
         <div className="">{formattedTime}</div>
       </div>
-      <div className="flex w-full justify-center bg-blue-200">
+      <div className="flex w-full justify-center gap-[12px]">
         <button
-          className="cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] font-bold text-white"
           onClick={() => handleIncrement(60)}
         >
-          +60
+          + 60
         </button>
         <button
-          className="cursor-pointer rounded-2xl  bg-primary p-2 text-center text-[18px] text-white"
+          className="w-[64px] cursor-pointer rounded-2xl  bg-primary p-2 text-center text-[18px] font-bold text-white"
           onClick={() => handleIncrement(-60)}
         >
-          -60
+          - 60
         </button>
         <button
-          className="cursor-pointer rounded-2xl  bg-primary p-2 text-center text-[18px] text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] font-bold text-white"
           onClick={() => handleIncrement(10)}
         >
-          +10
+          + 10
         </button>
         <button
-          className="cursor-pointer rounded-2xl  bg-primary p-2 text-center text-[18px] text-white"
+          className="w-[64px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] font-bold text-white"
           onClick={() => handleIncrement(-10)}
         >
-          -10
+          - 10
         </button>
       </div>
       <div className="flex justify-center gap-4 bg-white">
