@@ -51,8 +51,8 @@ import useUserInfoStore from "@/hooks/useUserInfoStore";
 import ProcessSideNav from "./ProcessSideNav";
 import LiveAvatars from "./LiveAvatars";
 import { MusicPlayer } from "./MusicPlayer";
-import GroupCall from "./GroupCall";
 import useStickerStore from "@/store/useStickerSrcStore";
+import RightSideToolsBar from "./RightSideToolsBar";
 
 const MAX_LAYERS = 100;
 
@@ -508,9 +508,8 @@ const Canvas = () => {
       <div className="absolute left-40 top-0 z-10 h-fit w-fit">
         <MusicPlayer />
       </div>
-      <div className="absolute bottom-24 right-4 z-10 h-10 w-fit">
-        <GroupCall roomId={groupCall.roomId} />
-      </div>
+
+      <RightSideToolsBar roomId={groupCall.roomId} />
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div
         className="relative h-full w-full touch-none bg-surface-canvas"

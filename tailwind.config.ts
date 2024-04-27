@@ -20,8 +20,12 @@ const config: Config = {
         "foreground-300": "#666",
         "foreground-200": "#888",
         "foreground-100": "#999",
-        primary: "#0044ff",
-        white: "#fff",
+        "light-gray-100": "#F0F2F5",
+        primary: "#369EFF",
+        "background-100": "#ffffff",
+        "background-200": "#f0f2f5",
+        "div-text": "#0D121C",
+        time: "#4569A1",
       },
       boxShadow: {
         popup:

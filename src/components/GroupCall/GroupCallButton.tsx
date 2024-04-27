@@ -4,7 +4,8 @@ import useUserInfoStore from "@/hooks/useUserInfoStore";
 import SendBirdCall from "sendbird-calls";
 import { ActiveUserInfo, useMutation } from "~/liveblocks.config";
 import { useSendBirdInit } from "@/hooks/useSendBirdCall";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface TypeGroupCallId {
   roomId: string;
@@ -13,6 +14,7 @@ interface TypeGroupCallId {
 const GroupCallButton = (groupCallId: TypeGroupCallId) => {
   const userInfo = useUserInfoStore();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [isCalling, setIsCalling] = useState(false);
 
   const roomParams = {
     roomType: SendBirdCall.RoomType.LARGE_ROOM_FOR_AUDIO_ONLY,
@@ -51,13 +53,10 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
     if (!groupCallId.roomId) {
       SendBirdCall.createRoom(roomParams).then((room) => {
         updateRoomId(room.roomId); // 프로젝트 내 그룹 콜 ID 설정
-        console.log("방 생성 성공, roomId: ", room.roomId);
       });
     }
 
     SendBirdCall.fetchRoomById(groupCallId.roomId).then((room) => {
-      console.log("방 불러오기 성공: ", room);
-
       if (
         room.participants.filter(
           (participant) => participant.user.userId === userInfo._id,
@@ -69,13 +68,12 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
         room
           .enter(enterParams)
           .then(() => {
-            console.log("입장 성공: ");
             if (!audioRef.current) return;
 
             room.setAudioForLargeRoom(audioRef.current); // 오디오 설정
-            audioRef.current!.volume = 0.5; // 볼륨 설정
             audioRef.current!.muted = false; // 음소거 설정
 
+            setIsCalling(true);
             addToActiveUsers({
               name: userInfo.name,
               userId: userInfo._id,
@@ -89,18 +87,11 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
         room.addEventListener("remoteParticipantEntered", (participant) => {
           console.log("다른 참가자가 입장했습니다. 참가자:", participant);
         });
-
-        room.addEventListener("remoteAudioSettingsChanged", (participant) => {
-          console.log(
-            "참가자의 오디오 설정이 변경되었습니다. 참가자:",
-            participant,
-          );
-        });
       }
     });
   };
 
-  const exitGroupCall = () => {
+  const exitGroupCall = useCallback(() => {
     const room = SendBirdCall.getCachedRoomById(groupCallId.roomId);
     try {
       if (!room) {
@@ -108,29 +99,32 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
         return;
       }
       room.exit();
+      setIsCalling(false);
       exitFromActiveUsers();
     } catch (error) {
       console.log("방에 참여하지 않은 상태입니다.");
     }
-  };
+  }, [groupCallId.roomId, exitFromActiveUsers]);
 
-  window.addEventListener("beforeunload", exitGroupCall);
+  useEffect(() => {
+    window.addEventListener("beforeunload", exitGroupCall);
+    return () => {
+      window.removeEventListener("beforeunload", exitGroupCall);
+    };
+  }, [exitGroupCall]);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex w-full items-center justify-center gap-2 text-[12px] font-normal">
       <audio ref={audioRef} autoPlay />
-      <button
-        className="h-10 w-36 rounded-xl bg-purple-400 text-white"
-        onClick={joinGroupCall}
+      <div
+        className={cn(
+          "w-[270px] cursor-pointer rounded-2xl p-2 text-center text-white",
+          isCalling ? "bg-red-400" : "bg-primary",
+        )}
+        onClick={isCalling ? exitGroupCall : joinGroupCall}
       >
-        그룹콜 참여
-      </button>
-      <button
-        className="h-10 w-36 rounded-xl bg-purple-400 text-white"
-        onClick={exitGroupCall}
-      >
-        그룹콜 나가기
-      </button>
+        {isCalling ? "나가기" : "입장"}
+      </div>
     </div>
   );
 };
