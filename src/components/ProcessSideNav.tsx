@@ -7,8 +7,6 @@ import { SetStateAction, useEffect } from "react";
 import { Camera } from "@/lib/types";
 import { useUpdateMyPresence } from "~/liveblocks.config";
 import ProcessAvatars from "./ProcessAvatars";
-import { useState } from "react";
-import Timer from "./Timer";
 
 const ProcessSideNav = ({
   userInfo,
@@ -24,8 +22,6 @@ const ProcessSideNav = ({
       currentProcess: step,
     });
   };
-
-  const [timerToggle, setTimerToggle] = useState<boolean>(false);
 
   return (
     <nav className="absolute left-0 z-10 h-full w-40 overflow-y-scroll bg-gray-900 scrollbar-hide">
@@ -54,10 +50,6 @@ const ProcessSideNav = ({
           </li>
         ))}
       </ul>
-      <div className="bg-white" onClick={() => setTimerToggle(!timerToggle)}>
-        타이머
-      </div>
-      <Timer timerToggle={timerToggle} />
     </nav>
   );
 };

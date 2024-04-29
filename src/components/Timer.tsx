@@ -2,13 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useMutation, useStorage } from "~/liveblocks.config";
 import formatTime from "@/utils/formatTimer";
 
-interface TimerProps {
-  timerToggle: boolean;
-}
-
-const Timer = ({ timerToggle }: TimerProps) => {
+const Timer = () => {
   const timerRef = useRef<HTMLDivElement>(null);
-  const storageTimer = useStorage((root) => root.timer);
+  const storageTimer = useStorage(root => root.timer);
   const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
   const [time, setTime] = useState<number>(storageTimer.defaultTime);
 
@@ -31,7 +27,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
 
     if (isActive) {
       interval = setInterval(() => {
-        setTime((prevTime) => {
+        setTime(prevTime => {
           if (prevTime <= 0) {
             clearInterval(interval);
             updateTimerState(false);
@@ -57,7 +53,7 @@ const Timer = ({ timerToggle }: TimerProps) => {
   };
 
   const handleIncrement = (amount: number) => {
-    setTime((prevTime) => Math.max(0, prevTime + amount));
+    setTime(prevTime => Math.max(0, prevTime + amount));
     updateCurrentTime(time + amount);
   };
 
@@ -72,39 +68,66 @@ const Timer = ({ timerToggle }: TimerProps) => {
   };
 
   useEffect(() => {
-    console.log("타이머 업데이트", storageTimer.currentTime);
     setTime(storageTimer.currentTime);
   }, [storageTimer.currentTime]);
 
   const formattedTime = formatTime(storageTimer.currentTime);
 
-  return timerToggle ? (
-    <div className="fixed h-full w-80 border border-black bg-white">
+  return (
+    <div className="mb-[8px] flex h-fit w-full flex-col items-start justify-center gap-[18px] rounded-xl bg-light-gray-100 p-[16px]">
+      <div className="text-4xl  font-bold text-div-text">Timer</div>
       <div
         ref={timerRef}
         contentEditable={!isActive}
         suppressContentEditableWarning={true}
         onClick={handleEdit}
-        className="flex justify-center bg-red-200"
+        className="flex w-full justify-center text-6xl font-bold text-div-text"
       >
-        {formattedTime}
+        <div className="">{formattedTime}</div>
       </div>
-      <div className="flex justify-center bg-blue-200">
-        <button onClick={() => handleIncrement(60)}>+1 Minute</button>
-        <button onClick={() => handleIncrement(-60)}>-1 Minute</button>
-        <button onClick={() => handleIncrement(10)}>+10 Seconds</button>
-        <button onClick={() => handleIncrement(-10)}>-10 Seconds</button>
+      <div className="flex w-full justify-center gap-[12px]">
+        <button
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
+          onClick={() => handleIncrement(60)}
+        >
+          + 60
+        </button>
+        <button
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
+          onClick={() => handleIncrement(-60)}
+        >
+          - 60
+        </button>
+        <button
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
+          onClick={() => handleIncrement(30)}
+        >
+          + 30
+        </button>
+        <button
+          className="w-[64px] cursor-pointer rounded-2xl bg-gray-300 p-2 text-center text-[18px] font-bold"
+          onClick={() => handleIncrement(-30)}
+        >
+          - 30
+        </button>
       </div>
-      <div className="flex justify-center gap-8 bg-white">
-        <button onClick={onClickTimerRun}>
+      <div className="flex w-full justify-center gap-12 ">
+        <button
+          className="w-[80px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] text-white"
+          onClick={onClickTimerRun}
+        >
           {storageTimer.timerState ? "Stop" : "Start"}
         </button>
-        <button onClick={onClickTimerReset} disabled={isActive}>
+        <button
+          className="w-[80px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] text-white"
+          onClick={onClickTimerReset}
+          disabled={isActive}
+        >
           Reset
         </button>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default Timer;
