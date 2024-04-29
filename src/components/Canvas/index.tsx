@@ -55,7 +55,6 @@ import ProcessNav from "../Layout/ProcessNav";
 
 import useModalStore from "@/store/useModalStore";
 import Modal from "@/components/Modal";
-import { Presence } from "~/liveblocks.config";
 
 const MAX_LAYERS = 100;
 
@@ -80,14 +79,6 @@ const Canvas = () => {
 
   const { stickerSrc } = useStickerStore();
   useDisableScrollBounce();
-
-  //모달에 step 전달 위한 presence
-  const [myPresence, ...rest] = useMyPresence();
-  const { currentProcess } = myPresence;
-
-  useEffect(() => {
-    console.log("myPre", currentProcess);
-  }, []);
 
   const deleteLayers = useDeleteLayers();
   const { isOpen, changeModalState } = useModalStore();
@@ -589,9 +580,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
-      {isOpen && (
-        <Modal currentProcess={currentProcess} onClose={changeModalState} />
-      )}
+      {isOpen && <Modal onClose={changeModalState} />}
     </div>
   );
 };
