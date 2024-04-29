@@ -1,6 +1,7 @@
 "use client";
 
 import React, {
+  use,
   useCallback,
   useEffect,
   useMemo,
@@ -54,6 +55,7 @@ import ProcessNav from "../Layout/ProcessNav";
 
 import useModalStore from "@/store/useModalStore";
 import Modal from "@/components/Modal";
+import { Presence } from "~/liveblocks.config";
 
 const MAX_LAYERS = 100;
 
@@ -62,7 +64,6 @@ const Canvas = () => {
   const layerIds = useStorage((root) => root.layerIds);
   const groupCall = useStorage((root) => root.groupCall);
   const cursorPanel = useRef(null);
-
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
   const [canvasState, setState] = useState<CanvasState>({
     mode: CanvasMode.None,
@@ -80,11 +81,20 @@ const Canvas = () => {
   const { stickerSrc } = useStickerStore();
   useDisableScrollBounce();
 
+  //모달에 step 전달 위한 presence
+  const [myPresence, ...rest] = useMyPresence();
+  const { currentProcess } = myPresence;
+
+  useEffect(() => {
+    console.log("myPre", currentProcess);
+  }, []);
+
   const deleteLayers = useDeleteLayers();
   const { isOpen, changeModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
@@ -579,7 +589,9 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
-      {isOpen && <Modal onClose={changeModalState} />}
+      {isOpen && (
+        <Modal currentProcess={currentProcess} onClose={changeModalState} />
+      )}
     </div>
   );
 };
