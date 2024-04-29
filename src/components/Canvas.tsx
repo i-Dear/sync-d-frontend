@@ -502,13 +502,6 @@ const Canvas = () => {
 
   return (
     <div className="relative h-full w-full touch-none bg-surface-canvas">
-      <div className="absolute right-0 top-0 z-10 h-20 w-40">
-        <LiveAvatars />
-      </div>
-      <div className="absolute left-40 top-0 z-10 h-fit w-fit">
-        <MusicPlayer />
-      </div>
-
       <RightSideToolsBar roomId={groupCall.roomId} />
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div

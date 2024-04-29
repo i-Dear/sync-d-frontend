@@ -31,46 +31,46 @@ export default function LiveAvatars() {
   const hasMoreUsers = others.length > MAX_OTHERS;
 
   return (
-    <div
-      style={{
-        minHeight: avatarProps.size + "px",
-        display: "flex",
-        paddingLeft: "0.75rem",
-        overflow: "hidden",
-      }}
-    >
-      <AnimatePresence>
-        {hasMoreUsers ? (
-          <motion.div key="count" {...animationProps}>
-            <Avatar {...avatarProps} variant="more" count={others.length - 3} />
-          </motion.div>
-        ) : null}
-
-        {others
-          .slice(0, MAX_OTHERS)
-          .reverse()
-          .map(([key, info]) => (
-            <motion.div key={key} {...animationProps}>
+    <div className="flex-col items-start justify-center">
+      <span className="text-2xl font-bold text-div-text">Collaborators</span>
+      <div className="mt-2 flex min-h-[40px] overflow-hidden pl-[12px]">
+        <AnimatePresence>
+          {hasMoreUsers ? (
+            <motion.div key="count" {...animationProps}>
               <Avatar
                 {...avatarProps}
-                src={info.avatar}
-                name={info.name}
-                color={info.color}
+                variant="more"
+                count={others.length - 3}
               />
             </motion.div>
-          ))}
+          ) : null}
 
-        {currentUser ? (
-          <motion.div key="you" {...animationProps}>
-            <Avatar
-              {...avatarProps}
-              src={currentUser.info.avatar}
-              name={currentUser.info.name + " (you)"}
-              color={currentUser.info.color}
-            />
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+          {others
+            .slice(0, MAX_OTHERS)
+            .reverse()
+            .map(([key, info]) => (
+              <motion.div key={key} {...animationProps}>
+                <Avatar
+                  {...avatarProps}
+                  src={info.avatar}
+                  name={info.name}
+                  color={info.color}
+                />
+              </motion.div>
+            ))}
+
+          {currentUser ? (
+            <motion.div key="you" {...animationProps}>
+              <Avatar
+                {...avatarProps}
+                src={currentUser.info.avatar}
+                name={currentUser.info.name + " (you)"}
+                color={currentUser.info.color}
+              />
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

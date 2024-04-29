@@ -9,8 +9,8 @@ type GroupCallProps = {
 
 const GroupCall = (props: GroupCallProps) => {
   return (
-    <div className="flex h-fit w-full flex-col items-start justify-center rounded-xl bg-light-gray-100 p-[16px]">
-      <div className="text-2xl  font-bold text-div-text">Voice Chat</div>
+    <div className="bg-light-gray-100 flex h-fit w-full flex-col items-start justify-center rounded-xl p-[16px]">
+      <div className="text-div-text  text-2xl font-bold">Voice Chat</div>
       <LiveCallUsers />
       <GroupCallButton roomId={props.roomId} />
     </div>

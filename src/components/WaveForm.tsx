@@ -13,15 +13,19 @@ import WaveSurfer from "wavesurfer.js";
 
 const WavesurferPlayer = dynamic(() => import("@wavesurfer/react"), {
   ssr: false,
-  loading: () => <div style={{ height: getHeight() }} />,
+  loading: () => (
+    <div className="text-waveform-gray flex h-[20px] w-full items-center justify-center text-xl">
+      Loading...
+    </div>
+  ),
 });
 
-type Props = {
+type WaveFormProps = {
   percentage: number;
   src: string;
 };
 
-export function WaveForm({ percentage, src }: Props) {
+export function WaveForm({ percentage, src }: WaveFormProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wavesurferRef = useRef<WaveSurfer | null>(null);
   const [hoverOffset, setHoverOffset] = useState(0);
@@ -49,16 +53,16 @@ export function WaveForm({ percentage, src }: Props) {
   return (
     <div
       ref={containerRef}
-      className="group relative isolate h-[--wave-height] w-full overflow-hidden [--hover-percentage:0%]"
+      className="group relative isolate h-[20px] w-full overflow-hidden [--hover-percentage:0%]"
       style={{ "--hover-amount": `${hoverOffset}px` } as CSSProperties}
       onPointerMove={handlePointerMove}
     >
       <WavesurferPlayer
         waveColor="#A8A8A8"
-        progressColor="#FB233B"
-        height={getHeight()}
-        barWidth={2}
-        barGap={0}
+        progressColor="#369EFF"
+        height={20}
+        barWidth={1}
+        barGap={1}
         barRadius={1}
         url={src}
         backend="WebAudio"
@@ -66,17 +70,5 @@ export function WaveForm({ percentage, src }: Props) {
       />
       <div className="pointer-events-none absolute inset-0 z-10 h-full translate-x-[calc(-100%+var(--hover-amount))] bg-neutral-50/30 opacity-0 transition-opacity duration-150 ease-out lg:group-hover:opacity-100" />
     </div>
-  );
-}
-
-function getHeight() {
-  if (typeof window === "undefined") {
-    return 0;
-  }
-
-  return parseInt(
-    getComputedStyle(
-      document.querySelector(":root") as HTMLElement,
-    ).getPropertyValue("--wave-height"),
   );
 }
