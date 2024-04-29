@@ -52,6 +52,9 @@ import Path from "@/components/CanvasLayer/Path";
 import CollabToolAside from "../Layout/CollabToolAside";
 import ProcessNav from "../Layout/ProcessNav";
 
+import useModalStore from "@/store/useModalStore";
+import Modal from "@/components/Modal";
+
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
@@ -78,7 +81,7 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
-
+  const { isOpen, changeModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
@@ -576,6 +579,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
+      {isOpen && <Modal onClose={changeModalState} />}
     </div>
   );
 };
