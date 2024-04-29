@@ -54,6 +54,9 @@ import { MusicPlayer } from "./MusicPlayer";
 import useStickerStore from "@/store/useStickerSrcStore";
 import RightSideToolsBar from "./RightSideToolsBar";
 
+import useModalStore from "@/store/useModalStore";
+import Modal from "@/components/Modal";
+
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
@@ -80,7 +83,7 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
-
+  const { isOpen, changeModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
@@ -585,6 +588,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
+      {isOpen && <Modal onClose={changeModalState} />}
     </div>
   );
 };
