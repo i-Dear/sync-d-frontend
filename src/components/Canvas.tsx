@@ -57,7 +57,6 @@ import RightSideToolsBar from "./RightSideToolsBar";
 
 import useModalStore from "@/store/useModalStore";
 import Modal from "@/components/Modal";
-import { Presence } from "~/liveblocks.config";
 
 const MAX_LAYERS = 100;
 
