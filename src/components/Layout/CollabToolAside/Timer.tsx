@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useMutation, useStorage } from "~/liveblocks.config";
 import formatTime from "@/utils/formatTimer";
+import ProcessSkipButton from "./ProcessSkipButton";
 
 const Timer = () => {
   const timerRef = useRef<HTMLDivElement>(null);
-  const storageTimer = useStorage(root => root.timer);
+  const storageTimer = useStorage((root) => root.timer);
   const [isActive, setIsActive] = useState<boolean>(storageTimer.timerState); //RoomProvider에서 받아온 timerState
   const [time, setTime] = useState<number>(storageTimer.defaultTime);
 
@@ -27,7 +28,7 @@ const Timer = () => {
 
     if (isActive) {
       interval = setInterval(() => {
-        setTime(prevTime => {
+        setTime((prevTime) => {
           if (prevTime <= 0) {
             clearInterval(interval);
             updateTimerState(false);
@@ -53,7 +54,7 @@ const Timer = () => {
   };
 
   const handleIncrement = (amount: number) => {
-    setTime(prevTime => Math.max(0, prevTime + amount));
+    setTime((prevTime) => Math.max(0, prevTime + amount));
     updateCurrentTime(time + amount);
   };
 
@@ -125,6 +126,7 @@ const Timer = () => {
         >
           Reset
         </button>
+        <ProcessSkipButton />
       </div>
     </div>
   );
