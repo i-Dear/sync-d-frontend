@@ -6,6 +6,7 @@ import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { Layer } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
+import { steps } from "@/lib/data";
 
 interface RoomProps {
   roomId: string;
@@ -39,6 +40,7 @@ const Room = ({ roomId }: RoomProps) => {
           currentTime: 180,
           defaultTime: 180,
         }),
+        process: new LiveList(steps),
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>
