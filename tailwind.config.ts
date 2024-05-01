@@ -23,6 +23,7 @@ const config: Config = {
         "foreground-100": "#999",
         "light-gray-100": "#F0F2F5",
         "light-gray-200": "#3D4D5C",
+        "primary-300": "#A5D0F9",
         primary: "#369EFF",
         "transparent-primary": "rgba(54, 158, 255, 0.4)",
         "background-100": "#ffffff",
