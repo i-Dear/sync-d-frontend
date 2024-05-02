@@ -1,6 +1,6 @@
 import { useMyPresence, useUpdateMyPresence } from "~/liveblocks.config";
 import Image from "next/image";
-import { exampleImages } from "@/lib/example";
+import { exampleImages } from "@/lib/guideImages";
 import GuideCarousel from "./GuideCarousel";
 interface ModalProps {
   onClose: () => void;
