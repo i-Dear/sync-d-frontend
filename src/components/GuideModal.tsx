@@ -16,7 +16,7 @@ const HelpModal = ({ onClose }: ModalProps) => {
   return (
     <div className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[24rem] py-[4rem] text-center">
       <div className=" flex h-full w-full flex-col bg-white">
-        <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
+        <div className="border-grey-100 flex h-[50px] max-w-full items-center justify-center border p-[8px]">
           {currentProcess}단계 안내문
         </div>
         <GuideCarousel exampleList={exampleList} />
