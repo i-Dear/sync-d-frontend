@@ -6,7 +6,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const HelpModal = ({ onClose }: ModalProps) => {
+const GuideModal = ({ onClose }: ModalProps) => {
   const [myPresence] = useMyPresence();
   const { currentProcess } = myPresence;
 
@@ -32,4 +32,4 @@ const HelpModal = ({ onClose }: ModalProps) => {
   );
 };
 
-export default HelpModal;
+export default GuideModal;
