@@ -22,8 +22,8 @@ const GuideCarousel = ({ exampleList }: StyledCarouselProps) => {
             <CarouselItem className="flex justify-center " key={index}>
               <div className="flex justify-center">
                 <Image
-                  width={850}
-                  height={300}
+                  width={650}
+                  height={200}
                   src={example.src}
                   alt={`guide`}
                 />
