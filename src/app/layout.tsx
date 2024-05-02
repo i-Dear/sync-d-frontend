@@ -1,4 +1,3 @@
-import TopNavBar from "@/components/TopNavBar";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
@@ -23,10 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
-        <TopNavBar />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
