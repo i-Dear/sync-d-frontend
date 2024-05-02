@@ -78,7 +78,6 @@ const Timer = () => {
       <div className="text-4xl  font-bold text-div-text">Timer</div>
       <div
         ref={timerRef}
-        contentEditable={!isActive}
         suppressContentEditableWarning={true}
         onClick={handleEdit}
         className="flex w-full justify-center text-6xl font-bold text-div-text"
