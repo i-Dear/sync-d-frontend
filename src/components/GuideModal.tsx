@@ -9,7 +9,6 @@ interface ModalProps {
 const HelpModal = ({ onClose }: ModalProps) => {
   const [myPresence] = useMyPresence();
   const { currentProcess } = myPresence;
-  console.log(currentProcess);
 
   const exampleList = exampleImages[currentProcess - 1];
 
