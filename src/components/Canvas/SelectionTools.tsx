@@ -1,6 +1,6 @@
 import { memo } from "react";
 import ColorPicker from "./ColorPicker";
-import IconButton from "./IconButton";
+import IconButton from "@/components/IconButton";
 import { Camera, Color } from "@/lib/types";
 import useDeleteLayers from "@/hooks/useDeleteLayers";
 import useSelectionBounds from "@/hooks/useSelectionBounds";

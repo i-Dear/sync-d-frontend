@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar } from "./Avatar";
+import { Avatar } from "@/components/Avatar";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOthersMapped, useSelf } from "~/liveblocks.config";
 

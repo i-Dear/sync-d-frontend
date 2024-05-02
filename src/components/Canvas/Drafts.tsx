@@ -2,7 +2,7 @@ import { useOthersMapped } from "~/liveblocks.config";
 import { shallow } from "@liveblocks/client";
 import React from "react";
 import { colorToCss } from "@/lib/utils";
-import Path from "./Path";
+import Path from "@/components/CanvasLayer/Path";
 
 function Drafts() {
   const others = useOthersMapped(

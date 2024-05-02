@@ -1,6 +1,6 @@
 "use client";
 
-import { WaveForm } from "@/components/WaveForm";
+import { WaveForm } from "./WaveForm";
 import { useMutation, useStorage } from "~/liveblocks.config";
 import { useSkipToListener } from "~/src/hooks/useSkipTo";
 import * as Slider from "@radix-ui/react-slider";
@@ -242,7 +242,7 @@ export function MusicPlayer() {
             <span className="text-xl font-medium text-div-text">
               {musics[0].title}
             </span>
-            <span className="text-light-gray-200 text-lg">
+            <span className="text-lg text-light-gray-200">
               {musics[0].artist}
             </span>
           </div>
@@ -262,7 +262,7 @@ export function MusicPlayer() {
               audioRef.current.volume = value;
             }}
           >
-            <Slider.Track className="bg-transparent-primary relative h-[4px] flex-grow rounded-full" />
+            <Slider.Track className="relative h-[4px] flex-grow rounded-full bg-primary-300" />
             <Slider.Range className="absolute h-[4px] rounded-full bg-primary" />
             <Slider.Thumb className="block h-[12px] w-[12px] rounded-full bg-primary" />
           </Slider.Root>

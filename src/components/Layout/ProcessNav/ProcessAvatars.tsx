@@ -1,7 +1,7 @@
 import React from "react";
-import { Avatar } from "./Avatar";
+import { Avatar } from "@/components/Avatar";
 import { AnimatePresence, motion } from "framer-motion";
-import { useOthersMapped, useSelf } from "~/liveblocks.config";
+import { useOthersMapped } from "~/liveblocks.config";
 import { shallow } from "@liveblocks/client";
 
 const MAX_OTHERS = 3;

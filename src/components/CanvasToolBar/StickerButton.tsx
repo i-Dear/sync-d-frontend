@@ -1,6 +1,6 @@
 import React from "react";
 import IconButton from "../IconButton";
-import StickerPicker from "../StickerPicker";
+import StickerPicker from "../Canvas/StickerPicker";
 
 type Props = {
   isActive: boolean;

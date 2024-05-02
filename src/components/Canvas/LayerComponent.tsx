@@ -1,13 +1,13 @@
 import { useStorage } from "~/liveblocks.config";
 import React, { memo } from "react";
-import Ellipse from "./Ellipse";
-import Path from "./Path";
-import { CanvasMode, LayerType } from "@/lib/types";
 import { colorToCss } from "@/lib/utils";
-import Rectangle from "./Rectangle";
-import Note from "./Note";
-import Text from "./Text";
-import Sticker from "./Sticker";
+import { CanvasMode, LayerType } from "@/lib/types";
+import Ellipse from "@/components/CanvasLayer/Ellipse";
+import Path from "@/components/CanvasLayer/Path";
+import Rectangle from "@/components/CanvasLayer/Rectangle";
+import Note from "@/components/CanvasLayer/Note";
+import Text from "@/components/CanvasLayer/Text";
+import Sticker from "@/components/CanvasLayer/Sticker";
 
 type Props = {
   id: string;
