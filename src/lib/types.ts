@@ -70,6 +70,7 @@ export type NoteLayer = {
   height: number;
   width: number;
   fill: Color;
+  value: string;
 };
 
 export type PathLayer = {

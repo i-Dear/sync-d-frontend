@@ -1,5 +1,8 @@
 import { NoteLayer } from "@/lib/types";
-import { colorToCss } from "@/lib/utils";
+import { cn, colorToCss } from "@/lib/utils";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { useMutation } from "~/liveblocks.config";
+import { TextLayer } from "@/lib/types";
 
 type Props = {
   id: string;
@@ -14,41 +17,25 @@ export default function Note({
   id,
   selectionColor,
 }: Props) {
-  const { x, y, width, height, fill } = layer;
+  const { x, y, width, height, fill, value } = layer;
 
   return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill ? colorToCss(fill) : "#CCC"}
-        strokeWidth={1}
-        stroke={selectionColor || "transparent"}
-        pointerEvents="none" // Prevent the rectangle from intercepting pointer events
+    <foreignObject
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      onPointerDown={(e) => onPointerDown(e, id)}
+    >
+      <ContentEditable
+        html={"Note"}
+        onChange={() => {}}
+        className="flex h-full w-full items-center justify-center text-center outline-none drop-shadow-md"
+        style={{
+          fontSize: 24,
+          color: fill ? colorToCss(fill) : "black",
+        }}
       />
-      <foreignObject x={x} y={y} width={width} height={height}>
-        {/* HTML div with contenteditable attribute */}
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-            resize: "none",
-            background: "none",
-            outline: "none",
-            padding: "8px",
-            boxSizing: "border-box",
-            fontFamily: "Arial",
-            fontSize: "14px",
-            color: "#000",
-            overflow: "auto", // Ensure scrollbars appear when content overflows
-          }}
-          contentEditable // Set contenteditable attribute to true
-          onPointerDown={(e) => onPointerDown(e, id)}
-        />
-      </foreignObject>
-    </g>
+    </foreignObject>
   );
 }
