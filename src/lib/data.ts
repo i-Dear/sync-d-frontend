@@ -1,11 +1,6 @@
 // 일단 잠시 여기에 두고 추후 types.ts로 옮기자.
-export type Process = {
-  step: number;
-  title: string;
-  description: string;
-  camera: { x: number; y: number };
-  done: boolean;
-};
+
+import { Process } from "./types";
 
 export const steps: Process[] = [
   {

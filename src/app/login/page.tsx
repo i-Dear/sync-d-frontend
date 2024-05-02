@@ -43,7 +43,7 @@ const LoginPage = () => {
     });
 
     window.localStorage.setItem("token", userInfo.token);
-    router.push(`/dashboard/${userInfo._id}`);
+    router.push(`/${userInfo._id}/dashboard`);
   };
 
   const handleGoogleLogin = () => {

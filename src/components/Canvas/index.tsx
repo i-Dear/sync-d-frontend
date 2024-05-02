@@ -16,7 +16,6 @@ import {
   useOthersMapped,
   useCanUndo,
   useCanRedo,
-  useMyPresence,
 } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
 import {
@@ -38,21 +37,20 @@ import {
   pointerEventToCanvasPoint,
   resizeBounds,
 } from "@/lib/utils";
-import SelectionBox from "@/components/SelectionBox";
-import LayerComponent from "@/components/LayerComponent";
-import SelectionTools from "@/components/SelectionTools";
-import useDisableScrollBounce from "../hooks/useDisableScrollBounce";
-import useDeleteLayers from "../hooks/useDeleteLayers";
-import Drafts from "@/components/Drafts";
-import Path from "@/components/Path";
-import ToolsBar from "@/components/ToolsBar";
-import Cursors from "@/components/Cursors";
+import SelectionBox from "./SelectionBox";
+import LayerComponent from "./LayerComponent";
+import SelectionTools from "./SelectionTools";
+import useDisableScrollBounce from "@/hooks/useDisableScrollBounce";
+import useDeleteLayers from "@/hooks/useDeleteLayers";
+import Drafts from "./Drafts";
+
+import ToolsBar from "@/components/CanvasToolBar";
+import Cursors from "./Cursors";
 import useUserInfoStore from "@/hooks/useUserInfoStore";
-import ProcessSideNav from "./ProcessSideNav";
-import LiveAvatars from "./LiveAvatars";
-import { MusicPlayer } from "./MusicPlayer";
 import useStickerStore from "@/store/useStickerSrcStore";
-import RightSideToolsBar from "./RightSideToolsBar";
+import Path from "@/components/CanvasLayer/Path";
+import CollabToolAside from "../Layout/CollabToolAside";
+import ProcessNav from "../Layout/ProcessNav";
 
 const MAX_LAYERS = 100;
 
@@ -502,8 +500,8 @@ const Canvas = () => {
 
   return (
     <div>
-      <RightSideToolsBar roomId={groupCall.roomId} />
-      <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
+      <CollabToolAside roomId={groupCall.roomId} />
+      <ProcessNav userInfo={userInfo} setCamera={setCamera} />
       <div
         className="relative h-full w-full touch-none bg-white"
         ref={cursorPanel}

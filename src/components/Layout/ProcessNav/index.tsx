@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const ProcessSideNav = ({
+const ProcessNav = ({
   userInfo,
   setCamera,
 }: {
@@ -114,4 +114,4 @@ const ProcessSideNav = ({
   );
 };
 
-export default ProcessSideNav;
+export default ProcessNav;

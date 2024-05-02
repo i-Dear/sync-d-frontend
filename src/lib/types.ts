@@ -1,4 +1,16 @@
-import exp from "constants";
+export type NavListType = {
+  title: string;
+  href: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+};
+
+export type Process = {
+  step: number;
+  title: string;
+  description: string;
+  camera: { x: number; y: number };
+  done: boolean;
+};
 
 export type Color = {
   r: number;
