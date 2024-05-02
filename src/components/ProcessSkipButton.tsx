@@ -1,6 +1,6 @@
 import { useMyPresence, useUpdateMyPresence } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
-import Modal from "@/components/Modal";
+import Modal from "@/components/HelpModal";
 
 const ProcessSkipButton = () => {
   const [myPresence, ...rest] = useMyPresence();

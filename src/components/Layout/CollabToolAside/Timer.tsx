@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useMutation, useStorage } from "~/liveblocks.config";
 import formatTime from "@/utils/formatTimer";
-import ProcessSkipButton from "./ProcessSkipButton";
 
 const Timer = () => {
   const timerRef = useRef<HTMLDivElement>(null);
@@ -126,7 +125,6 @@ const Timer = () => {
         >
           Reset
         </button>
-        <ProcessSkipButton />
       </div>
     </div>
   );
