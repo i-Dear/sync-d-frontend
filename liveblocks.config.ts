@@ -6,6 +6,7 @@ import {
 } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { Color, Layer, Point, UserInfo } from "@/lib/types";
+import { Process } from "@/lib/data";
 
 const client = createClient({
   authEndpoint: "/api/liveblocks-auth",
@@ -51,6 +52,7 @@ type Storage = {
   }>;
   layers: LiveMap<string, LiveObject<Layer>>;
   layerIds: LiveList<string>;
+  process: LiveList<Process>;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each User, as

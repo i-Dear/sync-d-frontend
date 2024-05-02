@@ -501,11 +501,11 @@ const Canvas = () => {
   }, [insertInitialLayer, layerIds.length]);
 
   return (
-    <div className="relative h-full w-full touch-none bg-surface-canvas">
+    <div>
       <RightSideToolsBar roomId={groupCall.roomId} />
       <ProcessSideNav userInfo={userInfo} setCamera={setCamera} />
       <div
-        className="relative h-full w-full touch-none bg-surface-canvas"
+        className="relative h-full w-full touch-none bg-white"
         ref={cursorPanel}
       >
         <Cursors cursorPanel={cursorPanel} />

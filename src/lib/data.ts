@@ -1,82 +1,95 @@
 // 일단 잠시 여기에 두고 추후 types.ts로 옮기자.
-interface ProcessStep {
+export type Process = {
   step: number;
   title: string;
   description: string;
   camera: { x: number; y: number };
-}
+  done: boolean;
+};
 
-export const steps: ProcessStep[] = [
+export const steps: Process[] = [
   {
     step: 1,
     title: "아이스 브레이킹",
     description: "서로의 이름과 강점, 약점를 소개해보세요.",
     camera: { x: 0, y: 0 },
+    done: false,
   },
   {
     step: 2,
-    title: "프로젝트 참여 목적 및 목표 공유",
+    title: "팀 목표 설정",
     description: "프로젝트의 참여 목적을 공유해보세요.",
-    camera: { x: 0, y: -100 },
+    camera: { x: 0, y: -1000 },
+    done: false,
   },
   {
     step: 3,
-    title: "개인 주제 발표",
+    title: "문제 상황 발표 & 투표",
     description: "각자의 주제를 발표해보세요.",
-    camera: { x: 0, y: -200 },
+    camera: { x: 0, y: -2000 },
+    done: false,
   },
   {
     step: 4,
     title: "페르소나 작성",
     description: "페르소나를 작성해보세요.",
-    camera: { x: 0, y: -300 },
+    camera: { x: 0, y: -3000 },
+    done: false,
   },
   {
     step: 5,
-    title: "문제 정의",
+    title: "문제 정의 (WHAT)",
     description: "문제를 정의해보세요.",
-    camera: { x: 0, y: -400 },
+    camera: { x: 0, y: -4000 },
+    done: false,
   },
   {
     step: 6,
-    title: "원인 정의",
+    title: "원인 정의 (WHY)",
     description: "원인을 정의해보세요.",
-    camera: { x: 0, y: -500 },
+    camera: { x: 0, y: -5000 },
+    done: false,
   },
   {
     step: 7,
-    title: "해결 방안 탐색",
+    title: "솔루션 탐색 (HOW)",
     description: "해결 방안을 탐색해보세요.",
-    camera: { x: 0, y: -600 },
+    camera: { x: 0, y: -6000 },
+    done: false,
   },
   {
     step: 8,
-    title: "Pain Points, Value 선정",
+    title: "서비스 가치 결정",
     description: "Pain Points와 Value를 선정해보세요.",
-    camera: { x: 0, y: -700 },
+    camera: { x: 0, y: -7000 },
+    done: false,
   },
   {
     step: 9,
     title: "이해관계도 작성",
     description: "이해관계도를 작성해보세요.",
-    camera: { x: 0, y: -800 },
+    camera: { x: 0, y: -8000 },
+    done: false,
   },
   {
     step: 10,
-    title: "이해관계자 별 시나리오 작성",
+    title: "시나리오 작성",
     description: "이해관계자 별 시나리오를 작성해보세요.",
-    camera: { x: 0, y: -900 },
+    camera: { x: 0, y: -9000 },
+    done: false,
   },
   {
     step: 11,
-    title: "Epic, User Story 작성",
+    title: "유저 스토리 작성",
     description: "Epic과 User Story를 작성해보세요.",
-    camera: { x: 0, y: -1000 },
+    camera: { x: 0, y: -10000 },
+    done: false,
   },
   {
     step: 12,
     title: "메뉴 트리 작성",
     description: "메뉴 트리를 작성해보세요.",
-    camera: { x: 0, y: -1100 },
+    camera: { x: 0, y: -11000 },
+    done: false,
   },
 ];
