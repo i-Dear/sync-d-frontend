@@ -7,7 +7,7 @@ interface ModalStoreType {
 }
 
 const useModalStore = create<ModalStoreType>((set) => ({
-  isOpen: true,
+  isOpen: false,
   currentProcess: 1,
   changeModalState: () => set((state) => ({ isOpen: !state.isOpen })),
 }));
