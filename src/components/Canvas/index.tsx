@@ -56,6 +56,9 @@ import ProcessNav from "../Layout/ProcessNav";
 import useModalStore from "@/store/useModalStore";
 import Modal from "@/components/Modal";
 
+import useModalStore from "@/store/useModalStore";
+import Modal from "@/components/Modal";
+
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
