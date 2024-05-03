@@ -1,6 +1,8 @@
 import { useMyPresence, useUpdateMyPresence } from "~/liveblocks.config";
 import { useMutation, useStorage } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
+import { skip } from "node:test";
+import { Process } from "@/lib/types";
 
 const SkipModal = () => {
   const [myPresence] = useMyPresence();
@@ -10,7 +12,11 @@ const SkipModal = () => {
 
   const skipProcess = useMutation(({ storage }) => {
     const storageProcess = storage.get("process");
-    setModalState(false);
+    const updatedProcess = {
+      ...storageProcess.get(currentProcess),
+      done: true,
+    } as Process;
+    storageProcess.set(currentProcess, updatedProcess);
   }, []);
 
   return (
