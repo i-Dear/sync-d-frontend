@@ -13,6 +13,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+import useModalStore from "@/store/useModalStore";
+
 const ProcessNav = ({
   userInfo,
   setCamera,
@@ -52,6 +54,8 @@ const ProcessNav = ({
     setCurrentProcess(step);
   };
 
+  const { isOpen, changeModalState } = useModalStore();
+
   return (
     <motion.nav
       className="absolute left-0 z-10 flex h-full flex-col items-start justify-start bg-white pt-[1rem] shadow-md shadow-light-gray-100"
@@ -68,7 +72,14 @@ const ProcessNav = ({
         <span className="h-full text-[1.8rem] font-semibold leading-[4.3rem] tracking-[-0.03rem]">
           {`${currentProcess}. ${processes[currentProcess - 1].title}`}
         </span>
-        <Image src="/help.svg" alt="Help" width={18} height={18} />
+        <Image
+          src="/help.svg"
+          alt="Help"
+          width={18}
+          height={18}
+          className="cursor-pointer"
+          onClick={() => changeModalState()}
+        />
       </div>
 
       <ul className="flex flex-col overflow-y-scroll scrollbar-hide">
