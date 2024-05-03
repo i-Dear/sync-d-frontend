@@ -81,7 +81,7 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
-  const { isOpen, changeModalState } = useModalStore();
+  const { isOpen } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
@@ -580,7 +580,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
-      {isOpen && <Modal onClose={changeModalState} />}
+      {isOpen && <Modal />}
     </div>
   );
 };
