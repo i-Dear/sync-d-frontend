@@ -30,6 +30,7 @@ import {
   Side,
   XYWH,
   Point,
+  TemplateType,
 } from "@/lib/types";
 import {
   colorToCss,
@@ -54,6 +55,8 @@ import Path from "@/components/CanvasLayer/Path";
 import CollabToolAside from "../Layout/CollabToolAside";
 import ProcessNav from "../Layout/ProcessNav";
 import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
+import TemplateComponent from "./TemplateComponent";
+import { syncTemplates } from "@/lib/templates";
 
 import useModalStore from "@/store/useModalStore";
 import Modal from "@/components/GuideModal";
@@ -64,6 +67,7 @@ const Canvas = () => {
   const userInfo = useUserInfoStore();
   const layerIds = useStorage((root) => root.layerIds);
   const groupCall = useStorage((root) => root.groupCall);
+  const templates = useStorage((root) => root.templates);
   const cursorPanel = useRef(null);
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
   const [canvasState, setState] = useState<CanvasState>({
@@ -194,31 +198,16 @@ const Canvas = () => {
     [lastUsedColor, stickerSrc],
   );
 
-  const insertInitialLayer = useMutation(
-    ({ storage, setMyPresence }) => {
-      const liveLayers = storage.get("layers");
-      if (liveLayers.size >= MAX_LAYERS) {
-        return;
-      }
+  const InitTemplate = useMutation(({ storage }) => {
+    const templates = storage.get("templates");
 
-      const liveLayerIds = storage.get("layerIds");
-      const layerId = nanoid();
-      const layer = new LiveObject({
-        type: LayerType.Ellipse,
-        x: 100,
-        y: 100,
-        height: 100,
-        width: 100,
-        fill: lastUsedColor,
-      });
-      liveLayerIds.push(layerId);
-      liveLayers.set(layerId, layer as unknown as LiveObject<Layer>);
+    console.log(templates, syncTemplates);
+    templates.clear();
 
-      setMyPresence({ selection: [layerId] }, { addToHistory: true });
-      setState({ mode: CanvasMode.None });
-    },
-    [lastUsedColor],
-  );
+    for (const template of syncTemplates) {
+      templates.push(template);
+    }
+  }, []);
 
   /**
    * Transform the drawing of the current user in a layer and reset the presence to delete the draft.
@@ -498,12 +487,11 @@ const Canvas = () => {
     ],
   );
 
-  // Insert the first layer when the user joins the room
   useEffect(() => {
-    if (layerIds.length === 0) {
-      insertInitialLayer();
+    if (syncTemplates.length !== templates.length) {
+      InitTemplate();
     }
-  }, [insertInitialLayer, layerIds.length]);
+  }, [templates.length, InitTemplate]);
 
   return (
     <div>
@@ -535,6 +523,10 @@ const Canvas = () => {
               transform: `translate(${camera.x}px, ${camera.y}px)`,
             }}
           >
+            {templates.length &&
+              templates.map((template) => (
+                <TemplateComponent key={template.id} template={template} />
+              ))}
             {layerIds.map((layerId) => (
               <LayerComponent
                 key={layerId}
