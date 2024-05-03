@@ -17,6 +17,7 @@ const SkipModal = () => {
       done: true,
     } as Process;
     storageProcess.set(currentProcess, updatedProcess);
+    setModalState(false);
   }, []);
 
   return (
