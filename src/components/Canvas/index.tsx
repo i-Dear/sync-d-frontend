@@ -1,6 +1,7 @@
 "use client";
 
 import React, {
+  use,
   useCallback,
   useEffect,
   useMemo,
@@ -52,6 +53,9 @@ import Path from "@/components/CanvasLayer/Path";
 import CollabToolAside from "../Layout/CollabToolAside";
 import ProcessNav from "../Layout/ProcessNav";
 
+import useModalStore from "@/store/useModalStore";
+import Modal from "@/components/GuideModal";
+
 const MAX_LAYERS = 100;
 
 const Canvas = () => {
@@ -59,7 +63,6 @@ const Canvas = () => {
   const layerIds = useStorage((root) => root.layerIds);
   const groupCall = useStorage((root) => root.groupCall);
   const cursorPanel = useRef(null);
-
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
   const [canvasState, setState] = useState<CanvasState>({
     mode: CanvasMode.None,
@@ -78,10 +81,11 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
-
+  const { isOpen, changeModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
@@ -576,6 +580,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
+      {isOpen && <Modal onClose={changeModalState} />}
     </div>
   );
 };
