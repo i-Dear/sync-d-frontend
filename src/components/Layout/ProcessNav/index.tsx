@@ -54,7 +54,7 @@ const ProcessNav = ({
     setCurrentProcess(step);
   };
 
-  const { isOpen, setModalState, setModalKey } = useModalStore();
+  const { isOpen, setModalState, setModalType } = useModalStore();
 
   return (
     <motion.nav
@@ -79,7 +79,7 @@ const ProcessNav = ({
           height={18}
           className="cursor-pointer"
           onClick={() => {
-            setModalState(true), setModalKey("skip");
+            setModalState(true), setModalType("skip");
           }}
         />
       </div>

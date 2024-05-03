@@ -13,9 +13,9 @@ const ModalMap: ModalMapType = {
 };
 
 const Modal = () => {
-  const { modalKey } = useModalStore();
+  const { modalType } = useModalStore();
 
-  const ModalComponent = ModalMap[modalKey];
+  const ModalComponent = ModalMap[modalType];
 
   return (
     <div>
