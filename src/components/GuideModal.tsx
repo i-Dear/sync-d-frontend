@@ -1,15 +1,13 @@
 import { useMyPresence, useUpdateMyPresence } from "~/liveblocks.config";
+import useModalStore from "@/store/useModalStore";
 import Image from "next/image";
 import { exampleImages } from "@/lib/guideImages";
 import GuideCarousel from "./GuideCarousel";
-interface ModalProps {
-  onClose: () => void;
-}
 
-const GuideModal = ({ onClose }: ModalProps) => {
+const GuideModal = () => {
   const [myPresence] = useMyPresence();
   const { currentProcess } = myPresence;
-
+  const { isOpen, setModalState } = useModalStore();
   const exampleList = exampleImages[currentProcess - 1];
 
   return (
@@ -22,7 +20,7 @@ const GuideModal = ({ onClose }: ModalProps) => {
         <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
           <button
             className="w-[80px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] text-white"
-            onClick={() => onClose()}
+            onClick={() => setModalState(false)}
           >
             닫기
           </button>

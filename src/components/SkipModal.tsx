@@ -1,11 +1,17 @@
 import { useMyPresence, useUpdateMyPresence } from "~/liveblocks.config";
-interface ModalProps {
-  onClose: () => void;
-}
+import { useMutation, useStorage } from "~/liveblocks.config";
+import useModalStore from "@/store/useModalStore";
 
-const SkipModal = ({ onClose }: ModalProps) => {
+const SkipModal = () => {
   const [myPresence] = useMyPresence();
   const { currentProcess } = myPresence;
+
+  const { setModalState } = useModalStore();
+
+  const skipProcess = useMutation(({ storage }) => {
+    const storageProcess = storage.get("process");
+    setModalState(false);
+  }, []);
 
   return (
     <div className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[24rem] py-[4rem] text-center">
@@ -17,13 +23,13 @@ const SkipModal = ({ onClose }: ModalProps) => {
         <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
           <button
             className="bg-grey w-[80px] cursor-pointer rounded-2xl  p-2 text-center text-[18px] text-white"
-            onClick={() => onClose()}
+            onClick={() => setModalState(false)}
           >
             닫기
           </button>
           <button
             className="w-[80px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] text-white"
-            onClick={() => onClose()}
+            onClick={skipProcess}
           >
             스킵
           </button>
