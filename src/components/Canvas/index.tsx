@@ -150,26 +150,7 @@ const Canvas = () => {
     },
     [history],
   );
-
-  const insertTemplate = useMutation(
-    ({ storage }, templateType: TemplateType, position: Point) => {
-      const liveLayers = storage.get("layers");
-
-      const template = new LiveObject({
-        type: templateType,
-        x: position.x,
-        y: position.y,
-        width: 400,
-        height: 200,
-        fill: "#FFF0C8",
-      });
-
-      const layerId = nanoid();
-      setState({ mode: CanvasMode.None });
-    },
-    [],
-  );
-
+  
   /**
    * Insert an ellipse or a rectangle at the given position and select it
    */
@@ -499,7 +480,6 @@ const Canvas = () => {
     ],
   );
 
-  // Insert the first layer when the user joins the room
   useEffect(() => {
     if (syncTemplates.length !== templates.length) {
       resetTemplate();
