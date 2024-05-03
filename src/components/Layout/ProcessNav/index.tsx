@@ -54,7 +54,7 @@ const ProcessNav = ({
     setCurrentProcess(step);
   };
 
-  const { isOpen, changeModalState } = useModalStore();
+  const { isOpen, setModalState, setModalKey } = useModalStore();
 
   return (
     <motion.nav
@@ -78,7 +78,9 @@ const ProcessNav = ({
           width={18}
           height={18}
           className="cursor-pointer"
-          onClick={() => changeModalState()}
+          onClick={() => {
+            setModalState(true), setModalKey("guide");
+          }}
         />
       </div>
 
