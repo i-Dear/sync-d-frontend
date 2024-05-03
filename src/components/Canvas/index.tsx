@@ -54,7 +54,7 @@ import CollabToolAside from "../Layout/CollabToolAside";
 import ProcessNav from "../Layout/ProcessNav";
 
 import useModalStore from "@/store/useModalStore";
-import Modal from "@/components/GuideModal";
+import Modal from "@/components/Modal";
 
 const MAX_LAYERS = 100;
 

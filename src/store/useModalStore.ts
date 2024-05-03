@@ -11,7 +11,9 @@ const useModalStore = create<ModalStoreType>((set) => ({
   modalKey: "",
   isOpen: false,
   setModalState: (open) => set({ isOpen: open }),
-  setModalKey: (key) => set({ modalKey: key }),
+  setModalKey: (key) => {
+    set({ modalKey: key });
+  },
 }));
 
 export default useModalStore;
