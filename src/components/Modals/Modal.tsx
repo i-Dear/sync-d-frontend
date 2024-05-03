@@ -13,12 +13,9 @@ const ModalMap: ModalMapType = {
 };
 
 const Modal = () => {
-  const { modalKey, isOpen, setModalKey } = useModalStore();
+  const { modalKey } = useModalStore();
 
   const ModalComponent = ModalMap[modalKey];
-  useEffect(() => {
-    console.log("여기용", modalKey);
-  }, [modalKey]);
 
   return (
     <div>
