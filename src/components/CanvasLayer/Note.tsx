@@ -39,7 +39,7 @@ export default function Note({
       onPointerDown={(e) => onPointerDown(e, id)}
     >
       <ContentEditable
-        html={value || "Note"}
+        html={value || " "}
         onChange={handleContentChange}
         className="flex h-full w-full justify-normal text-center outline-none "
         style={{
