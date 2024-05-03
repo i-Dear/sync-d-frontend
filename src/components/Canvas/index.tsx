@@ -16,6 +16,7 @@ import {
   useOthersMapped,
   useCanUndo,
   useCanRedo,
+  useMyPresence,
 } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
 import {
@@ -51,6 +52,7 @@ import useStickerStore from "@/store/useStickerSrcStore";
 import Path from "@/components/CanvasLayer/Path";
 import CollabToolAside from "../Layout/CollabToolAside";
 import ProcessNav from "../Layout/ProcessNav";
+import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
 
 const MAX_LAYERS = 100;
 
@@ -78,15 +80,16 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
-
+  const deleteLayersBackspace = useDeleteLayersBackspace;
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
         case "Backspace": {
-          deleteLayers();
+          deleteLayers;
           break;
         }
         case "z": {
