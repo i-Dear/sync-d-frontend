@@ -2,7 +2,7 @@ import { useMyPresence, useUpdateMyPresence } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import Image from "next/image";
 import { exampleImages } from "@/lib/guideImages";
-import GuideCarousel from "./GuideCarousel";
+import GuideCarousel from "../GuideCarousel";
 
 const GuideModal = () => {
   const [myPresence] = useMyPresence();
