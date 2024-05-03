@@ -52,6 +52,7 @@ export type RectangleLayer = {
   height: number;
   width: number;
   fill: Color;
+  value?: string;
 };
 
 export type EllipseLayer = {
@@ -61,6 +62,7 @@ export type EllipseLayer = {
   height: number;
   width: number;
   fill: Color;
+  value?: string;
 };
 
 export type NoteLayer = {
@@ -83,6 +85,7 @@ export type PathLayer = {
   width: number;
   fill: Color;
   points: number[][];
+  value?: string;
 };
 
 export type TextLayer = {
@@ -92,7 +95,7 @@ export type TextLayer = {
   height: number;
   width: number;
   fill: Color;
-  value?: string;
+  value: string;
 };
 
 export type StickerLayer = {
@@ -103,6 +106,7 @@ export type StickerLayer = {
   width: number;
   stickerSrc: string;
   fill: Color;
+  value?: string;
 };
 
 export type Point = {
