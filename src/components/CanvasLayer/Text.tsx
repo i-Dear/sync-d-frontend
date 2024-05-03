@@ -46,9 +46,9 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
       <ContentEditable
         html={value || "Text"}
         onChange={handleContentChange}
-        className="flex h-full w-full items-center justify-center text-center outline-none drop-shadow-md"
+        className="flex h-full w-full justify-normal text-center outline-none drop-shadow-md"
         style={{
-          fontSize: "16px",
+          fontSize: 18,
           color: "black",
         }}
       />
