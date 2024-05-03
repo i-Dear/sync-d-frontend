@@ -210,7 +210,7 @@ const Canvas = () => {
     [lastUsedColor, stickerSrc],
   );
 
-  const resetTemplate = useMutation(({ storage }) => {
+  const InitTemplate = useMutation(({ storage }) => {
     const templates = storage.get("templates");
 
     console.log(templates, syncTemplates);
@@ -502,9 +502,9 @@ const Canvas = () => {
   // Insert the first layer when the user joins the room
   useEffect(() => {
     if (syncTemplates.length !== templates.length) {
-      resetTemplate();
+      InitTemplate();
     }
-  }, [templates.length, resetTemplate]);
+  }, [templates.length, InitTemplate]);
 
   return (
     <div>
