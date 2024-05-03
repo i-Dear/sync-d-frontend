@@ -1,4 +1,6 @@
-export const exampleImages = [
+type exampleImagesType = { name: string; src: string }[];
+
+export const exampleImages: exampleImagesType[] = [
   [
     {
       name: "step1-1",
