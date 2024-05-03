@@ -4,7 +4,7 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { useMutation } from "~/liveblocks.config";
 import { TextLayer } from "@/lib/types";
 
-type Props = {
+type NoteProps = {
   id: string;
   layer: NoteLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
@@ -16,8 +16,18 @@ export default function Note({
   onPointerDown,
   id,
   selectionColor,
-}: Props) {
+}: NoteProps) {
   const { x, y, width, height, fill, value } = layer;
+
+  const updateValue = useMutation(({ storage }, newValue: string) => {
+    const liveLayers = storage.get("layers");
+
+    liveLayers.get(id)?.set("value", newValue);
+  }, []);
+
+  const handleContentChange = (e: ContentEditableEvent) => {
+    updateValue(e.target.value);
+  };
 
   return (
     <foreignObject
@@ -25,15 +35,16 @@ export default function Note({
       y={y}
       width={width}
       height={height}
+      style={{ background: fill ? colorToCss(fill) : "#fff" }}
       onPointerDown={(e) => onPointerDown(e, id)}
     >
       <ContentEditable
-        html={"Note"}
-        onChange={() => {}}
-        className="flex h-full w-full items-center justify-center text-center outline-none drop-shadow-md"
+        html={value || "Note"}
+        onChange={handleContentChange}
+        className="flex h-full w-full justify-normal text-center outline-none "
         style={{
-          fontSize: 24,
-          color: fill ? colorToCss(fill) : "black",
+          fontSize: 18,
+          color: "black",
         }}
       />
     </foreignObject>
