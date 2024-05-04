@@ -88,7 +88,7 @@ const Canvas = () => {
 
   const deleteLayers = useDeleteLayers();
   const deleteLayersBackspace = useDeleteLayersBackspace;
-  const { isOpen, changeModalState } = useModalStore();
+  const { isOpen, setModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
