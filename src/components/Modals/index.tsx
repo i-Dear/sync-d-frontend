@@ -1,7 +1,7 @@
 import useModalStore from "@/store/useModalStore";
 import GuideModal from "./GuideModal";
 import SkipModal from "./SkipModal";
-import { useState, useEffect } from "react";
+import VoteModal from "./VoteModal";
 
 interface ModalMapType {
   [key: string]: () => JSX.Element;
@@ -10,6 +10,7 @@ interface ModalMapType {
 const ModalMap: ModalMapType = {
   guide: GuideModal,
   skip: SkipModal,
+  vote: VoteModal,
 };
 
 const Modal = () => {
