@@ -22,6 +22,16 @@ const calculateFontSize = (width: number, height: number) => {
 const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
   const { x, y, width, height, fill, value } = layer;
 
+  const updateValue = useMutation(({ storage }, newValue: string) => {
+    const liveLayers = storage.get("layers");
+
+    liveLayers.get(id)?.set("value", newValue);
+  }, []);
+
+  const handleContentChange = (e: ContentEditableEvent) => {
+    updateValue(e.target.value);
+  };
+
   return (
     <foreignObject
       x={x}
@@ -34,12 +44,12 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
       }}
     >
       <ContentEditable
-        html={"Text"}
-        onChange={() => {}}
-        className="flex h-full w-full items-center justify-center text-center outline-none drop-shadow-md"
+        html={value || " "}
+        onChange={handleContentChange}
+        className="flex h-full w-full justify-normal text-center outline-none drop-shadow-md"
         style={{
-          fontSize: calculateFontSize(width, height),
-          color: fill ? colorToCss(fill) : "black",
+          fontSize: 18,
+          color: "black",
         }}
       />
     </foreignObject>

@@ -33,7 +33,7 @@ const config: Config = {
         primary: "#369EFF",
         "background-100": "#ffffff",
         "background-200": "#f0f2f5",
-        "div-text": "#0D121C",
+        "div-text": "#121417",
         time: "#4569A1",
       },
       boxShadow: {
