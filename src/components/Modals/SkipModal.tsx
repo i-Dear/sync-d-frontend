@@ -22,12 +22,12 @@ const SkipModal = () => {
 
   return (
     <div className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[50rem] py-[40rem] text-center">
-      <div className=" space-around flex h-full w-full flex-col bg-white">
+      <div className=" space-around flex h-full w-[60rem] flex-col bg-white">
         <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
           스킵
         </div>
         <div className="h-full">{currentProcess}단계를 건너뛸까요?</div>
-        <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
+        <div className="border-grey-100 flex h-[50px] items-center justify-center gap-[4rem] border p-[8px]">
           <button
             className="w-[80px] cursor-pointer rounded-2xl bg-gray-700  p-2 text-center text-[18px] text-white"
             onClick={() => setModalState(false)}
