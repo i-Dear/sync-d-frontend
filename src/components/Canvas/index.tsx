@@ -17,6 +17,7 @@ import {
   useOthersMapped,
   useCanUndo,
   useCanRedo,
+  useMyPresence,
 } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
 import {
@@ -53,6 +54,7 @@ import useStickerStore from "@/store/useStickerSrcStore";
 import Path from "@/components/CanvasLayer/Path";
 import CollabToolAside from "../Layout/CollabToolAside";
 import ProcessNav from "../Layout/ProcessNav";
+import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
 import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
 
@@ -85,6 +87,7 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
+  const deleteLayersBackspace = useDeleteLayersBackspace;
   const { isOpen, changeModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
@@ -94,7 +97,7 @@ const Canvas = () => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
         case "Backspace": {
-          deleteLayers();
+          deleteLayers;
           break;
         }
         case "z": {
@@ -154,7 +157,7 @@ const Canvas = () => {
     },
     [history],
   );
-  
+
   /**
    * Insert an ellipse or a rectangle at the given position and select it
    */

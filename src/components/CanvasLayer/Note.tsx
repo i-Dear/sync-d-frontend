@@ -1,7 +1,10 @@
 import { NoteLayer } from "@/lib/types";
-import { colorToCss } from "@/lib/utils";
+import { cn, colorToCss } from "@/lib/utils";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { useMutation } from "~/liveblocks.config";
+import { TextLayer } from "@/lib/types";
 
-type Props = {
+type NoteProps = {
   id: string;
   layer: NoteLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
@@ -13,42 +16,37 @@ export default function Note({
   onPointerDown,
   id,
   selectionColor,
-}: Props) {
-  const { x, y, width, height, fill } = layer;
+}: NoteProps) {
+  const { x, y, width, height, fill, value } = layer;
+
+  const updateValue = useMutation(({ storage }, newValue: string) => {
+    const liveLayers = storage.get("layers");
+
+    liveLayers.get(id)?.set("value", newValue);
+  }, []);
+
+  const handleContentChange = (e: ContentEditableEvent) => {
+    updateValue(e.target.value);
+  };
 
   return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill ? colorToCss(fill) : "#CCC"}
-        strokeWidth={1}
-        stroke={selectionColor || "transparent"}
-        pointerEvents="none" // Prevent the rectangle from intercepting pointer events
+    <foreignObject
+      x={x}
+      y={y}
+      width={width}
+      height={height}
+      style={{ background: fill ? colorToCss(fill) : "#fff" }}
+      onPointerDown={(e) => onPointerDown(e, id)}
+    >
+      <ContentEditable
+        html={value || " "}
+        onChange={handleContentChange}
+        className="flex h-full w-full justify-normal text-center outline-none "
+        style={{
+          fontSize: 18,
+          color: "black",
+        }}
       />
-      <foreignObject x={x} y={y} width={width} height={height}>
-        {/* HTML div with contenteditable attribute */}
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-            resize: "none",
-            background: "none",
-            outline: "none",
-            padding: "8px",
-            boxSizing: "border-box",
-            fontFamily: "Arial",
-            fontSize: "14px",
-            color: "#000",
-            overflow: "auto", // Ensure scrollbars appear when content overflows
-          }}
-          contentEditable // Set contenteditable attribute to true
-          onPointerDown={(e) => onPointerDown(e, id)}
-        />
-      </foreignObject>
-    </g>
+    </foreignObject>
   );
 }
