@@ -59,7 +59,7 @@ import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
 
 import useModalStore from "@/store/useModalStore";
-import Modal from "@/components/GuideModal";
+import Modal from "@/components/Modals";
 
 const MAX_LAYERS = 100;
 
@@ -88,7 +88,7 @@ const Canvas = () => {
 
   const deleteLayers = useDeleteLayers();
   const deleteLayersBackspace = useDeleteLayersBackspace;
-  const { isOpen, changeModalState } = useModalStore();
+  const { isOpen, setModalState } = useModalStore();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
@@ -575,7 +575,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
-      {isOpen && <Modal onClose={changeModalState} />}
+      {isOpen && <Modal />}
     </div>
   );
 };
