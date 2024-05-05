@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { Template, TemplateType } from "@/lib/types";
 import NoteBox from "../ProcessContent/NoteBox";
+import ThirdStepProb from "../ProcessContent/ThirdStepProb";
 
 const TemplateComponent = memo(({ template }: { template: Template }) => {
   if (!template) {
@@ -13,6 +14,19 @@ const TemplateComponent = memo(({ template }: { template: Template }) => {
     case TemplateType.NoteBox:
       return (
         <NoteBox
+          id={template.id}
+          type={template.type}
+          x={template.x}
+          y={template.y}
+          width={template.width}
+          height={template.height}
+          title={template.title}
+          fill={template.fill}
+        />
+      );
+    case TemplateType.ThirdStepProb:
+      return (
+        <ThirdStepProb
           id={template.id}
           type={template.type}
           x={template.x}

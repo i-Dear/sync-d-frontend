@@ -175,9 +175,10 @@ export enum CanvasMode {
 
 export enum TemplateType {
   NoteBox,
+  ThirdStepProb,
 }
 
-export type Template = NoteBoxTemplate;
+export type Template = NoteBoxTemplate | ThirdStepProbTemplate;
 
 export type NoteBoxTemplate = {
   type: TemplateType.NoteBox;
@@ -187,5 +188,16 @@ export type NoteBoxTemplate = {
   y: number;
   width: number;
   height: number;
+  fill: string;
+};
+
+export type ThirdStepProbTemplate = {
+  type: TemplateType.ThirdStepProb;
+  id: string;
+  title?: string;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
   fill: string;
 };
