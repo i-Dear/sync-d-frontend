@@ -32,7 +32,6 @@ export default function Note({
     // updateValue(e.target.value);
     const newValue = e.target.value;
     updateValue(newValue);
-    setPlaceholderVisible(newValue === "");
   };
 
   const handleFocus = () => {
@@ -59,7 +58,7 @@ export default function Note({
         }
         onChange={handleContentChange}
         onFocus={handleFocus}
-        className="flex h-full w-full justify-normal p-[1rem] text-center outline-none "
+        className="flex h-full w-full justify-normal p-[1rem] outline-none "
         style={{
           fontSize: 8,
           color: "black",
