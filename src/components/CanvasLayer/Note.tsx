@@ -53,7 +53,7 @@ export default function Note({
       <ContentEditable
         html={
           isPlaceholderVisible
-            ? "<span class='placeholder' style='color: #999'>input text</span>"
+            ? "<span class='placeholder' style='color: #999'>type your own text</span>"
             : value || ""
         }
         onChange={handleContentChange}
