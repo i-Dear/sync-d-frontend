@@ -12,6 +12,20 @@ export type Process = {
   done: boolean;
 };
 
+export type ProjectInfo = {
+  name: string;
+  id: string;
+  description: string;
+  role: string;
+};
+
+export type UserInfo = {
+  id: string;
+  name: string;
+  avatar: string;
+  email: string;
+};
+
 export type Color = {
   r: number;
   g: number;
@@ -30,11 +44,6 @@ export enum LayerType {
 export type Camera = {
   x: number;
   y: number;
-};
-
-export type UserInfo = {
-  name: string;
-  avatar?: string;
 };
 
 export type Layer =
