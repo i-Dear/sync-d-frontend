@@ -6,17 +6,16 @@ const useGetAuthToken = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    
-      const localToken = localStorage.getItem("authToken");
-      if (localToken) {
-        setToken(localToken);
-      } else {
-        const authToken = searchParams.get("authToken");
-        if (authToken) {
-          localStorage.setItem("authToken", authToken);
-          setToken(authToken);
-        }
+    const localToken = localStorage.getItem("authToken");
+    if (localToken) {
+      setToken(localToken);
+    } else {
+      const authToken = searchParams.get("authToken");
+      if (authToken) {
+        localStorage.setItem("authToken", authToken);
+        setToken(authToken);
       }
+    }
   }, [searchParams]);
 
   return token;
