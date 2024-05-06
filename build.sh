@@ -1,5 +1,5 @@
 #!/bin/sh
 cd ../
 mkdir output
-cp -R ./i-Dear/* ./output
-cp -R ./output ./i-Dear/
+cp -R ./sync-d-frontend/* ./output
+cp -R ./output ./sync-d-frontend/
