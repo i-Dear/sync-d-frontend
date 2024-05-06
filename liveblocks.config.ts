@@ -7,8 +7,23 @@ import {
 import { createRoomContext } from "@liveblocks/react";
 import { Color, Layer, Point, Process, Template, UserInfo } from "@/lib/types";
 
+const authToken = localStorage.getItem("authToken");
+
 const client = createClient({
-  authEndpoint: "/api/liveblocks-auth",
+  authEndpoint: async (room) => {
+    const response = await fetch(
+      "https://syncd-backend.i-dear.org/v1/room/auth",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    );
+
+    return await response.json();
+  },
   throttle: 16,
 });
 
