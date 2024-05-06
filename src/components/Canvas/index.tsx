@@ -73,11 +73,12 @@ const Canvas = () => {
   const [canvasState, setState] = useState<CanvasState>({
     mode: CanvasMode.None,
   });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [camera, setCamera] = useState<Camera>({ x: 0, y: 0 });
   const [lastUsedColor, setLastUsedColor] = useState<Color>({
-    r: 252,
-    g: 142,
-    b: 42,
+    r: 165,
+    g: 208,
+    b: 249,
   });
   const history = useHistory();
   const canUndo = useCanUndo();
@@ -263,7 +264,6 @@ const Canvas = () => {
           });
         }
       }
-
       setState({ mode: CanvasMode.Translating, current: point });
     },
     [canvasState],
@@ -424,6 +424,7 @@ const Canvas = () => {
     ({ setMyPresence }, e: React.PointerEvent) => {
       e.preventDefault();
       const current = pointerEventToCanvasPoint(e, camera);
+      setMousePosition({ x: current.x, y: current.y });
       if (canvasState.mode === CanvasMode.Pressing) {
         startMultiSelection(current, canvasState.origin);
       } else if (canvasState.mode === CanvasMode.SelectionNet) {
@@ -434,8 +435,9 @@ const Canvas = () => {
         resizeSelectedLayer(current);
       } else if (canvasState.mode === CanvasMode.Pencil) {
         continueDrawing(current, e);
+      } else {
+        setMyPresence({ cursor: current });
       }
-      setMyPresence({ cursor: current });
     },
     [
       camera,
@@ -536,6 +538,16 @@ const Canvas = () => {
                 selectionColor={layerIdsToColorSelection[layerId]}
               />
             ))}
+            {canvasState.mode === 4 && canvasState.layerType === 4 && (
+              <foreignObject
+                x={mousePosition.x}
+                y={mousePosition.y}
+                width={100}
+                height={100}
+                style={{ background: "#808080", opacity: "0.5" }}
+                className="shadow-grey-950 shadow-lg drop-shadow-lg"
+              ></foreignObject>
+            )}
             {/* Blue square that show the selection of the current users. Also contains the resize handles. */}
             <SelectionBox
               onResizeHandlePointerDown={onResizeHandlePointerDown}
@@ -567,6 +579,7 @@ const Canvas = () => {
           </g>
         </svg>
       </div>
+
       <ToolsBar
         canvasState={canvasState}
         setCanvasState={setState}
@@ -575,6 +588,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
+
       {isOpen && <Modal />}
     </div>
   );
