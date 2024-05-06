@@ -19,10 +19,10 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
       />
       {props.title && (
         <text
-          x={x + 95}
-          y={y + 220}
+          x={x + 70}
+          y={y + 135}
           fontFamily="Arial"
-          fontSize="200"
+          fontSize="110"
           fill="#F0F2F5"
         >
           {title}
