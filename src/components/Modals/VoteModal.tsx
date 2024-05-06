@@ -14,21 +14,23 @@ const VoteModal = () => {
   };
 
   const submitVote = () => {
-    setModalType("complete");
+    if (vote) {
+      setModalType("complete");
+    }
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
   };
   return (
-    <div className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[28rem] py-[4rem] text-center">
+    <div className="fixed left-0 top-0 z-30 flex h-screen w-screen min-w-[100rem] items-center justify-center bg-black bg-opacity-70 px-[28rem] py-[4rem] text-center">
       <div className=" flex h-full w-full flex-col bg-white">
         <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
           투표
         </div>
         <div className="flex h-full w-full items-center justify-center">
-          <div className="grid grid-cols-3 grid-rows-2 gap-48">
+          <div className="grid grid-cols-3 grid-rows-2 gap-[8rem]">
             {Array.from({ length: 6 }, (_, index) => (
               <div
                 key={index}
-                className={`flex h-[30rem] w-[30rem] items-center justify-center rounded-full border border-[1rem] font-mono text-9xl font-semibold text-gray-200 ${
+                className={`flex h-[20rem] w-[20rem] items-center justify-center rounded-full border border-[1rem] font-mono text-9xl font-semibold text-gray-200 ${
                   vote === index + 1 ? "bg-primary" : ""
                 }`}
                 onClick={handleVote(index + 1)}
