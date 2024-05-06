@@ -4,17 +4,17 @@ import ProjectCard from "@/components/ProjectCard";
 import ProjectSearchBar from "@/components/ProjectSearchBar";
 import Image from "next/image";
 import useGetAuthToken from "@/hooks/useGetAuthToken";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import useUserInfoStore from "@/store/useUserInfoStore";
 
-const DashboardPage = () => {
+const DashboardContent = () => {
   const authToken = useGetAuthToken();
   const { projects, setUserInfo, setProjectsInfo } = useUserInfoStore();
 
-  const getUserInfo = async (token: string) => {
+  const handleGetRequest = async (token: string) => {
     try {
       const res = await fetch(
-        "https://syncd-backend.dev.i-dear.org/v1/user/userinfo",
+        "https://syncd-backend.i-dear.org/v1/user/userinfo",
         {
           method: "GET",
           credentials: "include",
@@ -39,7 +39,7 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (authToken) {
-      getUserInfo(authToken);
+      handleGetRequest(authToken);
     }
   }, [authToken]);
 
@@ -53,11 +53,10 @@ const DashboardPage = () => {
       <h1 className="m-0 text-[3.6rem] font-bold tracking-[-0.08rem]">
         Recent Projects
       </h1>
-
       <ProjectSearchBar />
 
       <div className="flex w-full items-center justify-start gap-[3.2rem] overflow-x-scroll">
-        {projects?.length ? (
+        {projects.length ? (
           projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))
@@ -68,5 +67,11 @@ const DashboardPage = () => {
     </div>
   );
 };
+
+const DashboardPage = () => (
+  <Suspense fallback={<div>Loading dashboard...</div>}>
+    <DashboardContent />
+  </Suspense>
+);
 
 export default DashboardPage;
