@@ -49,7 +49,7 @@ import Drafts from "./Drafts";
 
 import ToolsBar from "@/components/CanvasToolBar";
 import Cursors from "./Cursors";
-import useUserInfoStore from "@/hooks/useUserInfoStore";
+import useUserInfoStore from "@/store/useUserInfoStore";
 import useStickerStore from "@/store/useStickerSrcStore";
 import Path from "@/components/CanvasLayer/Path";
 import CollabToolAside from "../Layout/CollabToolAside";

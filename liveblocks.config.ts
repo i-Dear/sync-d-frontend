@@ -30,7 +30,6 @@ type Presence = {
 export type MusicStates = "playing" | "seeking" | "paused";
 
 export type ActiveUserInfo = UserInfo & {
-  userId: string;
   enteredAt: number;
 };
 
