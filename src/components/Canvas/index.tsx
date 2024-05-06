@@ -76,9 +76,9 @@ const Canvas = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [camera, setCamera] = useState<Camera>({ x: 0, y: 0 });
   const [lastUsedColor, setLastUsedColor] = useState<Color>({
-    r: 252,
-    g: 142,
-    b: 42,
+    r: 165,
+    g: 208,
+    b: 249,
   });
   const history = useHistory();
   const canUndo = useCanUndo();
