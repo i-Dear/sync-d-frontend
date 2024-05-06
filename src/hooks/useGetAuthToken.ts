@@ -6,7 +6,7 @@ const useGetAuthToken = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    
       const localToken = localStorage.getItem("authToken");
       if (localToken) {
         setToken(localToken);
@@ -17,7 +17,6 @@ const useGetAuthToken = () => {
           setToken(authToken);
         }
       }
-    }
   }, [searchParams]);
 
   return token;
