@@ -1,9 +1,9 @@
-import GoogleLoginButton from "@/components/GoogleLogin";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-gradient-blue-white relative h-screen w-screen">
+    <div className="relative h-screen w-screen bg-gradient-blue-white">
       <div className="absolute left-0 top-[5rem]">
         <Image
           src="/landing-logo.svg"
@@ -15,7 +15,7 @@ export default function Home() {
       </div>
       <div className="absolute right-0 flex h-screen w-[50%] flex-col items-start justify-center gap-[2.4rem]">
         <h1 className="text-[7.2rem] font-extrabold leading-[7.2rem] text-white">
-          싱크대: sync-D
+          Sync-D
         </h1>
         <h2 className="w-[66rem] text-[4.8rem] font-bold leading-[6rem] tracking-[-1.58px] text-white">
           Gather everyone&apos;s intelligence and come up with a great idea!
