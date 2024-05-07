@@ -60,7 +60,7 @@ export default function Note({
         onFocus={handleFocus}
         className="flex h-full w-full justify-normal p-[1rem] outline-none "
         style={{
-          fontSize: 8,
+          fontSize: 12,
           color: "black",
           fontFamily: "Manrope, sans-serif",
         }}
