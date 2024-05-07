@@ -79,7 +79,7 @@ const ProcessNav = ({
           height={18}
           className="cursor-pointer"
           onClick={() => {
-            setModalState(true), setModalType("skip");
+            setModalState(true), setModalType("guide");
           }}
         />
       </div>

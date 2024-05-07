@@ -8,14 +8,14 @@ type Props = {
 export default function ColorPicker({ onChange }: Props) {
   return (
     <div className="mr-2 flex max-w-[121px] flex-wrap items-center border-r border-divider pr-2">
-      <ColorButton color={{ r: 243, g: 82, b: 35 }} onClick={onChange} />
-      <ColorButton color={{ r: 255, g: 198, b: 38 }} onClick={onChange} />
-      <ColorButton color={{ r: 68, g: 202, b: 99 }} onClick={onChange} />
-      <ColorButton color={{ r: 39, g: 142, b: 237 }} onClick={onChange} />
-      <ColorButton color={{ r: 155, g: 105, b: 245 }} onClick={onChange} />
-      <ColorButton color={{ r: 252, g: 142, b: 42 }} onClick={onChange} />
-      <ColorButton color={{ r: 82, g: 82, b: 82 }} onClick={onChange} />
-      <ColorButton color={{ r: 255, g: 255, b: 255 }} onClick={onChange} />
+      <ColorButton color={{ r: 229, g: 115, b: 115 }} onClick={onChange} />
+      <ColorButton color={{ r: 255, g: 183, b: 77 }} onClick={onChange} />
+      <ColorButton color={{ r: 255, g: 241, b: 118 }} onClick={onChange} />
+      <ColorButton color={{ r: 129, g: 199, b: 132 }} onClick={onChange} />
+      <ColorButton color={{ r: 228, g: 245, b: 255 }} onClick={onChange} />
+      <ColorButton color={{ r: 69, g: 106, b: 161 }} onClick={onChange} />
+      <ColorButton color={{ r: 186, g: 104, b: 200 }} onClick={onChange} />
+      <ColorButton color={{ r: 244, g: 143, b: 177 }} onClick={onChange} />
     </div>
   );
 }
