@@ -1,10 +1,14 @@
-type exampleImagesType = { name: string; src: string }[];
+export type exampleImagesType = { name: string; src: string; text?: string }[];
 
 export const exampleImages: exampleImagesType[] = [
   [
     {
+      name: "step1-0",
+      src: "/steps/stepguide1-1.png",
+    },
+    {
       name: "step1-1",
-      src: "/steps/stepguide1.png",
+      src: "/steps/stepguide1-2.png",
     },
     {
       name: "step1-2",

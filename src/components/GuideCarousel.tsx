@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { exampleImagesType } from "@/lib/guideImages";
 
 import {
   Carousel,
@@ -10,7 +10,7 @@ import {
 } from "~/src/components/Common/Carousel";
 
 interface StyledCarouselProps {
-  exampleList: { name: string; src: string }[];
+  exampleList: exampleImagesType;
 }
 
 const GuideCarousel = ({ exampleList }: StyledCarouselProps) => {
@@ -22,8 +22,8 @@ const GuideCarousel = ({ exampleList }: StyledCarouselProps) => {
             <div className="flex justify-center">
               <Image
                 className="flex justify-center"
-                width={800}
-                height={100}
+                width={700}
+                height={0}
                 src={example.src}
                 alt={`guide`}
               />
