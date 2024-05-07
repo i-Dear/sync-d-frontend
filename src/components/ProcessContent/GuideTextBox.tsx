@@ -22,7 +22,11 @@ export default function GuideTextBox(props: GuideTextBoxTemplate) {
           fill="#121417"
           fontWeight={"bold"}
         >
-          {title}
+          {title?.split("\n").map((line, index) => (
+            <tspan x={x + 20} dy={index > 0 ? "1.2em" : 0} key={index}>
+              {line}
+            </tspan>
+          ))}
         </text>
       )}
     </g>
