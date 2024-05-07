@@ -3,9 +3,11 @@
 import { RoomProvider } from "~/liveblocks.config";
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
-import { Layer } from "@/lib/types";
+import { Layer, Template } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
+import { steps } from "@/lib/data";
+import { syncTemplates } from "@/lib/templates";
 
 interface RoomProps {
   roomId: string;
@@ -39,6 +41,8 @@ const Room = ({ roomId }: RoomProps) => {
           currentTime: 180,
           defaultTime: 180,
         }),
+        process: new LiveList(steps),
+        templates: new LiveList<Template>(syncTemplates),
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>

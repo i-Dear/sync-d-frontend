@@ -3,8 +3,8 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "싱크대",
-  description: "실시간 기획 협업 툴",
+  title: "Sync-D",
+  description: "실시간 아이디어 기획 플랫폼",
 };
 
 export const viewport: Viewport = {

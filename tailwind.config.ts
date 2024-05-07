@@ -8,6 +8,8 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-blue-white":
+          "linear-gradient(to top right, #123F82 0%, #369EFF 61%,  #FFFFFF 100%)",
       },
       colors: {
         "surface-canvas": "#eee",
@@ -23,11 +25,15 @@ const config: Config = {
         "foreground-100": "#999",
         "light-gray-100": "#F0F2F5",
         "light-gray-200": "#3D4D5C",
+        "primary-300": "#A5D0F9",
+        "primary-400": "#369EFF",
+        "primary-500": "#4569A1",
+        "gray-700": "#61788A",
+        "gray-800": "#3D4D5C",
         primary: "#369EFF",
-        "transparent-primary": "rgba(54, 158, 255, 0.4)",
         "background-100": "#ffffff",
         "background-200": "#f0f2f5",
-        "div-text": "#0D121C",
+        "div-text": "#121417",
         time: "#4569A1",
       },
       boxShadow: {

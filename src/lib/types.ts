@@ -1,4 +1,30 @@
-import exp from "constants";
+export type NavListType = {
+  title: string;
+  href: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+};
+
+export type Process = {
+  step: number;
+  title: string;
+  description: string;
+  camera: { x: number; y: number };
+  done: boolean;
+};
+
+export type ProjectInfo = {
+  name: string;
+  id: string;
+  description: string;
+  role: string;
+};
+
+export type UserInfo = {
+  id: string;
+  name: string;
+  avatar: string;
+  email: string;
+};
 
 export type Color = {
   r: number;
@@ -20,11 +46,6 @@ export type Camera = {
   y: number;
 };
 
-export type UserInfo = {
-  name: string;
-  avatar?: string;
-};
-
 export type Layer =
   | RectangleLayer
   | EllipseLayer
@@ -40,6 +61,7 @@ export type RectangleLayer = {
   height: number;
   width: number;
   fill: Color;
+  value?: string;
 };
 
 export type EllipseLayer = {
@@ -49,6 +71,7 @@ export type EllipseLayer = {
   height: number;
   width: number;
   fill: Color;
+  value?: string;
 };
 
 export type NoteLayer = {
@@ -58,6 +81,7 @@ export type NoteLayer = {
   height: number;
   width: number;
   fill: Color;
+  value: string;
 };
 
 export type PathLayer = {
@@ -70,6 +94,7 @@ export type PathLayer = {
   width: number;
   fill: Color;
   points: number[][];
+  value?: string;
 };
 
 export type TextLayer = {
@@ -79,7 +104,7 @@ export type TextLayer = {
   height: number;
   width: number;
   fill: Color;
-  value?: string;
+  value: string;
 };
 
 export type StickerLayer = {
@@ -90,6 +115,7 @@ export type StickerLayer = {
   width: number;
   stickerSrc: string;
   fill: Color;
+  value?: string;
 };
 
 export type Point = {
@@ -147,32 +173,28 @@ export type CanvasState =
     };
 
 export enum CanvasMode {
-  /**
-   * Default canvas mode. Nothing is happening.
-   */
-  None,
-  /**
-   * When the user's pointer is pressed
-   */
-  Pressing,
-  /**
-   * When the user is selecting multiple layers at once
-   */
-  SelectionNet,
-  /**
-   * When the user is moving layers
-   */
-  Translating,
-  /**
-   * When the user is going to insert a Rectangle or an Ellipse
-   */
-  Inserting,
-  /**
-   * When the user is resizing a layer
-   */
-  Resizing,
-  /**
-   * When the pencil is activated
-   */
-  Pencil,
+  None, // Default canvas mode. Nothing is happening.
+  Pressing, // When the user's pointer is pressed
+  SelectionNet, // When the user is selecting multiple layers at once
+  Translating, // When the user is moving layers
+  Inserting, // When the user is going to insert a new layer
+  Resizing, // When the user is resizing a layer
+  Pencil, // When the user is drawing a path
 }
+
+export enum TemplateType {
+  NoteBox,
+}
+
+export type Template = NoteBoxTemplate;
+
+export type NoteBoxTemplate = {
+  type: TemplateType.NoteBox;
+  id: string;
+  title?: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fill: string;
+};
