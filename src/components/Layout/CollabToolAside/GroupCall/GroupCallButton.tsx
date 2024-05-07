@@ -1,6 +1,6 @@
 "use client";
 
-import useUserInfoStore from "@/hooks/useUserInfoStore";
+import useUserInfoStore from "@/store/useUserInfoStore";
 import SendBirdCall from "sendbird-calls";
 import { ActiveUserInfo, useMutation } from "~/liveblocks.config";
 import { useSendBirdInit } from "@/hooks/useSendBirdCall";
@@ -12,7 +12,7 @@ interface TypeGroupCallId {
 }
 
 const GroupCallButton = (groupCallId: TypeGroupCallId) => {
-  const userInfo = useUserInfoStore();
+  const userInfo = useUserInfoStore((state) => state.userInfo);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isCalling, setIsCalling] = useState(false);
 
@@ -40,12 +40,12 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
 
     groupCallActiveUsers.delete(
       groupCallActiveUsers.findIndex(
-        (user: ActiveUserInfo) => user.userId === userInfo._id,
+        (user: ActiveUserInfo) => user.id === userInfo.id,
       ),
     );
   }, []);
 
-  const authOption = { userId: userInfo._id, accessToken: userInfo.token }; // Authentication options using user information
+  const authOption = { userId: userInfo.id, accessToken: userInfo.id }; // Authentication options using user information
   useSendBirdInit(authOption);
 
   const joinGroupCall = async () => {
@@ -59,7 +59,7 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
     SendBirdCall.fetchRoomById(groupCallId.roomId).then((room) => {
       if (
         room.participants.filter(
-          (participant) => participant.user.userId === userInfo._id,
+          (participant) => participant.user.userId === userInfo.id,
         ).length > 0
       ) {
         console.log("이미 참여한 방입니다.");
@@ -76,7 +76,9 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
             setIsCalling(true);
             addToActiveUsers({
               name: userInfo.name,
-              userId: userInfo._id,
+              id: userInfo.id,
+              avatar: userInfo.avatar,
+              email: userInfo.email,
               enteredAt: Date.now(),
             });
           })

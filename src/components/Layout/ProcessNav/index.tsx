@@ -1,6 +1,6 @@
 "use client";
 
-import type { UserInfoStoreType } from "@/hooks/useUserInfoStore";
+import type { UserInfoStoreType } from "@/store/useUserInfoStore";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 import {
