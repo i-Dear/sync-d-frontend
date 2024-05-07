@@ -22,7 +22,7 @@ const SkipModal = () => {
 
   return (
     <div className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[50rem] py-[40rem] text-center">
-      <div className=" space-around flex h-full w-[60rem] flex-col bg-white">
+      <div className=" space-around flex h-[20rem] w-[60rem] flex-col bg-white">
         <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
           스킵
         </div>
