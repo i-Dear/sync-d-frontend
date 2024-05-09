@@ -184,12 +184,24 @@ export enum CanvasMode {
 
 export enum TemplateType {
   NoteBox,
+  GuideTextBox,
 }
 
-export type Template = NoteBoxTemplate;
+export type Template = NoteBoxTemplate | GuideTextBoxTemplate;
 
 export type NoteBoxTemplate = {
   type: TemplateType.NoteBox;
+  id: string;
+  title?: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fill: string;
+};
+
+export type GuideTextBoxTemplate = {
+  type: TemplateType.GuideTextBox;
   id: string;
   title?: string;
   x: number;

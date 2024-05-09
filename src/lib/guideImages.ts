@@ -1,10 +1,14 @@
-type exampleImagesType = { name: string; src: string }[];
+export type exampleImagesType = { name: string; src: string; text?: string }[];
 
 export const exampleImages: exampleImagesType[] = [
   [
     {
+      name: "step1-0",
+      src: "/steps/stepguide1-1.png",
+    },
+    {
       name: "step1-1",
-      src: "/steps/stepguide1.png",
+      src: "/steps/stepguide1-2.png",
     },
     {
       name: "step1-2",
@@ -41,6 +45,46 @@ export const exampleImages: exampleImagesType[] = [
     {
       name: "step3-3",
       src: "/steps/stepguide3.png",
+    },
+  ],
+  [
+    {
+      name: "step3-1",
+      src: "/steps/stepguide2.png",
+    },
+    {
+      name: "step3-2",
+      src: "/steps/stepguide1.png",
+    },
+    {
+      name: "step3-3",
+      src: "/steps/stepguide3.png",
+    },
+  ],
+  [
+    {
+      name: "step3-1",
+      src: "/steps/stepguide2.png",
+    },
+    {
+      name: "step3-2",
+      src: "/steps/stepguide1.png",
+    },
+    {
+      name: "step3-3",
+      src: "/steps/stepguide3.png",
+    },
+  ],
+  [
+    {
+      name: "step6-1",
+      src: "/steps/stepguide6-1.png",
+    },
+  ],
+  [
+    {
+      name: "step7-1",
+      src: "/steps/stepguide7-1.png",
     },
   ],
 ];
