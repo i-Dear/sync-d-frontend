@@ -2,10 +2,9 @@ import { InputFormBoxTemplate } from "@/lib/types";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { useMutation } from "~/liveblocks.config";
 import React, { useState } from "react";
-import { TemplateType } from "@/lib/types";
 
 export default function InputFormBox(props: InputFormBoxTemplate) {
-  const { id, title, x, y, width, height, fontWeight, font, value } = props;
+  const { id, x, y, width, height, font, value } = props;
 
   const updateValue = useMutation(({ storage }, newValue: string) => {
     const liveTemplates = storage.get("templates");
@@ -13,15 +12,7 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
       (template) => template.id === id,
     );
     liveTemplates.set(targetFormIdx, {
-      id: id,
-      type: TemplateType.InputFormBox,
-      title: title,
-      x: x,
-      y: y,
-      width: width,
-      height: height,
-      font: font,
-      fontWeight: fontWeight,
+      ...props,
       value: newValue,
     });
   }, []);
@@ -43,22 +34,21 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
     <foreignObject
       x={x}
       y={y}
-      width={width}
-      height={height}
-      style={{ border: "4px solid black" }}
-      className="shadow-grey-950 shadow-lg drop-shadow-lg"
+      width={width ? width : 800}
+      height={height ? height : 200}
+      style={{ borderBottom: "4px solid black" }}
     >
       <ContentEditable
         html={
           isPlaceholderVisible
-            ? "<span class='placeholder' style='color: #999'>type your own text</span>"
+            ? "<span class='placeholder' style='color: #999'>우리 팀의 목표는</span>"
             : value || ""
         }
         onChange={handleContentChange}
         onFocus={handleFocus}
         className="flex h-full w-full justify-normal p-[1rem] outline-none "
         style={{
-          fontSize: 12,
+          fontSize: font ? font : 12,
           color: "black",
           fontFamily: "Manrope, sans-serif",
         }}
