@@ -9,7 +9,6 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
 
   const updateValue = useMutation(({ storage }, newValue: string) => {
     const liveTemplates = storage.get("templates");
-    liveTemplates.map((v) => console.log(v));
     const targetFormIdx = liveTemplates.findIndex(
       (template) => template.id === id,
     );
