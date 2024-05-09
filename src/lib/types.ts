@@ -191,9 +191,13 @@ export enum CanvasMode {
 export enum TemplateType {
   NoteBox,
   GuideTextBox,
+  InputFormBox,
 }
 
-export type Template = NoteBoxTemplate | GuideTextBoxTemplate;
+export type Template =
+  | NoteBoxTemplate
+  | GuideTextBoxTemplate
+  | InputFormBoxTemplate;
 
 export type NoteBoxTemplate = {
   type: TemplateType.NoteBox;
@@ -201,9 +205,9 @@ export type NoteBoxTemplate = {
   title?: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
-  fill: string;
+  width?: number;
+  height?: number;
+  fill?: string;
 };
 
 export type GuideTextBoxTemplate = {
@@ -212,7 +216,22 @@ export type GuideTextBoxTemplate = {
   title?: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
-  fill: string;
+  width?: number;
+  height?: number;
+  fill?: string;
+  font?: number;
+  fontWeight?: string;
+};
+
+export type InputFormBoxTemplate = {
+  type: TemplateType.InputFormBox;
+  id: string;
+  title?: string;
+  x: number;
+  y: number;
+  width?: number;
+  height?: number;
+  font?: number;
+  fontWeight?: string;
+  value?: string;
 };
