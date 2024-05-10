@@ -6,7 +6,7 @@ import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { Layer, Template } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
-import { steps } from "@/lib/data";
+import { steps } from "@/lib/static-data";
 import { syncTemplates } from "@/lib/templates";
 
 interface RoomProps {
