@@ -2,6 +2,7 @@ import ProjectSearchBar from "@/components/ProjectSearchBar";
 import Modal from "@/components/Modals";
 import CreateProjectButton from "@/components/CreateProjectButton";
 import ProjectCards from "@/components/ProjectCards";
+import { Suspense } from "react";
 
 const DashboardPage = () => {
   return (
@@ -11,7 +12,9 @@ const DashboardPage = () => {
         Recent Projects
       </h1>
       <ProjectSearchBar />
-      <ProjectCards />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProjectCards />
+      </Suspense>
       <Modal />
     </div>
   );
