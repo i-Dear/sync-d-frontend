@@ -1,7 +1,7 @@
 import { ThirdStepProbTemplate } from "@/lib/types";
 
 export default function ThirdStepProb(props: ThirdStepProbTemplate) {
-  const { title, x, y, width, height, fill } = props;
+  const { title, x, y, width, height, fill, value } = props;
 
   return (
     <g>
@@ -25,7 +25,7 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
           fontSize="110"
           fill="#F0F2F5"
         >
-          {title}
+          {value}
         </text>
       )}
     </g>
