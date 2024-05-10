@@ -4,12 +4,32 @@ export type NavListType = {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 
+export type MenuType = {
+  title: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  onClick: () => void;
+};
+
 export type Process = {
   step: number;
   title: string;
   description: string;
   camera: { x: number; y: number };
   done: boolean;
+};
+
+export type ProjectInfo = {
+  name: string;
+  id: string;
+  description: string;
+  role: string;
+};
+
+export type UserInfo = {
+  id: string;
+  name: string;
+  avatar: string;
+  email: string;
 };
 
 export type Color = {
@@ -30,11 +50,6 @@ export enum LayerType {
 export type Camera = {
   x: number;
   y: number;
-};
-
-export type UserInfo = {
-  name: string;
-  avatar?: string;
 };
 
 export type Layer =
@@ -175,10 +190,16 @@ export enum CanvasMode {
 
 export enum TemplateType {
   NoteBox,
+  GuideTextBox,
+  InputFormBox,
   ThirdStepProb,
 }
 
-export type Template = NoteBoxTemplate | ThirdStepProbTemplate;
+export type Template =
+  | NoteBoxTemplate
+  | GuideTextBoxTemplate
+  | InputFormBoxTemplate
+  | ThirdStepProbTemplate;
 
 export type NoteBoxTemplate = {
   type: TemplateType.NoteBox;
@@ -186,9 +207,35 @@ export type NoteBoxTemplate = {
   title?: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
-  fill: string;
+  width?: number;
+  height?: number;
+  fill?: string;
+};
+
+export type GuideTextBoxTemplate = {
+  type: TemplateType.GuideTextBox;
+  id: string;
+  title?: string;
+  x: number;
+  y: number;
+  width?: number;
+  height?: number;
+  fill?: string;
+  font?: number;
+  fontWeight?: string;
+};
+
+export type InputFormBoxTemplate = {
+  type: TemplateType.InputFormBox;
+  id: string;
+  title?: string;
+  x: number;
+  y: number;
+  width?: number;
+  height?: number;
+  font?: number;
+  fontWeight?: string;
+  value?: string;
 };
 
 export type ThirdStepProbTemplate = {

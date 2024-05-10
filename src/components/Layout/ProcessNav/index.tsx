@@ -1,6 +1,6 @@
 "use client";
 
-import type { UserInfoStoreType } from "@/hooks/useUserInfoStore";
+import type { UserInfoStoreType } from "@/store/useUserInfoStore";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 import {
@@ -79,7 +79,7 @@ const ProcessNav = ({
           height={18}
           className="cursor-pointer"
           onClick={() => {
-            setModalState(true), setModalType("skip");
+            setModalState(true), setModalType("guide");
           }}
         />
       </div>

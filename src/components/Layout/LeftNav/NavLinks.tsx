@@ -5,21 +5,21 @@ import Link from "next/link";
 
 import ProjectIcon from "~/public/projects.svg";
 import DashboardIcon from "~/public/home.svg";
-import { cn } from "@/lib/utils";
 import { NavListType } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
-const NavLinks = ({ userId }: { userId: string }) => {
+const NavLinks = () => {
   const pathname = usePathname();
 
   const NavList: NavListType[] = [
     {
       title: "Dashboard",
-      href: `/${userId}/dashboard`,
+      href: `/dashboard`,
       icon: DashboardIcon,
     },
     {
       title: "Projects",
-      href: `/${userId}/projects`,
+      href: `/projects`,
       icon: ProjectIcon,
     },
   ];
