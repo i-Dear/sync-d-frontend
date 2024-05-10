@@ -46,12 +46,7 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
         }
         onChange={handleContentChange}
         onFocus={handleFocus}
-        className="flex h-full w-full justify-normal p-[1rem] outline-none "
-        style={{
-          fontSize: font ? font : 12,
-          color: "black",
-          fontFamily: "Manrope, sans-serif",
-        }}
+        className={`flex h-full w-full justify-normal p-[1rem] outline-none ${font ? font : "text-base"} font-Manrope text-black`}
       />
     </foreignObject>
   );
