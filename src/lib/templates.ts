@@ -7,8 +7,6 @@ export const syncTemplates: Template[] = [
     title: "60초 자기소개 Time !",
     x: 200,
     y: 50,
-    width: 800,
-    height: 200,
     fill: "#FFF0C8",
   },
   {
@@ -17,8 +15,7 @@ export const syncTemplates: Template[] = [
     title: "제 강점과 약점은요,",
     x: 200,
     y: 300,
-    width: 800,
-    height: 200,
+
     fill: "#C8FFD1",
   },
   {
@@ -27,8 +24,7 @@ export const syncTemplates: Template[] = [
     title: "이것만은 부탁해요!",
     x: 200,
     y: 550,
-    width: 800,
-    height: 200,
+
     fill: "#C8F5FF",
   },
   {
@@ -38,9 +34,6 @@ export const syncTemplates: Template[] = [
       "무슨 말이라도 좋아요 ! 팀원들이 서로를 잘 알고 편안한 감정을 가질 수록 팀 전체의 문제 해결 능력이 향상된다는 연구 결과가 있어요😃",
     x: 240,
     y: 0,
-    width: 800,
-    height: 50,
-    fill: "#FFFFFF",
   },
   {
     id: "11",
@@ -49,9 +42,6 @@ export const syncTemplates: Template[] = [
       "사람은 모든 면에서 완벽할 수 없어요. 부끄러워하지 않아도 괜찮아요 ! 서로의 강점과 약점을 공유하는 시간을 가져봐요😉",
     x: 200,
     y: 250,
-    width: 800,
-    height: 50,
-    fill: "#FFFFFF",
   },
   {
     id: "12",
@@ -60,20 +50,95 @@ export const syncTemplates: Template[] = [
       "프로젝트를 시작하기 앞서, 팀원들에게 이것만은 솔직하게 부탁하고 싶어요!",
     x: 200,
     y: 500,
-    width: 800,
-    height: 50,
-    fill: "#FFFFFF",
   },
   {
     id: "200",
     type: TemplateType.GuideTextBox,
-    title:
-      "프로젝트를 통해 얻어가고 싶은 목표를 적어주세요 ! \n우리는 각자 프로젝트에서 얻어가고자 하는 목표가 다를 수 있고, 이 점을 서로 존중하고 이해해줘야 해요☺️",
+    title: "프로젝트 내 개인목표",
     x: 225,
     y: 1000,
     width: 800,
+    height: 25,
+    font: 18,
+    fontWeight: "bold",
+    fill: "none",
+  },
+  {
+    id: "201",
+    type: TemplateType.GuideTextBox,
+    title:
+      "프로젝트를 통해 얻어가고 싶은 목표를 적어주세요 ! \n우리는 각자 프로젝트에서 얻어가고자 하는 목표가 다를 수 있고, 이 점을 서로 존중하고 이해해줘야 해요☺️",
+    x: 200,
+    y: 1025,
+    width: 800,
     height: 50,
-    fill: "#FFFFFF",
+    fontWeight: "light",
+    fill: "none",
+  },
+  {
+    id: "202",
+    type: TemplateType.NoteBox,
+    title: "이것만은 부탁해요!",
+    x: 200,
+    y: 1100,
+    width: 800,
+    height: 200,
+    fill: "#C8F5FF",
+  },
+  {
+    id: "203",
+    type: TemplateType.GuideTextBox,
+    title: "프로젝트 내 팀목표",
+    x: 225,
+    y: 1300,
+    width: 800,
+    height: 25,
+    font: 18,
+    fontWeight: "bold",
+  },
+  {
+    id: "204",
+    type: TemplateType.GuideTextBox,
+    title:
+      "각자 다른 목표를 가지고 있어도, 우리는 결국 합의된 하나의 목표를 바라봐야해요.\n모두의 개인 목표를 토대로 우리 팀의 목표는 이걸로 하면 어떨까? 하는 의견을 자유롭게 적어주세요 !",
+    x: 200,
+    y: 1325,
+    width: 800,
+    height: 50,
+    fontWeight: "light",
+  },
+  {
+    id: "205",
+    type: TemplateType.NoteBox,
+    title: "이것만은 부탁해요!",
+    x: 200,
+    y: 1400,
+    width: 800,
+    height: 200,
+    fill: "#C8F5FF",
+  },
+  {
+    id: "206",
+    type: TemplateType.GuideTextBox,
+    title: "한 문장으로 팀의 목표를 정의해주세요!",
+    x: 200,
+    y: 1600,
+    width: 800,
+    height: 50,
+    font: 20,
+    fontWeight: "bold",
+  },
+  {
+    id: "207",
+    type: TemplateType.InputFormBox,
+    title: "한 문장으로 팀의 목표를 정의해주세요!",
+    x: 200,
+    y: 1650,
+    width: 800,
+    height: 50,
+    font: 20,
+    fontWeight: "bold",
+    value: "",
   },
   {
     id: "400",
@@ -84,7 +149,6 @@ export const syncTemplates: Template[] = [
     y: 3020,
     width: 800,
     height: 200,
-    fill: "#FFFFFF",
   },
   {
     id: "500",
@@ -95,7 +159,6 @@ export const syncTemplates: Template[] = [
     y: 4020,
     width: 800,
     height: 200,
-    fill: "#FFFFFF",
   },
 
   {
@@ -107,7 +170,6 @@ export const syncTemplates: Template[] = [
     y: 5020,
     width: 800,
     height: 200,
-    fill: "#FFFFFF",
   },
   {
     id: "700",
@@ -117,7 +179,6 @@ export const syncTemplates: Template[] = [
     y: 6020,
     width: 800,
     height: 50,
-    fill: "#FFFFFF",
   },
   {
     id: "800",
@@ -128,7 +189,6 @@ export const syncTemplates: Template[] = [
     y: 7020,
     width: 800,
     height: 300,
-    fill: "#FFFFFF",
   },
   {
     id: "900",
@@ -139,7 +199,6 @@ export const syncTemplates: Template[] = [
     y: 8020,
     width: 800,
     height: 300,
-    fill: "#FFFFFF",
   },
   {
     id: "1000",
@@ -150,7 +209,6 @@ export const syncTemplates: Template[] = [
     y: 9020,
     width: 800,
     height: 300,
-    fill: "#FFFFFF",
   },
   {
     id: "1100",
@@ -161,7 +219,6 @@ export const syncTemplates: Template[] = [
     y: 10020,
     width: 800,
     height: 300,
-    fill: "#FFFFFF",
   },
   {
     id: "1200",
@@ -172,6 +229,5 @@ export const syncTemplates: Template[] = [
     y: 11020,
     width: 800,
     height: 300,
-    fill: "#FFFFFF",
   },
 ];

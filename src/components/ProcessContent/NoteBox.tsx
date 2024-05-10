@@ -6,10 +6,10 @@ export default function NoteBox(props: NoteBoxTemplate) {
   return (
     <g>
       <rect
-        width={width}
+        width={width ? width : 800}
         x={x}
         y={y}
-        height={height}
+        height={height ? height : 200}
         fill={fill}
         stroke={"transparent"}
       />
