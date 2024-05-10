@@ -4,6 +4,7 @@ import NoteBox from "../ProcessContent/NoteBox";
 import GuideTextBox from "../ProcessContent/GuideTextBox";
 import InputFormBox from "../ProcessContent/InputFormBox";
 import ThirdStepProb from "../ProcessContent/ThirdStepProb";
+import ThirdStepAdd from "../ProcessContent/ThirdStepAdd";
 
 const TemplateComponent = memo(({ template }: { template: Template }) => {
   if (!template) {
@@ -65,9 +66,23 @@ const TemplateComponent = memo(({ template }: { template: Template }) => {
           height={template.height}
           title={template.title}
           fill={template.fill}
+          value={template.value}
         />
       );
-
+    case TemplateType.ThirdStepAdd:
+      return (
+        <ThirdStepAdd
+          id={template.id}
+          type={template.type}
+          x={template.x}
+          y={template.y}
+          width={template.width}
+          height={template.height}
+          title={template.title}
+          fill={template.fill}
+          value={template.value}
+        />
+      );
     default:
       console.warn("Unknown template type");
       return null;
