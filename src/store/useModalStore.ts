@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 interface ModalStoreType {
-  isOpen: boolean;
+  isModalOpen: boolean;
   setModalState: (open: boolean) => void;
   modalType: string;
   setModalType: (key: string) => void;
@@ -9,8 +9,8 @@ interface ModalStoreType {
 
 const useModalStore = create<ModalStoreType>((set) => ({
   modalType: "",
-  isOpen: false,
-  setModalState: (open) => set({ isOpen: open }),
+  isModalOpen: false,
+  setModalState: (open) => set({ isModalOpen: open }),
   setModalType: (type) => {
     set({ modalType: type });
   },
