@@ -43,6 +43,14 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         process: new LiveList(steps),
         templates: new LiveList<Template>(syncTemplates),
+        votelist: new LiveObject({
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+          active: 0,
+        }),
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>
