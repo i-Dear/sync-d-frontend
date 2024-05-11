@@ -193,15 +193,13 @@ export enum TemplateType {
   GuideTextBox,
   InputFormBox,
   ThirdStepProb,
-  ThirdStepAdd,
 }
 
 export type Template =
   | NoteBoxTemplate
   | GuideTextBoxTemplate
   | InputFormBoxTemplate
-  | ThirdStepProbTemplate
-  | ThirdStepAddTemplate;
+  | ThirdStepProbTemplate;
 
 export type NoteBoxTemplate = {
   type: TemplateType.NoteBox;
@@ -242,18 +240,6 @@ export type InputFormBoxTemplate = {
 
 export type ThirdStepProbTemplate = {
   type: TemplateType.ThirdStepProb;
-  id: string;
-  title?: string;
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-  fill: string;
-  value: number;
-};
-
-export type ThirdStepAddTemplate = {
-  type: TemplateType.ThirdStepAdd;
   id: string;
   title?: string;
   x: number;

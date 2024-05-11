@@ -140,7 +140,7 @@ export const syncTemplates: Template[] = [
   },
   {
     id: "300",
-    type: TemplateType.ThirdStepAdd,
+    type: TemplateType.ThirdStepProb,
     title: "+",
     x: 200,
     y: 2050,
