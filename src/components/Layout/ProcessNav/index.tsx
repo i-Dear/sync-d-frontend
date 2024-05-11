@@ -54,7 +54,7 @@ const ProcessNav = ({
     setCurrentProcess(step);
   };
 
-  const { isOpen, setModalState, setModalType } = useModalStore();
+  const { isModalOpen, setModalState, setModalType } = useModalStore();
 
   return (
     <motion.nav

@@ -7,8 +7,6 @@ import {
 import { createRoomContext } from "@liveblocks/react";
 import { Color, Layer, Point, Process, Template, UserInfo } from "@/lib/types";
 
-const authToken = localStorage.getItem("authToken");
-
 const client = createClient({
   authEndpoint: async (room) => {
     const response = await fetch(
@@ -17,7 +15,7 @@ const client = createClient({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       },
     );
