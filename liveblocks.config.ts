@@ -2,13 +2,31 @@ import {
   LiveList,
   LiveMap,
   LiveObject,
+  Lson,
   createClient,
 } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
+import { liveblocks, WithLiveblocks } from "@liveblocks/zustand";
 import { Color, Layer, Point, Process, Template, UserInfo } from "@/lib/types";
+import {
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
+  Connection,
+  Edge,
+  EdgeChange,
+  Node,
+  NodeChange,
+  OnConnect,
+  OnEdgesChange,
+  OnNodesChange,
+} from "reactflow";
+import { create } from "zustand";
+import nodes from "@/lib/nodes";
+import edges from "@/lib/edges";
 
 const client = createClient({
-  authEndpoint: async (room) => {
+  authEndpoint: async () => {
     const response = await fetch(
       "https://syncd-backend.i-dear.org/v1/room/auth",
       {
@@ -46,6 +64,14 @@ export type ActiveUserInfo = UserInfo & {
   enteredAt: number;
 };
 
+type FlowState = {
+  nodes: Node[];
+  edges: Edge[];
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
+  onConnect: OnConnect;
+};
+
 type Storage = {
   timer: LiveObject<{
     timerState: boolean;
@@ -65,6 +91,8 @@ type Storage = {
   layerIds: LiveList<string>;
   templates: LiveList<Template>;
   process: LiveList<Process>;
+  nodes: FlowState["nodes"] | any;
+  edges: FlowState["edges"] | any;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each User, as
@@ -78,9 +106,49 @@ export type UserMeta = {
   };
 };
 
+const generateUniqueEdgeId = (source: string | null, target: string | null) => {
+  return `reactflow__edge-${source}-${target}-${Math.random().toString(36).substr(2, 9)}`;
+};
+
 // Optionally, the type of custom events broadcasted and listened for in this
 // room. Must be JSON-serializable.
 // type RoomEvent = {};
+export const useFlowStore = create<WithLiveblocks<FlowState, {}>>()(
+  liveblocks(
+    (set, get) => ({
+      // Initial values for nodes and edges
+      nodes,
+      edges,
+
+      // Apply changes to React Flow when the flowchart is interacted with
+      onNodesChange: (changes: NodeChange[]) => {
+        set({
+          nodes: applyNodeChanges(changes, get().nodes),
+        });
+      },
+      onEdgesChange: (changes: EdgeChange[]) => {
+        set({
+          edges: applyEdgeChanges(changes, get().edges),
+        });
+      },
+      onConnect: (connection: Connection) => {
+        set({
+          edges: addEdge(connection, get().edges),
+        });
+      },
+    }),
+    {
+      // Add Liveblocks client
+      client,
+
+      // Define the store properties that should be shared in real-time
+      storageMapping: {
+        nodes: true,
+        edges: true,
+      },
+    },
+  ),
+);
 
 export const {
   suspense: {
