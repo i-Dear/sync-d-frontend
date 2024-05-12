@@ -9,6 +9,8 @@ import Canvas from "./Canvas";
 import { steps } from "@/lib/static-data";
 import { syncTemplates } from "@/lib/templates";
 import Modal from "./Modals";
+import nodes from "@/lib/nodes";
+import edges from "@/lib/edges";
 
 interface RoomProps {
   roomId: string;
@@ -44,8 +46,8 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         process: new LiveList(steps),
         templates: new LiveList<Template>(syncTemplates),
-        nodes: [],
-        edges: [],
+        nodes,
+        edges,
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>
