@@ -224,3 +224,10 @@ export function formatDuration(joinedAt: number) {
   ${String(minutes % 60).padStart(2, "0")}m 
   ${String(seconds % 60).padStart(2, "0")}s`;
 }
+
+export const generateUniqueEdgeId = (
+  source: string | null,
+  target: string | null,
+) => {
+  return `e${source}-${target}-${Math.random().toString(36).substr(2, 9)}`;
+};
