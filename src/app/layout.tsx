@@ -1,4 +1,6 @@
 import "./globals.css";
+import "reactflow/dist/base.css";
+import "reactflow/dist/style.css";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
