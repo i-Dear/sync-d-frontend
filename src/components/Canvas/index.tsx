@@ -1,7 +1,6 @@
 "use client";
 
 import React, {
-  use,
   useCallback,
   useEffect,
   useMemo,
@@ -17,7 +16,8 @@ import {
   useOthersMapped,
   useCanUndo,
   useCanRedo,
-  useMyPresence,
+  useRoom,
+  useFlowStore,
 } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
 import {
@@ -30,7 +30,6 @@ import {
   Side,
   XYWH,
   Point,
-  TemplateType,
 } from "@/lib/types";
 import {
   colorToCss,
@@ -57,6 +56,7 @@ import ProcessNav from "../Layout/ProcessNav";
 import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
 import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
+import ReactFlow, { Controls, MiniMap } from "reactflow";
 
 const MAX_LAYERS = 100;
 
@@ -67,6 +67,17 @@ const Canvas = () => {
   const templates = useStorage((root) => root.templates);
   const cursorPanel = useRef(null);
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
+  const room = useRoom();
+
+  const {
+    liveblocks: { enterRoom, leaveRoom, isStorageLoading },
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+  } = useFlowStore();
+
   const [canvasState, setState] = useState<CanvasState>({
     mode: CanvasMode.None,
   });
@@ -491,6 +502,19 @@ const Canvas = () => {
     }
   }, [templates.length, InitTemplate]);
 
+  useEffect(() => {
+    enterRoom(room.id);
+    return () => leaveRoom();
+  }, [enterRoom, leaveRoom, room.id]);
+
+  if (isStorageLoading) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <CollabToolAside roomId={groupCall.roomId} />
@@ -574,6 +598,20 @@ const Canvas = () => {
             )}
           </g>
         </svg>
+
+        <div className="fixed inset-0">
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            fitView
+          >
+            <MiniMap />
+            <Controls />
+          </ReactFlow>
+        </div>
       </div>
 
       <ToolsBar

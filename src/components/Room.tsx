@@ -44,6 +44,8 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         process: new LiveList(steps),
         templates: new LiveList<Template>(syncTemplates),
+        nodes: [],
+        edges: [],
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>
