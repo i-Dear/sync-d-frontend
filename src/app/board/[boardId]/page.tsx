@@ -1,8 +1,6 @@
-"use client";
-
 import Room from "@/components/Room";
 
-const BoardIdPage = ({
+const BoardPage = ({
   params,
 }: {
   params: {
@@ -16,4 +14,4 @@ const BoardIdPage = ({
   );
 };
 
-export default BoardIdPage;
+export default BoardPage;
