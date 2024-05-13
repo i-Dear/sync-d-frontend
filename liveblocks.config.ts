@@ -8,7 +8,7 @@ import { createRoomContext } from "@liveblocks/react";
 import { Color, Layer, Point, Process, Template, UserInfo } from "@/lib/types";
 
 const client = createClient({
-  authEndpoint: async (room) => {
+  authEndpoint: async () => {
     const response = await fetch(
       "https://syncd-backend.i-dear.org/v1/room/auth",
       {
@@ -36,10 +36,6 @@ type Presence = {
   currentProcess: number;
 };
 
-// Optionally, Storage represents the shared document that persists in the
-// Room, even after all Users leave. Fields under Storage typically are
-// LiveList, LiveMap, LiveObject instances, for which updates are
-// automatically persisted and synced to all connected clients.
 export type MusicStates = "playing" | "seeking" | "paused";
 
 export type ActiveUserInfo = UserInfo & {
@@ -65,6 +61,8 @@ type Storage = {
   layerIds: LiveList<string>;
   templates: LiveList<Template>;
   process: LiveList<Process>;
+  nodes: any;
+  edges: any;
   voteList: LiveObject<{
     voteCount: LiveObject<{
       1: number;
@@ -87,10 +85,6 @@ export type UserMeta = {
     avatar?: string;
   };
 };
-
-// Optionally, the type of custom events broadcasted and listened for in this
-// room. Must be JSON-serializable.
-// type RoomEvent = {};
 
 export const {
   suspense: {

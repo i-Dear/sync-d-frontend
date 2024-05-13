@@ -1,7 +1,6 @@
 "use client";
 
 import React, {
-  use,
   useCallback,
   useEffect,
   useMemo,
@@ -17,7 +16,6 @@ import {
   useOthersMapped,
   useCanUndo,
   useCanRedo,
-  useMyPresence,
 } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
 import {
@@ -30,7 +28,6 @@ import {
   Side,
   XYWH,
   Point,
-  TemplateType,
 } from "@/lib/types";
 import {
   colorToCss,
@@ -57,6 +54,16 @@ import ProcessNav from "../Layout/ProcessNav";
 import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
 import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
+import ReactFlow, {
+  Connection,
+  Controls,
+  EdgeChange,
+  MiniMap,
+  NodeChange,
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
+} from "reactflow";
 
 const MAX_LAYERS = 100;
 
@@ -65,8 +72,12 @@ const Canvas = () => {
   const layerIds = useStorage((root) => root.layerIds);
   const groupCall = useStorage((root) => root.groupCall);
   const templates = useStorage((root) => root.templates);
+  const nodes = useStorage((state) => state.nodes);
+  const edges = useStorage((state) => state.edges);
   const cursorPanel = useRef(null);
   const pencilDraft = useSelf((me) => me.presence.pencilDraft);
+  const currentProcess = useSelf((me) => me.presence.currentProcess);
+
   const [canvasState, setState] = useState<CanvasState>({
     mode: CanvasMode.None,
   });
@@ -89,6 +100,28 @@ const Canvas = () => {
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
+
+  const onNodesChange = useMutation(
+    ({ storage }, changes: NodeChange[]) => {
+      storage.set("nodes", applyNodeChanges(changes, nodes));
+    },
+    [nodes],
+  );
+
+  const onEdgesChange = useMutation(
+    ({ storage }, changes: EdgeChange[]) => {
+      storage.set("edges", applyEdgeChanges(changes, edges));
+    },
+    [edges],
+  );
+
+  const onConnect = useMutation(
+    ({ storage }, connection: Connection) => {
+      const existingEdges = storage.get("edges");
+      storage.set("edges", addEdge(connection, existingEdges));
+    },
+    [edges],
+  );
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -497,6 +530,21 @@ const Canvas = () => {
     <div>
       <CollabToolAside roomId={groupCall.roomId} />
       <ProcessNav userInfo={userInfo} setCamera={setCamera} />
+      {[9, 10, 11, 12].includes(currentProcess) && (
+        <div className="relative h-screen w-screen bg-white">
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            fitView
+          >
+            <MiniMap />
+            <Controls />
+          </ReactFlow>
+        </div>
+      )}
       <div
         className="relative h-full w-full touch-none bg-white"
         ref={cursorPanel}
@@ -564,8 +612,7 @@ const Canvas = () => {
                 />
               )}
             <Drafts />
-            <div className="absolute top-[200px] h-full w-full">gd</div>
-            {/* Drawing in progress. Still not commited to the storage. */}
+
             {pencilDraft != null && pencilDraft.length > 0 && (
               <Path
                 points={pencilDraft}
