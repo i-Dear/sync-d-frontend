@@ -230,12 +230,14 @@ const Canvas = () => {
 
   const InitTemplate = useMutation(({ storage }) => {
     const templates = storage.get("templates");
-
-    console.log(templates, syncTemplates);
-    templates.clear();
+    // templates.clear(); << 이거 있으면 충돌, 없으면 삭제 단됨
 
     for (const template of syncTemplates) {
-      templates.push(template);
+      const index = templates.findIndex((item) => item.id === template.id);
+      // 리스트에 없는 경우에만 추가
+      if (index === -1) {
+        templates.push(template);
+      }
     }
   }, []);
 
@@ -522,7 +524,7 @@ const Canvas = () => {
     if (syncTemplates.length !== templates.length) {
       InitTemplate();
     }
-  }, [templates.length, InitTemplate]);
+  }, [InitTemplate]);
 
   return (
     <div>

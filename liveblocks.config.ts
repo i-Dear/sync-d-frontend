@@ -63,6 +63,16 @@ type Storage = {
   process: LiveList<Process>;
   nodes: any;
   edges: any;
+  voteList: LiveObject<{
+    voteCount: LiveObject<{
+      1: number;
+      2: number;
+      3: number;
+      4: number;
+      5: number;
+    }>;
+    totalCount: number;
+  }>;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each User, as

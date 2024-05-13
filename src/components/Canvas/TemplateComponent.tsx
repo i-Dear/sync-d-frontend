@@ -3,6 +3,8 @@ import { Template, TemplateType } from "@/lib/types";
 import NoteBox from "../ProcessContent/NoteBox";
 import GuideTextBox from "../ProcessContent/GuideTextBox";
 import InputFormBox from "../ProcessContent/InputFormBox";
+import ThirdStepProb from "../ProcessContent/ThirdStepProb";
+
 const TemplateComponent = memo(({ template }: { template: Template }) => {
   if (!template) {
     return null;
@@ -49,6 +51,20 @@ const TemplateComponent = memo(({ template }: { template: Template }) => {
           title={template.title}
           font={template.font}
           fontWeight={template.fontWeight}
+          value={template.value}
+        />
+      );
+    case TemplateType.ThirdStepProb:
+      return (
+        <ThirdStepProb
+          id={template.id}
+          type={template.type}
+          x={template.x}
+          y={template.y}
+          width={template.width}
+          height={template.height}
+          title={template.title}
+          fill={template.fill}
           value={template.value}
         />
       );

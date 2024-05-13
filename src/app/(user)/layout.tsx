@@ -9,9 +9,9 @@ const Layout = ({
   return (
     <div className="flex h-screen w-screen flex-col items-start justify-start">
       <TopNavBar />
-      <div className="flex h-full w-full justify-start">
+      <div className="flex w-full" style={{ height: "calc(100vh - 4.8rem)" }}>
         <LeftNav />
-        <main className="w-full">{children}</main>
+        <main className="h-full w-full">{children}</main>
       </div>
     </div>
   );
