@@ -87,4 +87,10 @@ export const exampleImages: exampleImagesType[] = [
       src: "/steps/stepguide7-1.png",
     },
   ],
+  [
+    {
+      name: "step8-1",
+      src: "/steps/stepguide8-1.png",
+    },
+  ],
 ];
