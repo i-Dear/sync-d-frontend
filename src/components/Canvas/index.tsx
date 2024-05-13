@@ -16,7 +16,6 @@ import {
   useOthersMapped,
   useCanUndo,
   useCanRedo,
-  useRoom,
 } from "~/liveblocks.config";
 import { LiveObject } from "@liveblocks/client";
 import {
@@ -34,7 +33,6 @@ import {
   colorToCss,
   connectionIdToColor,
   findIntersectingLayersWithRectangle,
-  generateUniqueEdgeId,
   penPointsToPathLayer,
   pointerEventToCanvasPoint,
   resizeBounds,
