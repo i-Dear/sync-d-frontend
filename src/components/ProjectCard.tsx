@@ -5,6 +5,7 @@ import Link from "next/link";
 import EllipsisVertical from "~/public/ellipsis-vertical.svg";
 import ProjectDetailBox from "./ProjectDetailBox";
 import { useToggle } from "@/hooks/useToggle";
+import useRoomIdStore from "@/store/useRoomIdStore";
 
 const ProjectCard = ({ project }: { project: ProjectInfo }) => {
   const [detailBoxPosition, setDetailBoxPosition] = useState<{
@@ -45,9 +46,15 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
     };
   }, [detailBoxPosition]);
 
+  const { setRoomId } = useRoomIdStore();
+
+  const handleClick = () => {
+    setRoomId(project.id);
+  };
+
   return (
     <div className="flex h-[30rem] w-[30.6rem] flex-col items-center justify-start">
-      <Link href={`/board/${project.id}`}>
+      <Link href={`/board/${project.id}`} onClick={handleClick}>
         <div className="w-[30.6rem]">
           <Image
             src="/default-thumbnail.png"
