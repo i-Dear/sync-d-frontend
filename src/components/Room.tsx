@@ -8,7 +8,6 @@ import { Loading } from "./Loading";
 import Canvas from "./Canvas";
 import { steps } from "@/lib/static-data";
 import { syncTemplates } from "@/lib/templates";
-
 interface RoomProps {
   roomId: string;
 }
@@ -43,13 +42,15 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         process: new LiveList(steps),
         templates: new LiveList<Template>(syncTemplates),
-        votelist: new LiveObject({
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          active: 0,
+        voteList: new LiveObject({
+          voteCount: new LiveObject({
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+          }),
+          totalCount: 0,
         }),
       }}
     >
