@@ -35,11 +35,12 @@ const VoteModal = () => {
 
   //votelist에서 해당 표 +1 하고 총 표수 +1 해주기
   const updateValue = useMutation(({ storage }, vote) => {
-    const votelist = storage.get("votelist");
-    const currentActive = votelist.get("active");
-    votelist.set(vote, votelist.get(vote) + 1);
-    votelist.set("active", currentActive + 1);
-    if (currentActive === totalPeople) {
+    const voteList = storage.get("voteList");
+    const totalCount = voteList.get("totalCount");
+    const voteCount = voteList.get("voteCount");
+    voteCount.set(vote, voteList.get(vote) + 1);
+    voteList.set("totalCount", totalCount + 1);
+    if (totalCount === totalPeople) {
       //투표 알고리즘
     }
   }, []);

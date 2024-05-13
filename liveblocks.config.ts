@@ -65,13 +65,15 @@ type Storage = {
   layerIds: LiveList<string>;
   templates: LiveList<Template>;
   process: LiveList<Process>;
-  votelist: LiveObject<{
-    1: number;
-    2: number;
-    3: number;
-    4: number;
-    5: number;
-    active: number;
+  voteList: LiveObject<{
+    voteCount: LiveObject<{
+      1: number;
+      2: number;
+      3: number;
+      4: number;
+      5: number;
+    }>;
+    totalCount: number;
   }>;
 };
 
