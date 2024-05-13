@@ -35,6 +35,7 @@ const config: Config = {
         "background-200": "#f0f2f5",
         "div-text": "#121417",
         time: "#4569A1",
+        "red-300": "#E47373",
       },
       boxShadow: {
         popup:

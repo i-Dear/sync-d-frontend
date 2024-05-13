@@ -8,6 +8,8 @@ import { Loading } from "./Loading";
 import Canvas from "./Canvas";
 import { steps } from "@/lib/static-data";
 import { syncTemplates } from "@/lib/templates";
+import Modal from "./Modals";
+
 interface RoomProps {
   roomId: string;
 }
@@ -57,6 +59,7 @@ const Room = ({ roomId }: RoomProps) => {
       <ClientSideSuspense fallback={<Loading />}>
         {() => <Canvas />}
       </ClientSideSuspense>
+      <Modal />
     </RoomProvider>
   );
 };
