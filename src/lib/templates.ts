@@ -15,7 +15,6 @@ export const syncTemplates: Template[] = [
     title: "제 강점과 약점은요,",
     x: 200,
     y: 300,
-
     fill: "#C8FFD1",
   },
   {
@@ -24,7 +23,6 @@ export const syncTemplates: Template[] = [
     title: "이것만은 부탁해요!",
     x: 200,
     y: 550,
-
     fill: "#C8F5FF",
   },
   {
@@ -141,6 +139,17 @@ export const syncTemplates: Template[] = [
     value: "",
   },
   {
+    id: "300",
+    type: TemplateType.ThirdStepProb,
+    title: "+",
+    x: 200,
+    y: 2050,
+    width: 200,
+    height: 200,
+    fill: "#F5F5F5",
+    value: 0,
+  },
+  {
     id: "400",
     type: TemplateType.GuideTextBox,
     title:
@@ -160,7 +169,6 @@ export const syncTemplates: Template[] = [
     width: 800,
     height: 200,
   },
-
   {
     id: "600",
     type: TemplateType.GuideTextBox,
