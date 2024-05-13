@@ -224,3 +224,12 @@ export function formatDuration(joinedAt: number) {
   ${String(minutes % 60).padStart(2, "0")}m 
   ${String(seconds % 60).padStart(2, "0")}s`;
 }
+
+export const formatTimeToMinSec = (seconds: number): [string, string] => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return [
+    `${remainingSeconds < 10 ? "0" : ""}${minutes}`,
+    `${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`,
+  ];
+};

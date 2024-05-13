@@ -12,8 +12,8 @@ const CollabToolAside = memo(({ roomId }: GroupCallProps) => {
   return (
     <aside className="absolute right-0 z-10 flex h-screen w-[346px] flex-col gap-[16px] bg-white p-[16px] ">
       <LiveAvatars />
-      <GroupCall roomId={roomId} />
       <Timer />
+      <GroupCall roomId={roomId} />
       <MusicPlayer />
     </aside>
   );

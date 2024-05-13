@@ -1,7 +1,7 @@
 export const getUserInfo = async (token: string) => {
   try {
     const response = await fetch(
-      "https://syncd-backend.i-dear.org/v1/user/info",
+      "https://syncd-backend.dev.i-dear.org/v1/user/info",
       {
         method: "GET",
         credentials: "include",

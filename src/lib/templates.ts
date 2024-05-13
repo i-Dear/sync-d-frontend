@@ -139,6 +139,17 @@ export const syncTemplates: Template[] = [
     value: "",
   },
   {
+    id: "300",
+    type: TemplateType.ThirdStepProb,
+    title: "+",
+    x: 200,
+    y: 2050,
+    width: 200,
+    height: 200,
+    fill: "#F5F5F5",
+    value: 0,
+  },
+  {
     id: "400",
     type: TemplateType.GuideTextBox,
     title:
