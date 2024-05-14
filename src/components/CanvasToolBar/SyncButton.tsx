@@ -3,8 +3,8 @@ import { useStorage, useMutation } from "~/liveblocks.config";
 import { useMyPresence } from "~/liveblocks.config";
 import { useBroadcastEvent, useEventListener } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
-import useRoomIdStore from "@/store/useRoomIdStore";
 import { Template } from "@/lib/types";
+import { useRoom } from "~/liveblocks.config";
 import {
   fetchScenario,
   addEpicTemplate,
@@ -19,14 +19,14 @@ const SyncButton = () => {
   const [myPresence] = useMyPresence();
   const { currentProcess } = myPresence;
   const templates = useStorage((root) => root.templates) as Template[];
-  const { roomId } = useRoomIdStore();
+  const room = useRoom();
 
   const handleClick = async () => {
     if (currentProcess === 10) {
       broadcast({ type: "SCENARIO_MODAL_ON", message: "Event received!" });
       setModalType("processingScenario");
       setModalState(true);
-      const epics: void | Epic[] = await fetchScenario(roomId, templates);
+      const epics: void | Epic[] = await fetchScenario(room.id, templates);
       setModalState(false);
       broadcast({
         type: "SCENARIO_MODAL_OFF",
@@ -37,6 +37,7 @@ const SyncButton = () => {
   };
 
   const updateEpic = useMutation(({ storage }, epics) => {
+    //const epics = storage.get("epics");
     const templates = storage.get("templates");
     epics.map((epic: Epic, epidx: number) => {
       addEpicTemplate(templates, epic, epidx);
