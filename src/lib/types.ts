@@ -262,7 +262,7 @@ export type EpicBoxTemplate = {
   height?: number;
   font?: number;
   fontWeight?: string;
-  length?: number;
+  length: number;
   fill: string;
   value?: string;
 };
