@@ -164,7 +164,7 @@ export const syncTemplates: Template[] = [
     type: TemplateType.PersonaBox,
     title: "PersonaBox",
     x: 100,
-    y: 3100,
+    y: 3150,
     width: 300,
     height: 250,
     value: "add",
