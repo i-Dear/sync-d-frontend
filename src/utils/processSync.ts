@@ -69,7 +69,7 @@ export const addEpicTemplate = (
         : 50 + (parseInt(epic.id) - 5) * 400,
     y: idx < 4 ? 10100 : 10600,
     fill: "#369EFF",
-    width: 400,
+    width: 380,
   });
 };
 
@@ -90,7 +90,7 @@ export const addUserStoryTemplate = (
         ? 50 + (parseInt(epic.id) - 1) * 400
         : 50 + (parseInt(epic.id) - 5) * 400,
     y: epidx < 4 ? 10100 + userStory.id * 60 : 10600 + userStory.id * 60,
-    width: 400,
+    width: 380,
     height: 50,
     fill: "#A5D0F9",
     font: 8,
