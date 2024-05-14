@@ -251,7 +251,7 @@ export type ThirdStepProbTemplate = {
   height: number;
   width: number;
   fill: string;
-  value: string;
+  value: number;
 };
 
 export type PersonaBoxTemplate = {

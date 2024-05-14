@@ -160,6 +160,16 @@ export const syncTemplates: Template[] = [
     height: 200,
   },
   {
+    id: "401",
+    type: TemplateType.PersonaBox,
+    title: "PersonaBox",
+    x: 100,
+    y: 3100,
+    width: 300,
+    height: 250,
+    value: "add",
+  },
+  {
     id: "500",
     type: TemplateType.GuideTextBox,
     title:
