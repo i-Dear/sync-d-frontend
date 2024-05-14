@@ -12,7 +12,7 @@ import ReactFlow, {
   EdgeChange,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import StakeholderNode from "./StakeholderNode";
+// import StakeholderNode from "./StakeholderNode";
 
 import Sidebar from "./Sidebar";
 
@@ -24,9 +24,9 @@ const getId = () => `node_${id++}`;
 
 const defaultViewport = { x: 0, y: 0, zoom: 1.5 };
 
-const nodeTypes = {
-  stakeholder: StakeholderNode,
-};
+// const nodeTypes = {
+//     stakeholder: StakeholderNode,
+//   };
 
 const DnDFlow = () => {
   const nodes = useStorage((root) => root.nodes);
