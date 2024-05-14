@@ -33,7 +33,7 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
         y: ThirdStepLength >= 3 ? 2450 : 2050,
         width: width,
         height: height,
-        fill: "#F5F5F5",
+        fill: "#D4EAFB",
         value: lastThirdStep.value + 1,
       });
     },
@@ -51,14 +51,14 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
         rx={width / 2}
         ry={height / 2}
         fill="#FFF"
-        stroke="#F0F2F5"
+        stroke="#D4EAFB"
         strokeWidth="4"
         onClick={() => (value === 0 ? handleAdd() : "")}
       />
-      {value === 0 ? (
+      {value === "default" ? (
         <g>
           <foreignObject x={x + 50} y={y + 50} width={200} height={100}>
-            <PlusMarkIcon fill="#F0F2F5 " />
+            <PlusMarkIcon fill="#D4EAFB " />
           </foreignObject>
         </g>
       ) : (
