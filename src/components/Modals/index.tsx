@@ -6,6 +6,7 @@ import SkipModal from "./SkipModal";
 import VoteModal from "./VoteModal";
 import CompleteModal from "./CompleteModal";
 import CreateProjectModal from "./CreateProjectModal";
+import ProcessingScenarioModal from "./ProcessingScenarioModal";
 import { useState } from "react";
 
 interface ModalMapType {
@@ -18,6 +19,7 @@ const ModalMap: ModalMapType = {
   vote: VoteModal,
   complete: CompleteModal,
   createProject: CreateProjectModal,
+  processingScenario: ProcessingScenarioModal,
 };
 
 const Modal = () => {
