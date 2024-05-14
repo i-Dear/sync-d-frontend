@@ -17,7 +17,7 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
     },
     { title: "detail", value: typeof value === "string" ? "" : value[2].value },
   ]);
-
+  const [isFocused, setIsFocused] = useState(false); // 포커스 상태 추가
   //personaTemplate 추가 로직
   const templates = useStorage((root) => root.templates);
   const handleAdd = useMutation(
@@ -75,6 +75,14 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
     [],
   );
 
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   return (
     <g>
       <rect
@@ -106,26 +114,47 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
           <ContentEditable
             html={
               //초기값 세팅 이후엔 state내의 value로 세팅
-              typeof value === "string"
-                ? "이름/나이/성별"
-                : personaContent[0].value
+              isFocused
+                ? personaContent[0].value
+                : typeof value === "string"
+                  ? "이름/나이/성별"
+                  : value[0].value
             }
             onChange={(e) => {
               handleChange("info", e.target.value);
             }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             className={`font-Manrope flex h-[30px] w-full items-center justify-normal text-3xl font-black  text-primary-400 outline-none`}
           />
           <ContentEditable
-            html={typeof value === "string" ? "특징" : personaContent[1].value}
+            //포커스 상태 따라 value를 스토어에서 가져올지, state에서 가져올지 결정
+            html={
+              isFocused
+                ? personaContent[1].value
+                : typeof value === "string"
+                  ? "이름/나이/성별"
+                  : value[1].value
+            }
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             onChange={(e) => handleChange("personality", e.target.value)}
             className={`font-Manrope mb-[2rem] h-[50px] w-full items-start justify-normal rounded-lg bg-primary-300  p-[2px] text-2xl font-medium text-black outline-none`}
           />
           <ContentEditable
-            html={typeof value === "string" ? "설명" : personaContent[2].value}
+            html={
+              isFocused
+                ? personaContent[2].value
+                : typeof value === "string"
+                  ? "이름/나이/성별"
+                  : value[2].value
+            }
             className={`font-Manrope h-[116px] max-h-[116px] w-full justify-normal rounded-lg bg-primary-300  p-[3px] text-2xl text-black outline-none`}
             onChange={(e) => {
               handleChange("detail", e.target.value);
             }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
         </foreignObject>
       )}
