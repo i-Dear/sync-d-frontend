@@ -54,16 +54,15 @@ import ProcessNav from "../Layout/ProcessNav";
 import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
 import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
-import ReactFlow, {
+import {
   Connection,
-  Controls,
   EdgeChange,
-  MiniMap,
   NodeChange,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
+import DnDFlow from "../FlowCanvas/DnDFlow";
 
 const MAX_LAYERS = 100;
 
@@ -530,9 +529,9 @@ const Canvas = () => {
     <div>
       <CollabToolAside roomId={groupCall.roomId} />
       <ProcessNav userInfo={userInfo} setCamera={setCamera} />
-      {[9, 10, 11, 12].includes(currentProcess) && (
+      {[9, 12].includes(currentProcess) && (
         <div className="relative h-screen w-screen bg-white">
-          <ReactFlow
+          {/* <ReactFlow
             nodes={nodes}
             edges={edges}
             onNodesChange={onNodesChange}
@@ -542,7 +541,8 @@ const Canvas = () => {
           >
             <MiniMap />
             <Controls />
-          </ReactFlow>
+          </ReactFlow> */}
+          <DnDFlow />
         </div>
       )}
       <div
