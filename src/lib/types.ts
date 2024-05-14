@@ -249,3 +249,14 @@ export type ThirdStepProbTemplate = {
   fill: string;
   value: number;
 };
+
+export type UserStory = {
+  id: number;
+  name: string;
+};
+
+export type Epic = {
+  id: string;
+  name: string;
+  userStories: UserStory[];
+};

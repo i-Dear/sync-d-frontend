@@ -530,7 +530,7 @@ const Canvas = () => {
     <div>
       <CollabToolAside roomId={groupCall.roomId} />
       <ProcessNav userInfo={userInfo} setCamera={setCamera} />
-      {[9, 10, 11, 12].includes(currentProcess) && (
+      {[9, 12].includes(currentProcess) && (
         <div className="relative h-screen w-screen bg-white">
           <ReactFlow
             nodes={nodes}

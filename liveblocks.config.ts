@@ -5,7 +5,15 @@ import {
   createClient,
 } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
-import { Color, Layer, Point, Process, Template, UserInfo } from "@/lib/types";
+import {
+  Color,
+  Layer,
+  Point,
+  Process,
+  Template,
+  UserInfo,
+  Epic,
+} from "@/lib/types";
 
 const client = createClient({
   authEndpoint: async () => {
@@ -73,6 +81,8 @@ type Storage = {
     }>;
     totalCount: number;
   }>;
+  syncCount: number;
+  epics: LiveList<Epic>;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each User, as
@@ -84,6 +94,12 @@ export type UserMeta = {
     color: [string, string];
     avatar?: string;
   };
+};
+
+// Event types
+export type RoomEvent = {
+  type: "SCENARIO_MODAL_ON" | "SCENARIO_MODAL_OFF";
+  message: string;
 };
 
 export const {
@@ -112,4 +128,4 @@ export const {
     useCanRedo,
     useMutation,
   },
-} = createRoomContext<Presence, Storage, UserMeta /* RoomEvent */>(client);
+} = createRoomContext<Presence, Storage, UserMeta, RoomEvent>(client);
