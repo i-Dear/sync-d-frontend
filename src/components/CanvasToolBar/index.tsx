@@ -10,6 +10,7 @@ import TextButton from "./TextButton";
 import NoteButton from "./NoteButton";
 import StickerButton from "./StickerButton";
 import CanvasButton from "./CanvasButton";
+import EventListener from "~/src/components/Common/EventListener";
 
 type Props = {
   canvasState: CanvasState;
@@ -118,6 +119,7 @@ export default function ToolsBar({
       <div className="absolute bottom-[6rem] flex h-[5rem] w-[30rem] items-center justify-center">
         <CanvasButton />
       </div>
+      <EventListener />
     </div>
   );
 }
