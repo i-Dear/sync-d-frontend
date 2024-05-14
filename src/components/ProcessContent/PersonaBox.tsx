@@ -4,23 +4,22 @@ import { TemplateType } from "@/lib/types";
 import { useStorage } from "~/liveblocks.config";
 import PlusMarkIcon from "~/public/plus-mark.svg";
 import { useState } from "react";
-import Image from "next/image";
-import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { set } from "react-hook-form";
+import ContentEditable from "react-contenteditable";
 
 export default function PersonaBox(props: PersonaBoxTemplate) {
-  const { id, title, x, y, width, height, value } = props;
-  const [content, setContent] = useState<PersonaContent[]>([
+  const { id, x, y, width, height, value } = props;
+  //personaBox는 value가 add면 추가버튼 역할을 하고 그 외에는 value가 PersonaContent[] 형태로 들어온다
+  const [personaContent, setContent] = useState<PersonaContent[]>([
     { title: "info", value: typeof value === "string" ? "" : value[0].value },
     {
       title: "personality",
       value: typeof value === "string" ? "" : value[1].value,
     },
     { title: "detail", value: typeof value === "string" ? "" : value[2].value },
-  ]); // ContentEditable의 내용을 관리하는 상태
+  ]);
+
+  //personaTemplate 추가 로직
   const templates = useStorage((root) => root.templates);
-  const see = templates.filter((v) => v.type === TemplateType.PersonaBox);
-  console.log("see", see);
   const handleAdd = useMutation(
     ({ storage }) => {
       const templates = storage.get("templates");
@@ -47,51 +46,34 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
     [templates],
   );
 
-  const handleChangeInfo = (value: string) => {
+  //personaContent 변경 로직
+  const handleChange = (key: string, newValue: string) => {
     setContent((prev) => {
-      return prev.map((item) => {
-        if (item.title === "info") {
-          return { ...item, value };
+      return prev.map((personaContent) => {
+        if (personaContent.title === key) {
+          return { ...personaContent, value: newValue };
         }
-        return item;
+        return personaContent;
       });
     });
-    updateValue(content);
-  };
-  const handleChangePersonality = (value: string) => {
-    setContent((prev) => {
-      return prev.map((item) => {
-        if (item.title === "personality") {
-          return { ...item, value };
-        }
-        return item;
-      });
-    });
-    updateValue(content);
-  };
-  const handleChangeDetail = (value: string) => {
-    setContent((prev) => {
-      return prev.map((item) => {
-        if (item.title === "detail") {
-          return { ...item, value };
-        }
-        return item;
-      });
-    });
-    updateValue(content);
+    updateValue(personaContent);
   };
 
-  const updateValue = useMutation(({ storage }, content: PersonaContent[]) => {
-    const liveTemplates = storage.get("templates");
-    const targetFormIdx = liveTemplates.findIndex(
-      (template) => template.id === id,
-    );
+  //liveStore변경 로직
+  const updateValue = useMutation(
+    ({ storage }, personaContent: PersonaContent[]) => {
+      const liveTemplates = storage.get("templates");
+      const targetFormIdx = liveTemplates.findIndex(
+        (template) => template.id === id,
+      );
 
-    liveTemplates.set(targetFormIdx, {
-      ...props,
-      value: content,
-    });
-  }, []);
+      liveTemplates.set(targetFormIdx, {
+        ...props,
+        value: personaContent,
+      });
+    },
+    [],
+  );
 
   return (
     <g>
@@ -99,8 +81,8 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
         width={width ? width : 800}
         x={x}
         y={y}
-        rx={10} // 가로 방향의 모서리 반경
-        ry={10} // 세로 방향의 모서리 반경
+        rx={10}
+        ry={10}
         height={height ? height : 200}
         fill={value === "add" ? "#FFF" : "#E9F5FF"}
         stroke={value === "add" ? "#D4EAFB" : ""}
@@ -123,24 +105,26 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
         >
           <ContentEditable
             html={
-              typeof value === "string" ? "이름/나이/성별" : content[0].value
+              //초기값 세팅 이후엔 state내의 value로 세팅
+              typeof value === "string"
+                ? "이름/나이/성별"
+                : personaContent[0].value
             }
             onChange={(e) => {
-              handleChangeInfo(e.target.value);
+              handleChange("info", e.target.value);
             }}
             className={`font-Manrope flex h-[30px] w-full items-center justify-normal text-3xl font-black  text-primary-400 outline-none`}
           />
           <ContentEditable
-            html={typeof value === "string" ? "특징" : content[1].value}
-            onChange={(e) => handleChangePersonality(e.target.value)}
-            // onKeyDown={handleKeyDown}
+            html={typeof value === "string" ? "특징" : personaContent[1].value}
+            onChange={(e) => handleChange("personality", e.target.value)}
             className={`font-Manrope mb-[2rem] h-[50px] w-full items-start justify-normal rounded-lg bg-primary-300  p-[2px] text-2xl font-medium text-black outline-none`}
           />
           <ContentEditable
-            html={typeof value === "string" ? "설명" : content[2].value}
+            html={typeof value === "string" ? "설명" : personaContent[2].value}
             className={`font-Manrope h-[116px] max-h-[116px] w-full justify-normal rounded-lg bg-primary-300  p-[3px] text-2xl text-black outline-none`}
             onChange={(e) => {
-              handleChangeDetail(e.target.value);
+              handleChange("detail", e.target.value);
             }}
           />
         </foreignObject>
