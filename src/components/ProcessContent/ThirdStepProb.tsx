@@ -55,7 +55,7 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
         strokeWidth="4"
         onClick={() => (value === 0 ? handleAdd() : "")}
       />
-      {value === "default" ? (
+      {value === 0 ? (
         <g>
           <foreignObject x={x + 50} y={y + 50} width={200} height={100}>
             <PlusMarkIcon fill="#D4EAFB " />
