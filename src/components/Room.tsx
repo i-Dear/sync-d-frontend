@@ -3,7 +3,7 @@
 import { RoomProvider } from "~/liveblocks.config";
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
-import { Layer, Template } from "@/lib/types";
+import { Layer, Template, Epic } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
 import { steps } from "@/lib/static-data";
@@ -58,6 +58,8 @@ const Room = ({ roomId }: RoomProps) => {
           }),
           totalCount: 0,
         }),
+        syncCount: 0,
+        epics: new LiveList<Epic>(),
       }}
     >
       <ClientSideSuspense fallback={<Loading />}>

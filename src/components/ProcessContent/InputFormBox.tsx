@@ -4,7 +4,7 @@ import { useMutation } from "~/liveblocks.config";
 import React, { useState } from "react";
 
 export default function InputFormBox(props: InputFormBoxTemplate) {
-  const { id, x, y, width, height, font, value } = props;
+  const { id, title, x, y, width, height, font, value } = props;
 
   const updateValue = useMutation(({ storage }, newValue: string) => {
     const liveTemplates = storage.get("templates");
@@ -41,7 +41,7 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
       <ContentEditable
         html={
           isPlaceholderVisible
-            ? "<span class='placeholder' style='color: #999'>우리 팀의 목표는</span>"
+            ? `<span class='placeholder' style='color: #999'>${title}</span>`
             : value || ""
         }
         onChange={handleContentChange}
