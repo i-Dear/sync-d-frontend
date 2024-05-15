@@ -99,7 +99,7 @@ export type UserMeta = {
 
 // Event types
 export type RoomEvent = {
-  type: "SCENARIO_MODAL_ON" | "SCENARIO_MODAL_OFF" | "ALL_SYNCED";
+  type: "SCENARIO_MODAL_ON" | "SCENARIO_MODAL_OFF" | "ALL_SYNCED" | "TIMER_END";
   message: string;
 };
 
