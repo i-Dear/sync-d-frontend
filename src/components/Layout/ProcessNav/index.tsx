@@ -12,7 +12,7 @@ import ProcessAvatars from "./ProcessAvatars";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
+import CompleteIcon from "~/public/completed.svg";
 import useModalStore from "@/store/useModalStore";
 
 const ProcessNav = ({
@@ -117,6 +117,7 @@ const ProcessNav = ({
                 <span className="h-[2rem] text-[1.6rem] font-light leading-[2.4rem] text-div-text">
                   {process.title}
                 </span>
+                {process.done && <CompleteIcon />}
                 <ProcessAvatars step={process.step} />
               </div>
             </motion.div>
