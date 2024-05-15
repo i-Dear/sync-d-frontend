@@ -96,31 +96,6 @@ const Canvas = () => {
 
   const deleteLayers = useDeleteLayers();
   const deleteLayersBackspace = useDeleteLayersBackspace;
-  /**
-   * Hook used to listen to Undo / Redo and delete selected layers
-   */
-
-  const onNodesChange = useMutation(
-    ({ storage }, changes: NodeChange[]) => {
-      storage.set("nodes", applyNodeChanges(changes, nodes));
-    },
-    [nodes],
-  );
-
-  const onEdgesChange = useMutation(
-    ({ storage }, changes: EdgeChange[]) => {
-      storage.set("edges", applyEdgeChanges(changes, edges));
-    },
-    [edges],
-  );
-
-  const onConnect = useMutation(
-    ({ storage }, connection: Connection) => {
-      const existingEdges = storage.get("edges");
-      storage.set("edges", addEdge(connection, existingEdges));
-    },
-    [edges],
-  );
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -531,17 +506,6 @@ const Canvas = () => {
       <ProcessNav userInfo={userInfo} setCamera={setCamera} />
       {[9, 12].includes(currentProcess) && (
         <div className="relative h-screen w-screen bg-white">
-          {/* <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            fitView
-          >
-            <MiniMap />
-            <Controls />
-          </ReactFlow> */}
           <DnDFlow />
         </div>
       )}
