@@ -42,6 +42,7 @@ type Presence = {
   pencilDraft: [x: number, y: number, pressure: number][] | null;
   penColor: Color | null;
   currentProcess: number;
+  isSynced: boolean;
 };
 
 export type MusicStates = "playing" | "seeking" | "paused";
@@ -98,7 +99,7 @@ export type UserMeta = {
 
 // Event types
 export type RoomEvent = {
-  type: "SCENARIO_MODAL_ON" | "SCENARIO_MODAL_OFF";
+  type: "SCENARIO_MODAL_ON" | "SCENARIO_MODAL_OFF" | "ALL_SYNCED";
   message: string;
 };
 
