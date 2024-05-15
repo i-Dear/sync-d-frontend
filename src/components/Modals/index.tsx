@@ -6,6 +6,7 @@ import SkipModal from "./SkipModal";
 import VoteModal from "./VoteModal";
 import CompleteModal from "./CompleteModal";
 import CreateProjectModal from "./CreateProjectModal";
+import ProcessingScenarioModal from "./ProcessingScenarioModal";
 import { useState } from "react";
 
 interface ModalMapType {
@@ -18,6 +19,7 @@ const ModalMap: ModalMapType = {
   vote: VoteModal,
   complete: CompleteModal,
   createProject: CreateProjectModal,
+  processingScenario: ProcessingScenarioModal,
 };
 
 const Modal = () => {
@@ -45,7 +47,7 @@ const Modal = () => {
     <>
       {isModalOpen && (
         <div
-          className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[50rem] py-[40rem] text-center"
+          className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[25rem] py-[20rem] text-center"
           onMouseUp={handleMouseUp}
         >
           <div onClick={stopPropagation} onMouseDown={handleMouseDown}>

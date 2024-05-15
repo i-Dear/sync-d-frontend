@@ -47,10 +47,12 @@ const defaultEdgeOptions = {
   },
 };
 
+
 const DnDFlow = () => {
   const nodes = useStorage((root) => root.nodes);
   const edges = useStorage((root) => root.edges);
   const [nodeColor, setNodeColor] = useState("#121417");
+
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();
