@@ -105,16 +105,31 @@ const ProcessNav = ({
                   "flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-[1rem] bg-light-gray-100",
                   {
                     "bg-primary-300": process.step === currentProcess,
+                    "bg-primary-400": process.done,
                   },
                 )}
               >
-                <span className="h-[4rem] w-[4rem] text-center text-[1.8rem] font-normal leading-[4.4rem] text-div-text">
+                <span
+                  className={cn(
+                    "h-[4rem] w-[4rem] text-center text-[1.8rem] font-normal leading-[4.4rem] text-div-text",
+                    {
+                      "text-white": process.done,
+                    },
+                  )}
+                >
                   {process.step}
                 </span>
               </div>
 
               <div className="ml-[1.6rem] flex items-center justify-start gap-[1.2rem] overflow-hidden">
-                <span className="h-[2rem] text-[1.6rem] font-light leading-[2.4rem] text-div-text">
+                <span
+                  className={cn(
+                    "h-[2rem] text-[1.6rem] font-light leading-[2.4rem] text-div-text",
+                    {
+                      "text-primary-400 line-through": process.done,
+                    },
+                  )}
+                >
                   {process.title}
                 </span>
                 {process.done && <CompleteIcon />}
