@@ -1,8 +1,8 @@
 import { PersonaBoxTemplate, PersonaContent } from "@/lib/types";
 import { useMutation } from "~/liveblocks.config";
-import { LayerType } from "@/lib/types";
+import { UserStory, LayerType } from "@/lib/types";
 import { useStorage } from "~/liveblocks.config";
-import PlusMarkIcon from "~/public/plus-mark.svg";
+import PlusMarkIcon from "~/public/PlusMark";
 import { useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { EpicLayer } from "@/lib/types";
@@ -20,48 +20,82 @@ export default function Epic({
   id,
   selectionColor,
 }: EpicLayerProps) {
-  const { x, y, width, length, value } = layer;
+  const { x, y, width, length, title, value } = layer;
 
-  const updateValue = useMutation(({ storage }, newValue: string) => {
+  const handleChangeTitle = (key: string, value: string) => {
+    if (key === "title") {
+      updateTitle(value);
+    }
+    const newValue = value;
+    updateTitle(newValue);
+  };
+
+  const updateTitle = useMutation(({ storage }, newValue: string) => {
     const liveLayers = storage.get("layers");
-
-    liveLayers.get(id)?.set("value", newValue);
+    liveLayers.get(id)?.set("title", newValue);
+    const data = liveLayers.get(id)?.get("value");
+    console.log(data);
   }, []);
 
   const [isPlaceholderVisible, setPlaceholderVisible] = useState(!value);
 
-  const handleContentChange = (e: ContentEditableEvent) => {
-    // updateValue(e.target.value);
-    const newValue = e.target.value;
-    updateValue(newValue);
+  const handleChangeValue = (index: number, value: string) => {
+    updateValue(index, value);
   };
 
-  const handleFocus = () => {
-    if (isPlaceholderVisible) {
-      setPlaceholderVisible(false);
-    }
-  };
+  const updateValue = useMutation(
+    ({ storage }, index: number, newValue: string) => {
+      const liveLayers = storage.get("layers");
+      const prevStory = liveLayers.get(id)?.get("value") as UserStory[];
+      const newStory = prevStory?.map((item, i) =>
+        i === index ? { ...item, name: newValue } : item,
+      );
+      liveLayers.get(id)?.set("value", newStory);
+    },
+    [],
+  );
+
+  console.log("value", value);
 
   return (
     <foreignObject
       x={x}
       y={y}
       width={width}
-      height={length * 100}
-      style={{ background: "#369EFF" }}
+      height={length * 100 + 100}
+      style={{ background: "#E9F5FF" }}
       onPointerDown={(e) => onPointerDown(e, id)}
-      className="shadow-grey-950 shadow-lg drop-shadow-lg"
+      className=" shadow-grey-950  rounded-lg p-[2rem] shadow-lg drop-shadow-lg"
     >
       <ContentEditable
-        html={value || " "}
-        onChange={handleContentChange}
-        className="flex h-full w-full justify-normal p-[1rem] outline-none "
+        html={title || " "}
+        onChange={(e) => {
+          handleChangeTitle("title", e.target.value);
+        }}
+        className=" flex h-[5rem] w-full items-center justify-center rounded-lg bg-primary-400 p-[1rem] text-3xl font-medium outline-none "
         style={{
-          fontSize: 12,
-          color: "black",
-          fontFamily: "Manrope, sans-serif",
+          fontSize: 16,
+          color: "white",
         }}
       />
+      <div className="my-[2rem] flex flex-col gap-[2rem]">
+        {value &&
+          value.map((item, index) => (
+            <ContentEditable
+              key={item.id}
+              html={item.name || " "}
+              onChange={(e) => handleChangeValue(index, e.target.value)}
+              className="flex h-[5rem] w-full items-center justify-center rounded-lg bg-primary-200 p-[1rem] text-3xl font-medium outline-none "
+              style={{
+                fontSize: 14,
+                color: "black",
+              }}
+            />
+          ))}
+      </div>
+      <div className="flex h-[5rem] w-full items-center justify-center rounded-lg bg-primary-200 p-[1rem] text-3xl font-medium outline-none">
+        <PlusMarkIcon fill="black" />
+      </div>
     </foreignObject>
   );
 }

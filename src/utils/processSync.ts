@@ -111,7 +111,9 @@ export const addEpicLayer = (
   const epicLayer = new LiveObject<Layer>({
     type: LayerType.Epic,
     length: epic.userStories.length,
-    value: epic.name,
+    title: epic.name,
+    value: epic.userStories,
+    height: 0,
     x:
       idx < 4
         ? 50 + (parseInt(epic.id) - 1) * 400
