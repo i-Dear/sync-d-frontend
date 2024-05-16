@@ -25,10 +25,12 @@ const SyncButton = () => {
   const { id } = useRoom();
   const [myPresence] = useMyPresence();
   const { currentProcess } = myPresence;
-  const mySyncState = useSelf((self) => self.presence.isSynced);
+  // const mySyncState = useSelf((self) => self.presence.isSynced);
+  const [mySyncState, setMySyncState] = useState(false);
   const [syncCount, setSyncCount] = useState(0);
 
   const updateMySyncState = useMutation(({ setMyPresence }, value) => {
+    setMySyncState(value);
     setMyPresence({ isSynced: value });
   }, []);
 
@@ -45,6 +47,7 @@ const SyncButton = () => {
 
   //완료가 안된 단계 중 가장 앞에있는 단계를 찾는다
   const process = useStorage((root) => root.process);
+
   const latestUndoneProcess = process.find(
     (process) => !process.done,
   ) as Process;
@@ -63,16 +66,12 @@ const SyncButton = () => {
     [process],
   );
 
-  const initProcess = useMutation(({ storage }) => {
-    const storageProcess = storage.get("process");
-    storageProcess.forEach((process) => {
-      process.done = false;
-    });
-  }, []);
+  useEffect(() => {
+    setMySyncState(false);
+  }, [process]);
 
   const templates = useStorage((root) => root.templates) as Template[];
   const handleClick = async () => {
-    // initProcess();
     updateMySyncState(true);
     if (syncCount + 1 === totalMembers) {
       broadcast({ type: "ALL_SYNCED", message: "sync Complete!" });
@@ -124,11 +123,11 @@ const SyncButton = () => {
               : "border-gray-300 bg-gray-300"
           }`}
         ></div>
-        {othersSyncState.map((other, index) => (
+        {Array.from({ length: totalMembers - 1 }, (_, index) => (
           <div
             key={index}
             className={`h-[10px] w-[4px] border ${
-              other[1] === true
+              index < syncCount
                 ? "border-green-500 bg-green-500"
                 : "border-gray-300 bg-gray-300"
             }`}
