@@ -1,7 +1,7 @@
 import React from "react";
 import { getStraightPath } from "reactflow";
 
-function CustomConnectionLine({
+function StakeholderConnectionLine({
   fromX,
   fromY,
   toX,
@@ -30,4 +30,4 @@ function CustomConnectionLine({
   );
 }
 
-export default CustomConnectionLine;
+export default StakeholderConnectionLine;
