@@ -531,17 +531,6 @@ const Canvas = () => {
       <ProcessNav userInfo={userInfo} setCamera={setCamera} />
       {[9, 12].includes(currentProcess) && (
         <div className="relative h-screen w-screen bg-white">
-          {/* <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            fitView
-          >
-            <MiniMap />
-            <Controls />
-          </ReactFlow> */}
           <DnDFlow />
         </div>
       )}

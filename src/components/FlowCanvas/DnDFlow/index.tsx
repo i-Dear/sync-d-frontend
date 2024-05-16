@@ -10,28 +10,49 @@ import ReactFlow, {
   applyNodeChanges,
   applyEdgeChanges,
   EdgeChange,
+  MarkerType,
 } from "reactflow";
-import "reactflow/dist/style.css";
-// import StakeholderNode from "./StakeholderNode";
-
-import Sidebar from "./Sidebar";
 
 import { useMutation, useStorage } from "~/liveblocks.config";
-import ColorSelector from "./ColorSelector";
+import FloatingEdge from "./FloatingEdge";
+import StakeholderConnectionLine from "./StakeholderConnectionLine";
+import StakeholderNode from "./StakeholderNode";
 
-let id = 0;
-const getId = () => `node_${id++}`;
+import "reactflow/dist/style.css";
+import "./style.css";
+import { nanoid } from "nanoid";
+import NodeCreator from "./NodeCreator";
 
-const defaultViewport = { x: 0, y: 0, zoom: 1.5 };
+const defaultViewport = { x: 0, y: 0, zoom: 1 };
 
-// const nodeTypes = {
-//     stakeholder: StakeholderNode,
-//   };
+const connectionLineStyle = {
+  strokeWidth: 3,
+  stroke: "black",
+};
+
+const nodeTypes = {
+  stakeholderNode: StakeholderNode,
+};
+
+const edgeTypes = {
+  floating: FloatingEdge,
+};
+
+const defaultEdgeOptions = {
+  style: { strokeWidth: 2, stroke: "black" },
+  type: "floating",
+  markerEnd: {
+    type: MarkerType.ArrowClosed,
+    color: "black",
+  },
+};
+
 
 const DnDFlow = () => {
   const nodes = useStorage((root) => root.nodes);
   const edges = useStorage((root) => root.edges);
-  const [nodeBorderColor, setNodeBorderColor] = useState("#121417");
+  const [nodeColor, setNodeColor] = useState("#121417");
+
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();
@@ -76,22 +97,21 @@ const DnDFlow = () => {
         y: event.clientY,
       });
 
+      const id = nanoid();
       const newNode = {
-        id: getId(),
+        id,
         type,
         position,
-        data: { label: `${type} node` },
-        style: {
-          border: `2px solid ${nodeBorderColor}`,
-          background: "#fff",
-          color: "#121417",
-          width: 200,
+        data: {
+          label: "New Node",
+          color: nodeColor,
         },
+        dragHandle: ".dragHandle",
       };
 
       addNode(newNode);
     },
-    [reactFlowInstance, nodeBorderColor, addNode],
+    [reactFlowInstance, nodeColor, addNode],
   );
 
   const onNodesChange = useMutation(
@@ -119,18 +139,19 @@ const DnDFlow = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             defaultViewport={defaultViewport}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             onInit={setReactFlowInstance}
-            onDrop={onDrop}
             onDragOver={onDragOver}
+            onDrop={onDrop}
+            defaultEdgeOptions={defaultEdgeOptions}
+            connectionLineComponent={StakeholderConnectionLine}
+            connectionLineStyle={connectionLineStyle}
           >
             <Controls />
           </ReactFlow>
-          <ColorSelector
-            nodeBorderColor={nodeBorderColor}
-            setNodeBorderColor={setNodeBorderColor}
-          />
         </div>
-        <Sidebar />
+        <NodeCreator nodeColor={nodeColor} setNodeColor={setNodeColor} />
       </ReactFlowProvider>
     </div>
   );

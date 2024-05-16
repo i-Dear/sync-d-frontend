@@ -51,13 +51,8 @@ export default function Note({
       className="shadow-grey-950 shadow-lg drop-shadow-lg"
     >
       <ContentEditable
-        html={
-          isPlaceholderVisible
-            ? "<span class='placeholder' style='color: #999'>type your own text</span>"
-            : value || ""
-        }
+        html={value || " "}
         onChange={handleContentChange}
-        onFocus={handleFocus}
         className="flex h-full w-full justify-normal p-[1rem] outline-none "
         style={{
           fontSize: 12,
