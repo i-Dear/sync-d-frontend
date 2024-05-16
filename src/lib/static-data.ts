@@ -59,8 +59,8 @@ export const steps: Process[] = [
   },
   {
     step: 9,
-    title: "이해관계도 작성",
-    description: "이해관계도를 작성해보세요.",
+    title: "비즈니스 모델 작성",
+    description: "비즈니스 모델을 작성해보세요.",
     camera: { x: 0, y: -8000 },
     done: false,
   },
