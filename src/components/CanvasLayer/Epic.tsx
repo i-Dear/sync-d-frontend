@@ -38,8 +38,6 @@ export default function Epic({
     console.log(data);
   }, []);
 
-  const [isPlaceholderVisible, setPlaceholderVisible] = useState(!value);
-
   const handleChangeValue = (index: number, value: string) => {
     updateValue(index, value);
   };
@@ -59,7 +57,7 @@ export default function Epic({
   const handleAdd = useMutation(({ storage }) => {
     const liveLayers = storage.get("layers");
     const prevStory = liveLayers.get(id)?.get("value") as UserStory[];
-    prevStory.push({ id: prevStory.length, name: "" });
+    prevStory.push({ id: prevStory[prevStory.length - 1].id + 1, name: "" });
     const newStory = prevStory;
     liveLayers.get(id)?.set("value", newStory);
     const newHeight = newStory.length * 70 + 160;
@@ -106,7 +104,7 @@ export default function Epic({
       <div className="my-[2rem] flex flex-col gap-[2rem]">
         {value &&
           value.map((item, index) => (
-            <div className="relative" key={storyId + item.id}>
+            <div className="relative" key={item.id}>
               <ContentEditable
                 html={item.name || " "}
                 onChange={(e) => handleChangeValue(index, e.target.value)}
