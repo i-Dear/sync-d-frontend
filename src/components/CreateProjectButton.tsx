@@ -1,7 +1,7 @@
 "use client";
 
 import useModalStore from "@/store/useModalStore";
-import PlusIcon from "~/public/plus.svg";
+import PlusIcon from "~/public/PlusMark";
 
 const CreateProjectButton = () => {
   const { setModalType, setModalState } = useModalStore();

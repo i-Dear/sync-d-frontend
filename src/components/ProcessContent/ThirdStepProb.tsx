@@ -2,7 +2,7 @@ import { ThirdStepProbTemplate } from "@/lib/types";
 import { useMutation } from "~/liveblocks.config";
 import { TemplateType } from "@/lib/types";
 import { useStorage } from "~/liveblocks.config";
-import PlusMarkIcon from "~/public/plus-mark.svg";
+import PlusMarkIcon from "~/public/PlusMark";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -58,7 +58,7 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
       {value === 0 ? (
         <g>
           <foreignObject x={x + 50} y={y + 50} width={200} height={100}>
-            <PlusMarkIcon fill="#D4EAFB " />
+            <PlusMarkIcon fill="#D4EAFB " width={100} height={100} />
           </foreignObject>
         </g>
       ) : (

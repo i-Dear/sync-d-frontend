@@ -2,7 +2,7 @@ import { PersonaBoxTemplate, PersonaContent } from "@/lib/types";
 import { useMutation } from "~/liveblocks.config";
 import { TemplateType } from "@/lib/types";
 import { useStorage } from "~/liveblocks.config";
-import PlusMarkIcon from "~/public/plus-mark.svg";
+import PlusMarkIcon from "~/public/PlusMark";
 import { useState } from "react";
 import ContentEditable from "react-contenteditable";
 
@@ -88,7 +88,7 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
       {id === "401" ? (
         <g>
           <foreignObject x={x + 100} y={y + 75} width={100} height={100}>
-            <PlusMarkIcon fill="#D4EAFB " />
+            <PlusMarkIcon fill="#D4EAFB" width={100} height={100} />
           </foreignObject>
         </g>
       ) : (
