@@ -95,7 +95,7 @@ const Canvas = () => {
   useDisableScrollBounce();
 
   const deleteLayers = useDeleteLayers();
-  const deleteLayersBackspace = useDeleteLayersBackspace;
+  const deleteLayersBackspace = useDeleteLayersBackspace();
   /**
    * Hook used to listen to Undo / Redo and delete selected layers
    */
@@ -126,7 +126,7 @@ const Canvas = () => {
     function onKeyDown(e: KeyboardEvent) {
       switch (e.key) {
         case "Backspace": {
-          deleteLayers;
+          deleteLayersBackspace();
           break;
         }
         case "z": {
@@ -147,7 +147,7 @@ const Canvas = () => {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [deleteLayers, history]);
+  }, [deleteLayersBackspace, history]);
 
   /**
    * Select the layer if not already selected and start translating the selection
@@ -584,7 +584,7 @@ const Canvas = () => {
                 selectionColor={layerIdsToColorSelection[layerId]}
               />
             ))}
-            {canvasState.mode === 4 && canvasState.layerType === 4 && (
+            {/* {canvasState.mode === 4 && canvasState.layerType === 4 && (
               <foreignObject
                 x={mousePosition.x}
                 y={mousePosition.y}
@@ -593,7 +593,7 @@ const Canvas = () => {
                 style={{ background: "#808080", opacity: "0.5" }}
                 className="shadow-grey-950 shadow-lg drop-shadow-lg"
               ></foreignObject>
-            )}
+            )} */}
             {/* Blue square that show the selection of the current users. Also contains the resize handles. */}
             <SelectionBox
               onResizeHandlePointerDown={onResizeHandlePointerDown}
