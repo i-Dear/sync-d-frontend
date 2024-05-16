@@ -8,6 +8,7 @@ import Rectangle from "@/components/CanvasLayer/Rectangle";
 import Note from "@/components/CanvasLayer/Note";
 import Text from "@/components/CanvasLayer/Text";
 import Sticker from "@/components/CanvasLayer/Sticker";
+import Epic from "@/components/CanvasLayer/LayerEpic";
 
 type Props = {
   id: string;
@@ -78,6 +79,15 @@ const LayerComponent = memo(
       case LayerType.Sticker:
         return (
           <Sticker
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        );
+      case LayerType.Epic:
+        return (
+          <Epic
             id={id}
             layer={layer}
             onPointerDown={onLayerPointerDown}

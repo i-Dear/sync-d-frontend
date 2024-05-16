@@ -45,6 +45,7 @@ export enum LayerType {
   Text,
   Note,
   Sticker,
+  Epic,
 }
 
 export type Camera = {
@@ -58,7 +59,18 @@ export type Layer =
   | PathLayer
   | TextLayer
   | NoteLayer
-  | StickerLayer;
+  | StickerLayer
+  | EpicLayer;
+
+export type EpicLayer = {
+  type: LayerType.Epic;
+  x: number;
+  y: number;
+  length: number;
+  width: number;
+  value?: string;
+  fill?: Color;
+};
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
