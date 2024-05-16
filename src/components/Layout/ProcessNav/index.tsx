@@ -104,8 +104,8 @@ const ProcessNav = ({
                 className={cn(
                   "flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-[1rem] bg-light-gray-100",
                   {
-                    "bg-primary-300": process.step === currentProcess,
                     "bg-primary-400": process.done,
+                    "bg-primary-300": process.step === currentProcess,
                   },
                 )}
               >
