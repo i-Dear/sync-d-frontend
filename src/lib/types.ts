@@ -68,7 +68,9 @@ export type EpicLayer = {
   y: number;
   length: number;
   width: number;
-  value?: string;
+  height: number;
+  title?: string;
+  value?: UserStory[];
   fill?: Color;
 };
 
@@ -80,6 +82,7 @@ export type RectangleLayer = {
   width: number;
   fill: Color;
   value?: string;
+  title?: string;
 };
 
 export type EllipseLayer = {
@@ -90,6 +93,7 @@ export type EllipseLayer = {
   width: number;
   fill: Color;
   value?: string;
+  title?: string;
 };
 
 export type NoteLayer = {
@@ -100,6 +104,7 @@ export type NoteLayer = {
   width: number;
   fill: Color;
   value: string;
+  title?: string;
 };
 
 export type PathLayer = {
@@ -113,6 +118,7 @@ export type PathLayer = {
   fill: Color;
   points: number[][];
   value?: string;
+  title?: string;
 };
 
 export type TextLayer = {
@@ -123,6 +129,7 @@ export type TextLayer = {
   width: number;
   fill: Color;
   value: string;
+  title?: string;
 };
 
 export type StickerLayer = {
@@ -134,6 +141,7 @@ export type StickerLayer = {
   stickerSrc: string;
   fill: Color;
   value?: string;
+  title?: string;
 };
 
 export type Point = {
