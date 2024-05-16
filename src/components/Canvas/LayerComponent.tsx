@@ -8,7 +8,7 @@ import Rectangle from "@/components/CanvasLayer/Rectangle";
 import Note from "@/components/CanvasLayer/Note";
 import Text from "@/components/CanvasLayer/Text";
 import Sticker from "@/components/CanvasLayer/Sticker";
-import Epic from "@/components/CanvasLayer/LayerEpic";
+import Epic from "@/components/CanvasLayer/Epic";
 
 type Props = {
   id: string;

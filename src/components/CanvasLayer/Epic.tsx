@@ -7,7 +7,7 @@ import { useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { EpicLayer } from "@/lib/types";
 
-type EpicLayerProps = {
+type EpicProps = {
   id: string;
   layer: EpicLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
@@ -19,7 +19,7 @@ export default function Epic({
   onPointerDown,
   id,
   selectionColor,
-}: EpicLayerProps) {
+}: EpicProps) {
   const { x, y, width, length, title, value } = layer;
 
   const handleChangeTitle = (key: string, value: string) => {
