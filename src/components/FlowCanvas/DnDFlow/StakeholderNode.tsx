@@ -22,6 +22,7 @@ const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
         .find((node: Node) => node.id === nodeId);
       node.data.label = newLabel;
       forceNodeChange(); // 작성 중에도 실시간 업데이트
+
     },
     [],
   );

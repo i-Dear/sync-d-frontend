@@ -24,6 +24,7 @@ import { nanoid } from "nanoid";
 import NodeCreator from "./NodeCreator";
 import FloatingArrowLabelEdge from "./FloatingArrowLabelEdge";
 
+
 const defaultViewport = { x: 0, y: 0, zoom: 1 };
 
 const connectionLineStyle = {
@@ -56,6 +57,7 @@ const DnDFlow = () => {
   const nodes = useStorage((root) => root.nodes);
   const edges = useStorage((root) => root.edges);
   const [nodeColor, setNodeColor] = useState("#121417");
+
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();

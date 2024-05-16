@@ -4,6 +4,8 @@ import NoteBox from "../ProcessContent/NoteBox";
 import GuideTextBox from "../ProcessContent/GuideTextBox";
 import InputFormBox from "../ProcessContent/InputFormBox";
 import ThirdStepProb from "../ProcessContent/ThirdStepProb";
+import EpicBox from "../ProcessContent/EpicBox";
+import PersonaBox from "../ProcessContent/PersonaBox";
 
 const TemplateComponent = memo(({ template }: { template: Template }) => {
   if (!template) {
@@ -57,6 +59,37 @@ const TemplateComponent = memo(({ template }: { template: Template }) => {
     case TemplateType.ThirdStepProb:
       return (
         <ThirdStepProb
+          id={template.id}
+          type={template.type}
+          x={template.x}
+          y={template.y}
+          width={template.width}
+          height={template.height}
+          title={template.title}
+          fill={template.fill}
+          value={template.value}
+        />
+      );
+    case TemplateType.EpicBox:
+      return (
+        <EpicBox
+          id={template.id}
+          type={template.type}
+          x={template.x}
+          y={template.y}
+          width={template.width}
+          height={template.height}
+          title={template.title}
+          font={template.font}
+          fontWeight={template.fontWeight}
+          value={template.value}
+          fill={template.fill}
+          length={template.length}
+        />
+      );
+    case TemplateType.PersonaBox:
+      return (
+        <PersonaBox
           id={template.id}
           type={template.type}
           x={template.x}
