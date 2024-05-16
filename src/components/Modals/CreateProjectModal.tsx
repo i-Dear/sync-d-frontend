@@ -40,18 +40,20 @@ const CreateProjectModal = () => {
   const onSubmit = async (data: any) => {
     try {
       setModalState(false);
+      const formData = new FormData();
+      formData.append("name", data.projectName);
+      formData.append("description", data.projectDescription);
+      contentImage && formData.append("img", contentImage); // 이미지 우선 제외
+      inviteEmails.forEach((email: string) => {
+        formData.append("userEmails", email);
+      });
+
       await fetch("https://syncd-backend.dev.i-dear.org/v1/project/create", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
-        body: JSON.stringify({
-          name: data.projectName,
-          description: data.projectDescription,
-          img: "contentImage",
-          userEmails: inviteEmails,
-        }),
+        body: formData,
       });
       revalidateUserInfo();
       reset();
