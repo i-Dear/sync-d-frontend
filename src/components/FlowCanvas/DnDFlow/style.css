@@ -1,0 +1,11 @@
+div.customHandle {
+  width: 5%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0;
+  transform: none;
+  border: none;
+  opacity: 70;
+}
