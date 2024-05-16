@@ -43,7 +43,7 @@ const CreateProjectModal = () => {
       const formData = new FormData();
       formData.append("name", data.projectName);
       formData.append("description", data.projectDescription);
-      //formData.append("img", data.img); // 이미지 우선 제외
+      contentImage && formData.append("img", contentImage); // 이미지 우선 제외
       inviteEmails.forEach((email: string) => {
         formData.append("userEmails", email);
       });
