@@ -4,7 +4,7 @@ import { UserStory, LayerType } from "@/lib/types";
 import { useStorage } from "~/liveblocks.config";
 import PlusMarkIcon from "~/public/PlusMark";
 import XMarkIcon from "~/public/Xmark";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { EpicLayer } from "@/lib/types";
 
@@ -78,7 +78,10 @@ export default function Epic({
     const newHeight = newStory.length * 70 + 160;
     liveLayers.get(id)?.set("height", newHeight);
   }, []);
-
+  const [storyId, setStoryId] = useState(0);
+  useEffect(() => {
+    setStoryId(Math.floor(Math.random() * 10000) + 1);
+  }, [value]);
   return (
     <foreignObject
       x={x}
@@ -103,7 +106,7 @@ export default function Epic({
       <div className="my-[2rem] flex flex-col gap-[2rem]">
         {value &&
           value.map((item, index) => (
-            <div className="relative" key={item.id}>
+            <div className="relative" key={storyId + item.id}>
               <ContentEditable
                 html={item.name || " "}
                 onChange={(e) => handleChangeValue(index, e.target.value)}
