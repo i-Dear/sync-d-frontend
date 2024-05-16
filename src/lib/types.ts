@@ -263,7 +263,7 @@ export type PersonaBoxTemplate = {
   height: number;
   width: number;
   fill?: string;
-  value: PersonaContent[] | string;
+  value: PersonaContent[];
 };
 
 export type PersonaContent = {
