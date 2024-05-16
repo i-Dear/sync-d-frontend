@@ -116,25 +116,11 @@ const SyncButton = () => {
     }
   };
 
-  // const updateEpic = useMutation(({ storage }, epics) => {
-  //   //const epics = storage.get("epics");
-  //   const templates = storage.get("templates");
-  //   epics.map((epic: Epic, epicidx: number) => {
-  //     addEpicTemplate(templates, epic, epicidx);
-  //     epic.userStories.map((userStory, idx) => {
-  //       addUserStoryTemplate(templates, epic, epicidx, userStory, idx);
-  //     });
-  //   });
-  // }, []);
   const updateEpic = useMutation(({ storage }, epics) => {
-    //const epics = storage.get("epics");
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
     epics.map((epic: Epic, epicidx: number) => {
       addEpicLayer(layers, epic, epicidx, liveLayerIds);
-      // epic.userStories.map((userStory, idx) => {
-      //   addUserStoryLayer(layers, epic, epicidx, userStory, idx);
-      // });
     });
   }, []);
 

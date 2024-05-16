@@ -124,19 +124,6 @@ export const addEpicLayer = (
   });
   liveLayerIds.push(layerId);
   layers.set(layerId, epicLayer);
-  // layers.push({
-  //   id: `${parseInt(epic.id) + 1100}`,
-  //   type: TemplateType.EpicBox,
-  //   length: epic.userStories.length,
-  //   title: epic.name,
-  //   x:
-  //     idx < 4
-  //       ? 50 + (parseInt(epic.id) - 1) * 400
-  //       : 50 + (parseInt(epic.id) - 5) * 400,
-  //   y: idx < 4 ? 10100 : 10600,
-  //   fill: "#369EFF",
-  //   width: 380,
-  // });
 };
 
 export const addUserStoryLayer = (
