@@ -16,7 +16,7 @@ interface ModalMapType {
 }
 
 interface ModalProps {
-  setCamera: React.Dispatch<SetStateAction<Camera>>;
+  setCamera?: React.Dispatch<SetStateAction<Camera>>;
 }
 
 const ModalMap: ModalMapType = {
