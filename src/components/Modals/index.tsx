@@ -8,10 +8,15 @@ import CompleteModal from "./CompleteModal";
 import CreateProjectModal from "./CreateProjectModal";
 import ProcessingScenarioModal from "./ProcessingScenarioModal";
 import SyncedModal from "./SyncModal";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { Camera } from "@/lib/types";
 
 interface ModalMapType {
-  [key: string]: () => JSX.Element;
+  [key: string]: (props?: any) => JSX.Element;
+}
+
+interface ModalProps {
+  setCamera: React.Dispatch<SetStateAction<Camera>>;
 }
 
 const ModalMap: ModalMapType = {
@@ -24,7 +29,7 @@ const ModalMap: ModalMapType = {
   synced: SyncedModal,
 };
 
-const Modal = () => {
+const Modal = ({ setCamera }: ModalProps) => {
   const [isMouseDownInside, setIsMouseDownInside] = useState(false);
   const { isModalOpen, modalType, setModalState } = useModalStore();
 
@@ -37,12 +42,15 @@ const Modal = () => {
   };
 
   const handleMouseUp = (e: React.MouseEvent) => {
-    if (!isMouseDownInside && e.target === e.currentTarget) {
+    const nonClosableModals = ["synced", "processingScenario", "skip"];
+    if (
+      !isMouseDownInside &&
+      e.target === e.currentTarget &&
+      !nonClosableModals.includes(modalType)
+    ) {
       setModalState(false);
     }
-    setIsMouseDownInside(false);
   };
-
   const ModalComponent = ModalMap[modalType];
 
   return (
@@ -53,7 +61,11 @@ const Modal = () => {
           onMouseUp={handleMouseUp}
         >
           <div onClick={stopPropagation} onMouseDown={handleMouseDown}>
-            <ModalComponent />
+            {modalType === "synced" ? (
+              <ModalComponent setCamera={setCamera} />
+            ) : (
+              <ModalComponent />
+            )}
           </div>
         </div>
       )}

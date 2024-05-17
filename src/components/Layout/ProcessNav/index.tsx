@@ -1,7 +1,7 @@
 "use client";
 
 import type { UserInfoStoreType } from "@/store/useUserInfoStore";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import { Camera } from "@/lib/types";
 import {
   useMutation,
@@ -14,6 +14,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import CompleteIcon from "~/public/completed.svg";
 import useModalStore from "@/store/useModalStore";
+import { set } from "react-hook-form";
 
 const ProcessNav = ({
   userInfo,
@@ -30,6 +31,12 @@ const ProcessNav = ({
   const handleToggle = () => {
     setIsToggle((prev) => !prev);
   };
+
+  useEffect(() => {
+    const latestUndoneProcess = processes.find((process) => !process.done);
+    const latestUndoneStep = latestUndoneProcess?.step;
+    setCurrentProcess(latestUndoneStep || 1);
+  }, [processes]);
 
   // 프로세스 완료 시 진행
   // const updateProcessCompleted = useMutation(({ storage }, step: number) => {
