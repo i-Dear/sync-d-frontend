@@ -38,7 +38,7 @@ const Modal = () => {
 
   const handleMouseUp = (e: React.MouseEvent) => {
     if (!isMouseDownInside && e.target === e.currentTarget) {
-      setModalState(false);
+      if (modalType !== "processingScenario") setModalState(false);
     }
     setIsMouseDownInside(false);
   };
