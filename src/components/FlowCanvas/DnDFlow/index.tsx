@@ -22,6 +22,8 @@ import "reactflow/dist/style.css";
 import "./style.css";
 import { nanoid } from "nanoid";
 import NodeCreator from "./NodeCreator";
+import FloatingArrowLabelEdge from "./FloatingArrowLabelEdge";
+
 
 const defaultViewport = { x: 0, y: 0, zoom: 1 };
 
@@ -36,17 +38,20 @@ const nodeTypes = {
 
 const edgeTypes = {
   floating: FloatingEdge,
+  "floating-label-arrow": FloatingArrowLabelEdge,
 };
 
 const defaultEdgeOptions = {
-  style: { strokeWidth: 2, stroke: "black" },
-  type: "floating",
+  style: { strokeWidth: 2, stroke: "gray" },
+  type: "floating-label-arrow",
   markerEnd: {
     type: MarkerType.ArrowClosed,
-    color: "black",
+    color: "gray",
+  },
+  data: {
+    endLabel: "가치",
   },
 };
-
 
 const DnDFlow = () => {
   const nodes = useStorage((root) => root.nodes);
@@ -147,6 +152,7 @@ const DnDFlow = () => {
             defaultEdgeOptions={defaultEdgeOptions}
             connectionLineComponent={StakeholderConnectionLine}
             connectionLineStyle={connectionLineStyle}
+            panOnDrag={false}
           >
             <Controls />
           </ReactFlow>

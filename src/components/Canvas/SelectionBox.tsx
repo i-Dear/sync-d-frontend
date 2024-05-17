@@ -16,6 +16,8 @@ const SelectionBox = memo(
     const soleLayerId = useSelf((me) =>
       me.presence.selection.length === 1 ? me.presence.selection[0] : null,
     );
+    const layerStorage = useStorage((root) => root.layers);
+    const layerData = soleLayerId ? layerStorage.get(soleLayerId) : null;
 
     const isShowingHandles = useStorage(
       (root) =>
@@ -29,17 +31,20 @@ const SelectionBox = memo(
 
     return (
       <>
-        <rect
-          className="pointer-events-none fill-transparent stroke-primary stroke-1"
-          style={{
-            transform: `translate(${bounds.x}px, ${bounds.y}px)`,
-          }}
-          x={0}
-          y={0}
-          width={bounds.width}
-          height={bounds.height}
-        />
-        {isShowingHandles && (
+        {layerData?.type !== 6 && (
+          <rect
+            className="pointer-events-none fill-transparent stroke-primary stroke-1"
+            style={{
+              transform: `translate(${bounds.x}px, ${bounds.y}px)`,
+            }}
+            x={0}
+            y={0}
+            width={bounds.width}
+            height={bounds.height}
+          />
+        )}
+
+        {isShowingHandles && layerData?.type !== 6 && (
           <>
             <rect
               className="fill-white stroke-primary stroke-1"
