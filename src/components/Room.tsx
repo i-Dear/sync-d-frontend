@@ -26,6 +26,7 @@ const Room = ({ roomId }: RoomProps) => {
         pencilDraft: null,
         penColor: null,
         currentProcess: 1,
+        isSynced: false,
       }}
       initialStorage={{
         groupCall: new LiveObject({

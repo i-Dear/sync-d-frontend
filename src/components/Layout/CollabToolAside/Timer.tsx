@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useMutation, useStorage } from "~/liveblocks.config";
+import {
+  useMutation,
+  useStorage,
+  useBroadcastEvent,
+} from "~/liveblocks.config";
 import { formatTimeToMinSec } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import PlayIcon from "~/public/play.svg";
 import PauseIcon from "~/public/pause.svg";
 import ResetIcon from "~/public/reset.svg";
-
+import { toast } from "react-toastify";
 const TimerTimes = [
   {
     time: 60,
@@ -33,6 +37,14 @@ const Timer = () => {
     storageTimer.set("currentTime", time);
   }, []);
 
+  const broadcast = useBroadcastEvent();
+  const notify = () => {
+    toast("Time's up!", {
+      toastId: 1,
+    });
+    broadcast({ type: "TIMER_END", message: "time's up!" });
+  };
+
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
 
@@ -40,6 +52,7 @@ const Timer = () => {
       interval = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime <= 0) {
+            notify();
             clearInterval(interval);
             updateTimerState(false);
             return 0;
