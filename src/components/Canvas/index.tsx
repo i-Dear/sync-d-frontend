@@ -63,6 +63,7 @@ import {
   applyNodeChanges,
 } from "reactflow";
 import DnDFlow from "../FlowCanvas/DnDFlow";
+import Modal from "@/components/Modals";
 
 const MAX_LAYERS = 100;
 
@@ -622,6 +623,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
+      <Modal setCamera={setCamera} />
     </div>
   );
 };
