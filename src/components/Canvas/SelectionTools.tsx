@@ -1,4 +1,4 @@
-import { memo, use } from "react";
+import { memo } from "react";
 import ColorPicker from "./ColorPicker";
 import IconButton from "@/components/IconButton";
 import { Camera, Color } from "@/lib/types";
