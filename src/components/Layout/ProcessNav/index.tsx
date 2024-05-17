@@ -14,7 +14,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import CompleteIcon from "~/public/completed.svg";
 import useModalStore from "@/store/useModalStore";
-import { set } from "react-hook-form";
 
 const ProcessNav = ({
   userInfo,
