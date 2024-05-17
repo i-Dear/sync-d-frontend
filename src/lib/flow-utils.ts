@@ -118,3 +118,21 @@ export function createNodesAndEdges() {
 
   return { nodes, edges };
 }
+
+export const edgeLabelTranslate = (
+  isTargetHigher: boolean,
+  isTargetLeft: boolean,
+) => {
+  if (isTargetHigher && isTargetLeft) {
+    return "translate(0%, 0%)";
+  }
+  if (isTargetHigher && !isTargetLeft) {
+    return "translate(-100%, 0%)";
+  }
+  if (!isTargetHigher && isTargetLeft) {
+    return "translate(0%, -100%)";
+  }
+  if (!isTargetHigher && !isTargetLeft) {
+    return "translate(-100%, -100%)";
+  }
+};

@@ -7,6 +7,7 @@ import VoteModal from "./VoteModal";
 import CompleteModal from "./CompleteModal";
 import CreateProjectModal from "./CreateProjectModal";
 import ProcessingScenarioModal from "./ProcessingScenarioModal";
+import SyncedModal from "./SyncModal";
 import { useState } from "react";
 
 interface ModalMapType {
@@ -20,6 +21,7 @@ const ModalMap: ModalMapType = {
   complete: CompleteModal,
   createProject: CreateProjectModal,
   processingScenario: ProcessingScenarioModal,
+  synced: SyncedModal,
 };
 
 const Modal = () => {

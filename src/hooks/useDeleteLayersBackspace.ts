@@ -15,7 +15,7 @@ export default function useDeleteLayersBackspace(key?: string) {
 
         const layerType = layerData?.get("type");
         console.log(layerType);
-        if (layerType === 3 || layerType === 4) {
+        if (layerType === 3 || (layerType === 4 && selection.length === 1)) {
           continue;
         }
 

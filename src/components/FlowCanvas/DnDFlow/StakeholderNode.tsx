@@ -5,11 +5,11 @@ import { useMutation, useStorage } from "~/liveblocks.config";
 
 const connectionNodeIdSelector = (state: any) => state.connectionNodeId;
 
-const CustomNode = ({ id, data }: { id: string; data: any }) => {
-  const [isPlaceholderVisible, setPlaceholderVisible] = useState(!data.value);
+const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
   const connectionNodeId = useStore(connectionNodeIdSelector);
-  const nodes = useStorage((root) => root.nodes);
-  const label = nodes.find((node: Node) => node.id === id)?.data.label;
+  const label = useStorage((root) => root.nodes).find(
+    (node: Node) => node.id === id,
+  )?.data.label;
 
   const forceNodeChange = useMutation(({ storage }) => {
     storage.set("nodes", [...storage.get("nodes")]);
@@ -21,7 +21,8 @@ const CustomNode = ({ id, data }: { id: string; data: any }) => {
         .get("nodes")
         .find((node: Node) => node.id === nodeId);
       node.data.label = newLabel;
-      forceNodeChange();
+      forceNodeChange(); // 작성 중에도 실시간 업데이트
+
     },
     [],
   );
@@ -32,12 +33,6 @@ const CustomNode = ({ id, data }: { id: string; data: any }) => {
   const handleLabelChange = (e: ContentEditableEvent) => {
     const newLabel = e.target.value;
     onChangeNodeValue(id, newLabel);
-  };
-
-  const handleFocus = () => {
-    if (isPlaceholderVisible) {
-      setPlaceholderVisible(false);
-    }
   };
 
   return (
@@ -69,7 +64,6 @@ const CustomNode = ({ id, data }: { id: string; data: any }) => {
         html={label || ""}
         style={{ color: data.color }}
         onChange={handleLabelChange}
-        onFocus={handleFocus}
       />
 
       <div className="absolute left-[1rem] top-[1rem] flex items-center gap-[0.8rem]">
@@ -91,4 +85,4 @@ const CustomNode = ({ id, data }: { id: string; data: any }) => {
   );
 };
 
-export default memo(CustomNode);
+export default memo(StakeholderNode);
