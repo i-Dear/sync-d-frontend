@@ -127,7 +127,11 @@ function SelectionTools({
         </div>
       )}
 
-      <div className="ml-2 flex items-center border-l border-divider pl-2">
+      <div
+        className={`flex items-center ${
+          layerData?.type !== 6 ? "ml-2 border-l border-divider pl-2" : ""
+        }`}
+      >
         <IconButton onClick={deleteLayers}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
