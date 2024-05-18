@@ -51,11 +51,11 @@ const Room = ({ roomId }: RoomProps) => {
         edges,
         voteList: new LiveObject({
           voteCount: new LiveObject({
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
           }),
           totalCount: 0,
         }),
