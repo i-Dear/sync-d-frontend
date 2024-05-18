@@ -72,30 +72,6 @@ const VoteModal = () => {
       console.log("newTotalCount", newTotalCount);
 
       if (newTotalCount === totalPeople) {
-        //투표 알고리즘
-        // const voteCountObject = voteCount.toObject();
-        // let maxVotes = 0;
-        // let winningVote = null;
-
-        // for (const [key, value] of Object.entries(voteCountObject)) {
-        //   console.log(key, value);
-        //   if (value > maxVotes) {
-        //     maxVotes = value;
-        //     winningVote = key;
-        //   }
-        // }
-
-        // console.log("최다 득표 번호:", winningVote, "번", "득표수:", maxVotes);
-
-        // //voteStore초기화. 테스트용.
-        // voteCount.update({
-        //   "1": 0,
-        //   "2": 0,
-        //   "3": 0,
-        //   "4": 0,
-        //   "5": 0,
-        // });
-        // voteList.set("totalCount", 0);
         broadcast({ type: "VOTE_END", message: "sync Complete!" });
         setModalType("voteComplete");
         setModalState(true);
