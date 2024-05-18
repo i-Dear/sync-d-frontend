@@ -68,7 +68,7 @@ const Modal = ({ setCamera }: ModalProps) => {
           onMouseUp={handleMouseUp}
         >
           <div onClick={stopPropagation} onMouseDown={handleMouseDown}>
-            {modalType === ("synced" || "voteComlete") ? (
+            {modalType === "synced" || modalType === "voteComplete" ? (
               <ModalComponent setCamera={setCamera} />
             ) : (
               <ModalComponent />

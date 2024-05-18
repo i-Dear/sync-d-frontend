@@ -24,7 +24,6 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
       x: latestUndoneProcess.camera.x,
       y: latestUndoneProcess.camera.y,
     }));
-    console.log("hey");
   };
 
   return (
