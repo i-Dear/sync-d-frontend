@@ -65,7 +65,6 @@ const Room = ({ roomId }: RoomProps) => {
       <ClientSideSuspense fallback={<Loading />}>
         {() => <Canvas />}
       </ClientSideSuspense>
-      <Modal />
     </RoomProvider>
   );
 };

@@ -1,9 +1,14 @@
 import { useStorage, useMutation } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { Process } from "@/lib/types";
-import { set } from "react-hook-form";
+import { SetStateAction, useState } from "react";
+import { Camera } from "@/lib/types";
 
-const SyncedModal = () => {
+interface ModalProps {
+  setCamera: React.Dispatch<SetStateAction<Camera>>;
+}
+
+const SyncedModal = ({ setCamera }: ModalProps) => {
   const { setModalState } = useModalStore();
 
   const process = useStorage((root) => root.process);
@@ -12,6 +17,15 @@ const SyncedModal = () => {
     (process) => !process.done,
   ) as Process;
   const latestUndoneStep = latestUndoneProcess?.step;
+
+  const handleClick = () => {
+    setModalState(false);
+    setCamera(() => ({
+      x: latestUndoneProcess.camera.x,
+      y: latestUndoneProcess.camera.y,
+    }));
+    console.log("hey");
+  };
 
   return (
     <div className=" space-around flex h-[20rem] w-[60rem] flex-col bg-white">
@@ -22,7 +36,7 @@ const SyncedModal = () => {
       <div className="border-grey-100 flex h-[50px] items-center justify-center gap-[4rem] border p-[8px]">
         <button
           className="w-[80px] cursor-pointer rounded-2xl bg-gray-700  p-2 text-center text-[18px] text-white"
-          onClick={() => setModalState(false)}
+          onClick={handleClick}
         >
           닫기
         </button>
