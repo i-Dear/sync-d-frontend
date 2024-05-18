@@ -26,6 +26,7 @@ const LiveCallUser = ({ user }: { user: ActiveUserInfo }) => {
               alt={user.name}
               layout="fill"
               objectFit="cover"
+              className="rounded-full"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center font-semibold">
