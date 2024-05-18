@@ -35,10 +35,10 @@ type Viewport = { x: number; y: number; zoom: number };
 
 const StepViewport: Record<number, Viewport> = {
   5: { x: 0, y: 0, zoom: 1 },
-  6: { x: 0, y: 1000, zoom: 1 },
-  7: { x: 0, y: 2000, zoom: 1 },
-  9: { x: 0, y: 3000, zoom: 1 },
-  12: { x: 0, y: 1000, zoom: 1 },
+  6: { x: -600, y: 0, zoom: 1 },
+  7: { x: -1050, y: 0, zoom: 1 },
+  9: { x: 0, y: 1000, zoom: 1 },
+  12: { x: 0, y: 2000, zoom: 1 },
 };
 
 const connectionLineStyle = {
@@ -225,6 +225,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
     }
   }, [nodes, initNodes]);
 
+  // 노드 초기화 버튼 (주석 풀면 초기화)
   //initNodes();
 
   return (
