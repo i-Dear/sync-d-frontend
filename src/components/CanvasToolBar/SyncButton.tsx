@@ -13,8 +13,10 @@ import useModalStore from "@/store/useModalStore";
 import { Template, Epic, Process } from "@/lib/types";
 import {
   fetchScenario,
-  addEpicTemplate,
-  addUserStoryTemplate,
+  // addEpicTemplate,
+  // addUserStoryTemplate,
+  addEpicLayer,
+  addUserStoryLayer,
 } from "@/utils/processSync";
 
 const SyncButton = () => {
@@ -97,12 +99,10 @@ const SyncButton = () => {
   };
 
   const updateEpic = useMutation(({ storage }, epics) => {
-    const templates = storage.get("templates");
-    epics.map((epic: Epic, epidx: number) => {
-      addEpicTemplate(templates, epic, epidx);
-      epic.userStories.map((userStory, idx) => {
-        addUserStoryTemplate(templates, epic, epidx, userStory, idx);
-      });
+    const layers = storage.get("layers");
+    const liveLayerIds = storage.get("layerIds");
+    epics.map((epic: Epic, epicidx: number) => {
+      addEpicLayer(layers, epic, epicidx, liveLayerIds);
     });
   }, []);
 

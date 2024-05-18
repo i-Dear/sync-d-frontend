@@ -25,6 +25,7 @@ const config: Config = {
         "foreground-100": "#999",
         "light-gray-100": "#F0F2F5",
         "light-gray-200": "#3D4D5C",
+        "primary-200": "#D4EAFB",
         "primary-300": "#A5D0F9",
         "primary-400": "#369EFF",
         "primary-500": "#4569A1",
