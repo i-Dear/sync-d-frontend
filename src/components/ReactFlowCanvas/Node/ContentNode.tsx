@@ -10,7 +10,7 @@ const ContentNode = ({ data }: { data: Node["data"] }) => {
         style={{ background: data.color }}
         type="target"
       />
-      <div className="flex h-[4.8rem] w-[12.8rem] items-center justify-center rounded-[1.2rem] bg-light-gray-100 text-[1.4rem] font-semibold text-white">
+      <div className="flex h-[4.8rem] w-[12.8rem] items-center justify-center rounded-[1.2rem] bg-light-gray-100 text-[1.4rem] font-normal text-div-text">
         {data?.label}
       </div>
     </>
