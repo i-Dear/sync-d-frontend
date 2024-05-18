@@ -19,7 +19,7 @@ import ReactFlow, {
 import { useMutation, useStorage } from "~/liveblocks.config";
 import FloatingEdge from "./FloatingEdge";
 import StakeholderConnectionLine from "./StakeholderConnectionLine";
-import StakeholderNode from "./StakeholderNode";
+import StakeholderNode from "./Node/StakeholderNode";
 
 import "reactflow/dist/style.css";
 import "./style.css";
@@ -28,10 +28,10 @@ import NodeCreator from "./NodeCreator";
 import FloatingArrowLabelEdge from "./FloatingArrowLabelEdge";
 import InputForWhat from "./InputForWhat";
 import initialNodes from "@/lib/nodes";
-import MiddleNode from "./MiddleNode";
-import AnnotationNode from "./AnnotationNode";
-import PageNode from "./PageNode";
-import ContentNode from "./ContentNode";
+import MiddleNode from "./Node/MiddleNode";
+import AnnotationNode from "./Node/AnnotationNode";
+import PageNode from "./Node/PageNode";
+import ContentNode from "./Node/ContentNode";
 
 type Viewport = { x: number; y: number; zoom: number };
 
