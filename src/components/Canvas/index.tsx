@@ -62,7 +62,6 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import DnDFlow from "../FlowCanvas/DnDFlow";
 import Modal from "@/components/Modals";
 import ReactFlowCanvas from "@/components/ReactFlowCanvas";
 
