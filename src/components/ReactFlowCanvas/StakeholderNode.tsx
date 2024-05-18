@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { Handle, Node, Position, useStore } from "reactflow";
 import { useMutation, useStorage } from "~/liveblocks.config";
@@ -22,7 +22,6 @@ const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
         .find((node: Node) => node.id === nodeId);
       node.data.label = newLabel;
       forceNodeChange(); // 작성 중에도 실시간 업데이트
-
     },
     [],
   );

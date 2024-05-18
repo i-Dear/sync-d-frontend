@@ -24,7 +24,7 @@ function StakeholderConnectionLine({
         fill="black"
         r={3}
         stroke="black"
-        strokeWidth={1.5}
+        strokeWidth={1}
       />
     </g>
   );
