@@ -5,6 +5,7 @@ import useUserInfoStore from "@/store/useUserInfoStore";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import BellIcon from "~/public/bell.svg";
+import LogoIcon from "~/public/logo.svg";
 
 const TopNavBar = () => {
   const userInfo = useUserInfoStore((state) => state.userInfo);
@@ -13,11 +14,9 @@ const TopNavBar = () => {
   return (
     <div className="flex h-[4.8rem] w-full items-center justify-between border-b-[1px] border-light-gray-100 bg-white px-[3.2rem]">
       <div className="flex h-full items-center">
-        <div className="flex h-[2.4rem] w-[2.4rem] items-center justify-center">
-          <Image src="/logo.svg" alt="logo" width={20} height={20} />
-        </div>
+        <LogoIcon />
         <span className="ml-[1.2rem] h-full text-[1.6rem] font-semibold leading-[5rem]">
-          싱크대
+          Sync-D
         </span>
       </div>
       <div className="flex items-center gap-[3.2rem]">
