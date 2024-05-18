@@ -6,7 +6,7 @@ import {
 } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { useState } from "react";
-import { ThirdStepProbTemplate, TemplateType } from "@/lib/types";
+import { ThirdStepProbTemplate, TemplateType, Process } from "@/lib/types";
 
 type voteCandidate = 1 | 2 | 3 | 4 | 5;
 const VoteModal = () => {
@@ -37,6 +37,22 @@ const VoteModal = () => {
     }
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
   };
+  const process = useStorage((root) => root.process);
+
+  const latestUndoneProcess = process.find((process) => !process.done);
+  const latestUndoneStep = latestUndoneProcess?.step;
+  const completeProcess = useMutation(
+    ({ storage }) => {
+      if (!latestUndoneStep) return;
+      const storageProcess = storage.get("process");
+      const updatedProcess = {
+        ...storageProcess.get(latestUndoneStep - 1),
+        done: true,
+      } as Process;
+      storageProcess.set(latestUndoneStep - 1, updatedProcess);
+    },
+    [process],
+  );
 
   const voteList = useStorage((root) => root.voteList);
 
@@ -83,6 +99,7 @@ const VoteModal = () => {
         broadcast({ type: "VOTE_END", message: "sync Complete!" });
         setModalType("voteComplete");
         setModalState(true);
+        completeProcess();
       }
     },
     [voteList],
