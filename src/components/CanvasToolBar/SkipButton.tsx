@@ -1,12 +1,24 @@
 import useModalStore from "@/store/useModalStore";
-import { useMyPresence } from "~/liveblocks.config";
+import { useState, useEffect } from "react";
+import { useMyPresence, useStorage } from "~/liveblocks.config";
 
 const SKIPABLE_PROCESSES = [1, 2, 10, 11];
 
 const SkipButton = () => {
   const { setModalType, setModalState } = useModalStore();
+
   const [myPresence] = useMyPresence();
-  const { currentProcess } = myPresence;
+  const [currentProcess, setCurrentProcess] = useState(
+    myPresence.currentProcess,
+  );
+
+  const processes = useStorage((storage) => storage.process);
+
+  useEffect(() => {
+    const latestUndoneProcess = processes.find((process) => !process.done);
+    const latestUndoneStep = latestUndoneProcess?.step;
+    setCurrentProcess(latestUndoneStep || 1);
+  }, [processes]);
 
   const handleSkipButtonClick = () => {
     setModalType("skip");

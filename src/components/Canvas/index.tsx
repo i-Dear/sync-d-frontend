@@ -62,7 +62,8 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import DnDFlow from "../FlowCanvas/DnDFlow";
+import Modal from "@/components/Modals";
+import ReactFlowCanvas from "@/components/ReactFlowCanvas";
 
 const MAX_LAYERS = 100;
 
@@ -529,9 +530,9 @@ const Canvas = () => {
     <div>
       <CollabToolAside roomId={groupCall.roomId} />
       <ProcessNav userInfo={userInfo} setCamera={setCamera} />
-      {[9, 12].includes(currentProcess) && (
+      {[5, 6, 7, 9, 12].includes(currentProcess) && (
         <div className="relative h-screen w-screen bg-white">
-          <DnDFlow />
+          <ReactFlowCanvas currentProcess={currentProcess} />
         </div>
       )}
       <div
@@ -622,6 +623,7 @@ const Canvas = () => {
         canUndo={canUndo}
         canRedo={canRedo}
       />
+      <Modal setCamera={setCamera} />
     </div>
   );
 };
