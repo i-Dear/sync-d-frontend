@@ -61,6 +61,13 @@ export default [
     selectable: false,
   },
   {
+    id: "rootNode",
+    type: "pageNode",
+    position: { x: 650, y: 1950 },
+    data: { label: "Main" },
+    dragHandle: ".dragHandle",
+  },
+  {
     id: "annotation-1",
     type: "annotation",
     draggable: false,
