@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pause as PauseIcon, Play as PlayIcon } from "react-feather";
 import { cn } from "@/lib/utils";
+import MuteIcon from "~/public/mute.svg";
+import MuteOffIcon from "~/public/mute-off.svg";
 
 const musics = [
   {
@@ -268,24 +270,22 @@ export function MusicPlayer() {
           </Slider.Root>
           <div>
             {mute ? (
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-primary">
-                <Image
-                  src="/mute.svg"
-                  alt="Mute"
-                  width={20}
-                  height={20}
-                  onClick={toggleMute}
-                />
+              <div
+                className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-primary"
+                onClick={toggleMute}
+              >
+                <div className="flex h-[2rem] w-[2rem] items-center justify-center">
+                  <MuteIcon />
+                </div>
               </div>
             ) : (
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-primary">
-                <Image
-                  src="/mute-off.svg"
-                  alt="Unmute"
-                  width={20}
-                  height={20}
-                  onClick={toggleMute}
-                />
+              <div
+                className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-primary"
+                onClick={toggleMute}
+              >
+                <div className="flex h-[2rem] w-[2rem] items-center justify-center">
+                  <MuteOffIcon />
+                </div>
               </div>
             )}
           </div>

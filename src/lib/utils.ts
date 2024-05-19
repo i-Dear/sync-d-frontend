@@ -210,7 +210,7 @@ export function pointerEventToCanvasPoint(
 ): Point {
   return {
     x: Math.round(e.clientX) - camera.x,
-    y: Math.round(e.clientY) - camera.y,
+    y: Math.round(e.clientY) - camera.y - 48,
   };
 }
 
