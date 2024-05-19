@@ -31,6 +31,7 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
     }));
     updateMyPresence({
       currentProcess: latestUndoneStep,
+      isSynced: false,
     });
   };
 

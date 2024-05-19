@@ -8,6 +8,7 @@ import {
   useOthersMapped,
   useBroadcastEvent,
   useEventListener,
+  useUpdateMyPresence,
 } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { Template, Epic, Process } from "@/lib/types";
@@ -26,23 +27,31 @@ const SyncButton = () => {
   const broadcast = useBroadcastEvent();
   const { id } = useRoom();
   const [myPresence] = useMyPresence();
+  const updateMyPresence = useUpdateMyPresence();
   const { currentProcess } = myPresence;
   // const mySyncState = useSelf((self) => self.presence.isSynced);
   const [mySyncState, setMySyncState] = useState(false);
   const [syncCount, setSyncCount] = useState(0);
 
-  const updateMySyncState = useMutation(({ setMyPresence }, value) => {
+  // const updateMySyncState = useMutation(({ setMyPresence }, value) => {
+  //   setMySyncState(value);
+  //   setMyPresence({ isSynced: value });
+  // }, []);
+  const updateMySyncState = (value: boolean) => {
     setMySyncState(value);
-    setMyPresence({ isSynced: value });
-  }, []);
+    updateMyPresence({ isSynced: value });
+    console.log(value);
+  };
 
   const othersSyncState = useOthersMapped((other) => other.presence.isSynced);
   useEffect(() => {
+    console.log("useEffect내부", othersSyncState);
     const otherSyncList = othersSyncState.filter((other) => {
       if (other[1] === true) {
-        return other[0];
+        return "synced";
       }
     });
+    console.log("otherSyncList", otherSyncList, otherSyncList.length);
     setSyncCount(otherSyncList.length);
   }, [othersSyncState]);
   const totalMembers = othersSyncState.length + 1;
@@ -91,11 +100,11 @@ const SyncButton = () => {
         });
         updateEpic(epics);
       }
+      updateMySyncState(false);
       broadcast({ type: "ALL_SYNCED", message: "sync Complete!" });
       setModalType("synced");
       setModalState(true);
       completeProcess();
-      updateMySyncState(false);
     }
 
     //10단계에서만 적용되는 시나리오 전송 로직
