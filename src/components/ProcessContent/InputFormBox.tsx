@@ -2,7 +2,8 @@ import { InputFormBoxTemplate } from "@/lib/types";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { useMutation } from "~/liveblocks.config";
 import React, { useState } from "react";
-
+import DoubleQuoteOpenIcon from "~/public/DoubleQuoteOpen";
+import DoubleQuoteCloseIcon from "~/public/DoubleQouteClose";
 export default function InputFormBox(props: InputFormBoxTemplate) {
   const { id, title, x, y, width, height, font, value } = props;
 
@@ -17,18 +18,18 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
     });
   }, []);
 
-  const [isPlaceholderVisible, setPlaceholderVisible] = useState(!value);
+  // const [isPlaceholderVisible, setPlaceholderVisible] = useState(!value);
 
   const handleContentChange = (e: ContentEditableEvent) => {
     const newValue = e.target.value;
     updateValue(newValue);
   };
 
-  const handleFocus = () => {
-    if (isPlaceholderVisible) {
-      setPlaceholderVisible(false);
-    }
-  };
+  // const handleFocus = () => {
+  //   if (isPlaceholderVisible) {
+  //     setPlaceholderVisible(false);
+  //   }
+  // };
 
   return (
     <foreignObject
@@ -36,18 +37,17 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
       y={y}
       width={width ? width : 800}
       height={height ? height : 200}
-      style={{ borderBottom: "4px solid black" }}
+      style={{ borderBottom: "4px solid black", display: "flex" }}
     >
-      <ContentEditable
-        html={
-          isPlaceholderVisible
-            ? `<span class='placeholder' style='color: #999'>${title}</span>`
-            : value || ""
-        }
-        onChange={handleContentChange}
-        onFocus={handleFocus}
-        className={`flex h-full w-full justify-normal p-[1rem] outline-none ${font ? font : "text-base"} font-Manrope text-black`}
-      />
+      <div className="flex">
+        <DoubleQuoteOpenIcon fill="black" width={20} height={20} />
+        <ContentEditable
+          html={value ? value : ""}
+          onChange={handleContentChange}
+          className={`flex h-full w-full justify-normal p-[1rem] outline-none ${font ? font : "text-base"} font-Manrope text-black`}
+        />
+        <DoubleQuoteCloseIcon fill="black" width={20} height={20} />
+      </div>
     </foreignObject>
   );
 }
