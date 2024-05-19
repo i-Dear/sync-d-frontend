@@ -19,7 +19,7 @@ import ReactFlow, {
 import { useMutation, useStorage } from "~/liveblocks.config";
 import FloatingEdge from "./FloatingEdge";
 import StakeholderConnectionLine from "./StakeholderConnectionLine";
-import StakeholderNode from "./StakeholderNode";
+import StakeholderNode from "./Node/StakeholderNode";
 
 import "reactflow/dist/style.css";
 import "./style.css";
@@ -28,8 +28,10 @@ import NodeCreator from "./NodeCreator";
 import FloatingArrowLabelEdge from "./FloatingArrowLabelEdge";
 import InputForWhat from "./InputForWhat";
 import initialNodes from "@/lib/nodes";
-import MiddleNode from "./MiddleNode";
-import AnnotationNode from "./AnnotationNode";
+import MiddleNode from "./Node/MiddleNode";
+import AnnotationNode from "./Node/AnnotationNode";
+import PageNode from "./Node/PageNode";
+import ContentNode from "./Node/ContentNode";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -37,8 +39,8 @@ const StepViewport: Record<number, Viewport> = {
   5: { x: 0, y: 0, zoom: 1 },
   6: { x: -600, y: 0, zoom: 1 },
   7: { x: -1050, y: 0, zoom: 1 },
-  9: { x: 0, y: 1000, zoom: 1 },
-  12: { x: 0, y: 2000, zoom: 1 },
+  9: { x: 0, y: -1000, zoom: 1 },
+  12: { x: 0, y: -1500, zoom: 0.8 },
 };
 
 const connectionLineStyle = {
@@ -50,6 +52,8 @@ const nodeTypes = {
   stakeholderNode: StakeholderNode,
   middleNode: MiddleNode,
   annotation: AnnotationNode,
+  pageNode: PageNode,
+  contentNode: ContentNode,
 };
 
 const edgeTypes = {
@@ -215,18 +219,19 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
     [edges],
   );
 
-  const initNodes = useMutation(({ storage }) => {
+  const init = useMutation(({ storage }) => {
     storage.set("nodes", initialNodes);
+    storage.set("edges", []);
   }, []);
 
   useEffect(() => {
     if (nodes.length === 0) {
-      initNodes();
+      init();
     }
-  }, [nodes, initNodes]);
+  }, []);
 
-  // 노드 초기화 버튼 (주석 풀면 초기화)
-  //initNodes();
+  // 노드엣지 초기화 버튼 (주석 풀면 초기화)
+  //init();
 
   return (
     <div className="h-full w-full grow" ref={reactFlowWrapper}>
