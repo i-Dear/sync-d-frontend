@@ -76,6 +76,21 @@ const SyncButton = () => {
   const handleClick = async () => {
     updateMySyncState(true);
     if (syncCount + 1 === totalMembers) {
+      if (currentProcess === 10) {
+        broadcast({
+          type: "SCENARIO_MODAL_ON",
+          message: "Event received!",
+        });
+        setModalType("processingScenario");
+        setModalState(true);
+        const epics: void | Epic[] = await fetchScenario(id, templates);
+        setModalState(false);
+        broadcast({
+          type: "SCENARIO_MODAL_OFF",
+          message: "Event received!",
+        });
+        updateEpic(epics);
+      }
       broadcast({ type: "ALL_SYNCED", message: "sync Complete!" });
       setModalType("synced");
       setModalState(true);
@@ -84,18 +99,6 @@ const SyncButton = () => {
     }
 
     //10단계에서만 적용되는 시나리오 전송 로직
-    if (currentProcess === 10) {
-      broadcast({ type: "SCENARIO_MODAL_ON", message: "Event received!" });
-      setModalType("processingScenario");
-      setModalState(true);
-      const epics: void | Epic[] = await fetchScenario(id, templates);
-      setModalState(false);
-      broadcast({
-        type: "SCENARIO_MODAL_OFF",
-        message: "Event received!",
-      });
-      updateEpic(epics);
-    }
   };
 
   const updateEpic = useMutation(({ storage }, epics) => {
