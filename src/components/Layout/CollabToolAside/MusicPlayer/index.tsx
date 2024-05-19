@@ -13,10 +13,10 @@ import MuteOffIcon from "~/public/mute-off.svg";
 
 const musics = [
   {
-    title: "고민중독",
-    artist: "QWER",
-    src: "/qwer.mp3",
-    cover: "/qwer.png",
+    title: "MapleStory BGM",
+    artist: "MS",
+    src: "/mapleStoryShort.mp3",
+    cover: "/mapleStory.png",
   },
 ];
 

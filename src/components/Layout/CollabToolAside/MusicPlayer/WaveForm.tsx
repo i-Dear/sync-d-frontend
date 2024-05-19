@@ -14,7 +14,7 @@ import WaveSurfer from "wavesurfer.js";
 const WavesurferPlayer = dynamic(() => import("@wavesurfer/react"), {
   ssr: false,
   loading: () => (
-    <div className="text-waveform-gray flex h-[20px] w-full items-center justify-center text-xl">
+    <div className="flex h-[20px] w-full items-center justify-center text-xl text-waveform-gray">
       Loading...
     </div>
   ),
