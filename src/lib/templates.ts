@@ -76,7 +76,7 @@ export const syncTemplates: Template[] = [
   {
     id: "202",
     type: TemplateType.NoteBox,
-    title: "이것만은 부탁해요!",
+    title: "제 목표는...",
     x: 200,
     y: 1100,
     width: 800,
@@ -108,7 +108,7 @@ export const syncTemplates: Template[] = [
   {
     id: "205",
     type: TemplateType.NoteBox,
-    title: "이것만은 부탁해요!",
+    title: "우리 팀의 목표는...",
     x: 200,
     y: 1400,
     width: 800,
