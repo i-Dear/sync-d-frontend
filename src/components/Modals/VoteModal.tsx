@@ -1,18 +1,23 @@
-import { useStorage, useMutation } from "~/liveblocks.config";
+import {
+  useStorage,
+  useMutation,
+  useOthers,
+  useBroadcastEvent,
+} from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { useState } from "react";
-import { TemplateType } from "@/lib/types";
-import { useOthers, useSelf } from "~/liveblocks.config";
-import { ThirdStepProbTemplate } from "@/lib/types";
+import { ThirdStepProbTemplate, TemplateType, Process } from "@/lib/types";
 
+type voteCandidate = 1 | 2 | 3 | 4 | 5;
 const VoteModal = () => {
+  const broadcast = useBroadcastEvent();
   const { setModalState, setModalType } = useModalStore();
-  const [vote, setVote] = useState<number | null>(null);
+  const [vote, setVote] = useState<1 | 2 | 3 | 4 | 5 | null>(null);
   const [voteCompleted, setVoteCompleted] = useState<boolean>(false);
   const others = useOthers().length;
   const totalPeople = others + 1;
 
-  const handleVote = (key: number) => () => {
+  const handleVote = (key: voteCandidate) => () => {
     setVote(key);
     setVoteCompleted(true);
   };
@@ -23,27 +28,58 @@ const VoteModal = () => {
   const votelist = templates.filter(
     (v) => v.type === TemplateType.ThirdStepProb && v.value !== 0,
   ) as ThirdStepProbTemplate[];
-  console.log(votelist);
+  // console.log(votelist);
 
-  const submitVote = (vote: number) => {
+  const submitVote = (vote: voteCandidate) => {
     if (vote) {
       setModalType("complete");
       updateValue(vote);
     }
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
   };
+  const process = useStorage((root) => root.process);
 
-  //votelist에서 해당 표 +1 하고 총 표수 +1 해주기
-  const updateValue = useMutation(({ storage }, vote) => {
-    const voteList = storage.get("voteList");
-    const totalCount = voteList.get("totalCount");
-    const voteCount = voteList.get("voteCount");
-    voteCount.set(vote, voteList.get(vote) + 1);
-    voteList.set("totalCount", totalCount + 1);
-    if (totalCount === totalPeople) {
-      //투표 알고리즘
-    }
-  }, []);
+  const latestUndoneProcess = process.find((process) => !process.done);
+  const latestUndoneStep = latestUndoneProcess?.step;
+  const completeProcess = useMutation(
+    ({ storage }) => {
+      if (!latestUndoneStep) return;
+      const storageProcess = storage.get("process");
+      const updatedProcess = {
+        ...storageProcess.get(latestUndoneStep - 1),
+        done: true,
+      } as Process;
+      storageProcess.set(latestUndoneStep - 1, updatedProcess);
+    },
+    [process],
+  );
+
+  const voteList = useStorage((root) => root.voteList);
+
+  const updateValue = useMutation(
+    ({ storage }, vote: voteCandidate) => {
+      const voteList = storage.get("voteList");
+      const voteCount = voteList.get("voteCount");
+
+      const targetVoteCount = voteCount.get(`${vote}`);
+      voteCount.set(`${vote}`, targetVoteCount + 1);
+
+      const prevTotalCount = voteList.get("totalCount");
+      const newTotalCount = prevTotalCount + 1;
+      voteList.set("totalCount", newTotalCount);
+
+      console.log("prevTotalCount", prevTotalCount);
+      console.log("newTotalCount", newTotalCount);
+
+      if (newTotalCount === totalPeople) {
+        broadcast({ type: "VOTE_END", message: "sync Complete!" });
+        setModalType("voteComplete");
+        setModalState(true);
+        completeProcess();
+      }
+    },
+    [voteList],
+  );
 
   return (
     <div className=" flex h-full w-full flex-col bg-white">
@@ -58,7 +94,7 @@ const VoteModal = () => {
               className={`flex h-[20rem] w-[20rem] items-center justify-center rounded-full border font-mono text-9xl font-semibold text-gray-200 ${
                 vote === index + 1 ? "bg-primary" : ""
               }`}
-              onClick={handleVote(index + 1)}
+              onClick={handleVote((index + 1) as voteCandidate)}
             >
               {v.value}
             </div>

@@ -74,11 +74,11 @@ type Storage = {
   edges: any;
   voteList: LiveObject<{
     voteCount: LiveObject<{
-      1: number;
-      2: number;
-      3: number;
-      4: number;
-      5: number;
+      "1": number;
+      "2": number;
+      "3": number;
+      "4": number;
+      "5": number;
     }>;
     totalCount: number;
   }>;
@@ -99,7 +99,12 @@ export type UserMeta = {
 
 // Event types
 export type RoomEvent = {
-  type: "SCENARIO_MODAL_ON" | "SCENARIO_MODAL_OFF" | "ALL_SYNCED" | "TIMER_END";
+  type:
+    | "SCENARIO_MODAL_ON"
+    | "SCENARIO_MODAL_OFF"
+    | "ALL_SYNCED"
+    | "TIMER_END"
+    | "VOTE_END";
   message: string;
 };
 

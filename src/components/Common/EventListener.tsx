@@ -25,6 +25,10 @@ const EventListener = () => {
       setModalType("synced");
       setModalState(true);
     }
+    if (event.type === "VOTE_END") {
+      setModalType("voteComplete");
+      setModalState(true);
+    }
   });
 
   return <></>;

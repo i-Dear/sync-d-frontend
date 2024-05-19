@@ -8,6 +8,7 @@ import CompleteModal from "./CompleteModal";
 import CreateProjectModal from "./CreateProjectModal";
 import ProcessingScenarioModal from "./ProcessingScenarioModal";
 import SyncedModal from "./SyncModal";
+import VoteCompleteModal from "./VoteEndModal";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 
@@ -27,6 +28,7 @@ const ModalMap: ModalMapType = {
   createProject: CreateProjectModal,
   processingScenario: ProcessingScenarioModal,
   synced: SyncedModal,
+  voteComplete: VoteCompleteModal,
 };
 
 const Modal = ({ setCamera }: ModalProps) => {
@@ -42,7 +44,12 @@ const Modal = ({ setCamera }: ModalProps) => {
   };
 
   const handleMouseUp = (e: React.MouseEvent) => {
-    const nonClosableModals = ["synced", "processingScenario", "skip"];
+    const nonClosableModals = [
+      "synced",
+      "processingScenario",
+      "skip",
+      "voteComplete",
+    ];
     if (
       !isMouseDownInside &&
       e.target === e.currentTarget &&
@@ -61,7 +68,7 @@ const Modal = ({ setCamera }: ModalProps) => {
           onMouseUp={handleMouseUp}
         >
           <div onClick={stopPropagation} onMouseDown={handleMouseDown}>
-            {modalType === "synced" ? (
+            {modalType === "synced" || modalType === "voteComplete" ? (
               <ModalComponent setCamera={setCamera} />
             ) : (
               <ModalComponent />
