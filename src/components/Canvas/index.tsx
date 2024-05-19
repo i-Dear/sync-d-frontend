@@ -574,7 +574,7 @@ const Canvas = () => {
                 selectionColor={layerIdsToColorSelection[layerId]}
               />
             ))}
-            {/* {canvasState.mode === 4 && canvasState.layerType === 4 && (
+            {canvasState.mode === 4 && canvasState.layerType === 4 && (
               <foreignObject
                 x={mousePosition.x}
                 y={mousePosition.y}
@@ -583,7 +583,7 @@ const Canvas = () => {
                 style={{ background: "#808080", opacity: "0.5" }}
                 className="shadow-grey-950 shadow-lg drop-shadow-lg"
               ></foreignObject>
-            )} */}
+            )}
             {/* Blue square that show the selection of the current users. Also contains the resize handles. */}
             <SelectionBox
               onResizeHandlePointerDown={onResizeHandlePointerDown}
