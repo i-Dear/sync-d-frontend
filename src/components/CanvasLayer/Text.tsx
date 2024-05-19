@@ -48,7 +48,7 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
         onChange={handleContentChange}
         className="flex h-full w-full justify-normal text-center outline-none drop-shadow-md"
         style={{
-          fontSize: 18,
+          fontSize: 14,
           color: "black",
         }}
       />
