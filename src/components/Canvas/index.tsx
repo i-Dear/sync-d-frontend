@@ -41,7 +41,6 @@ import SelectionBox from "./SelectionBox";
 import LayerComponent from "./LayerComponent";
 import SelectionTools from "./SelectionTools";
 import useDisableScrollBounce from "@/hooks/useDisableScrollBounce";
-import useDeleteLayers from "@/hooks/useDeleteLayers";
 import Drafts from "./Drafts";
 
 import ToolsBar from "@/components/CanvasToolBar";
@@ -54,14 +53,6 @@ import ProcessNav from "../Layout/ProcessNav";
 import useDeleteLayersBackspace from "@/hooks/useDeleteLayersBackspace";
 import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
-import {
-  Connection,
-  EdgeChange,
-  NodeChange,
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
-} from "reactflow";
 import Modal from "@/components/Modals";
 import ReactFlowCanvas from "@/components/ReactFlowCanvas";
 
@@ -94,34 +85,7 @@ const Canvas = () => {
 
   const { stickerSrc } = useStickerStore();
   useDisableScrollBounce();
-
-  const deleteLayers = useDeleteLayers();
   const deleteLayersBackspace = useDeleteLayersBackspace();
-  /**
-   * Hook used to listen to Undo / Redo and delete selected layers
-   */
-
-  const onNodesChange = useMutation(
-    ({ storage }, changes: NodeChange[]) => {
-      storage.set("nodes", applyNodeChanges(changes, nodes));
-    },
-    [nodes],
-  );
-
-  const onEdgesChange = useMutation(
-    ({ storage }, changes: EdgeChange[]) => {
-      storage.set("edges", applyEdgeChanges(changes, edges));
-    },
-    [edges],
-  );
-
-  const onConnect = useMutation(
-    ({ storage }, connection: Connection) => {
-      const existingEdges = storage.get("edges");
-      storage.set("edges", addEdge(connection, existingEdges));
-    },
-    [edges],
-  );
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -455,6 +419,7 @@ const Canvas = () => {
     ({ setMyPresence }, e: React.PointerEvent) => {
       e.preventDefault();
       const current = pointerEventToCanvasPoint(e, camera);
+
       setMousePosition({ x: current.x, y: current.y });
       if (canvasState.mode === CanvasMode.Pressing) {
         startMultiSelection(current, canvasState.origin);
@@ -574,17 +539,6 @@ const Canvas = () => {
                 selectionColor={layerIdsToColorSelection[layerId]}
               />
             ))}
-            {/* {canvasState.mode === 4 && canvasState.layerType === 4 && (
-              <foreignObject
-                x={mousePosition.x}
-                y={mousePosition.y}
-                width={100}
-                height={100}
-                style={{ background: "#808080", opacity: "0.5" }}
-                className="shadow-grey-950 shadow-lg drop-shadow-lg"
-              ></foreignObject>
-            )} */}
-            {/* Blue square that show the selection of the current users. Also contains the resize handles. */}
             <SelectionBox
               onResizeHandlePointerDown={onResizeHandlePointerDown}
             />

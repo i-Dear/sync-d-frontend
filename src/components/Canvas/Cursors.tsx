@@ -1,4 +1,8 @@
-import { useOthersMapped, useUpdateMyPresence } from "~/liveblocks.config";
+import {
+  useOthersMapped,
+  useSelf,
+  useUpdateMyPresence,
+} from "~/liveblocks.config";
 import Cursor from "./Cursor";
 import { MutableRefObject, useEffect } from "react";
 import { shallow } from "@liveblocks/client";
@@ -10,11 +14,13 @@ type Props = {
 
 const Cursors = ({ cursorPanel }: Props) => {
   const updateMyPresence = useUpdateMyPresence();
+  const me = useSelf();
 
   const others = useOthersMapped(
     (other) => ({
       cursor: other.presence.cursor,
       info: other.info,
+      currentProcess: other.presence.currentProcess,
     }),
     shallow,
   );
@@ -26,32 +32,12 @@ const Cursors = ({ cursorPanel }: Props) => {
       return;
     }
 
-    const updateCursor = (event: PointerEvent) => {
-      if (!cursorPanel?.current) {
-        return;
-      }
-
-      // (뷰포트 위치) - (이벤트 위치) + (스크롤 위치)
-      const x =
-        event.clientX - rectRef.current.x + cursorPanel.current.scrollLeft;
-      const y =
-        event.clientY - rectRef.current.y + cursorPanel.current.scrollTop;
-
-      updateMyPresence({
-        cursor: {
-          x: Math.round(x),
-          y: Math.round(y),
-        },
-      });
-    };
-
     const removeCursor = () => {
       updateMyPresence({
         cursor: null,
       });
     };
 
-    cursorPanel.current.addEventListener("pointermove", updateCursor);
     cursorPanel.current.addEventListener("pointerleave", removeCursor);
 
     const oldRef = cursorPanel.current;
@@ -59,7 +45,7 @@ const Cursors = ({ cursorPanel }: Props) => {
       if (!oldRef) {
         return;
       }
-      oldRef.removeEventListener("pointermove", updateCursor);
+
       oldRef.removeEventListener("pointerleave", removeCursor);
     };
   }, [updateMyPresence, cursorPanel, rectRef]);
@@ -77,7 +63,7 @@ const Cursors = ({ cursorPanel }: Props) => {
             name={other.info.name}
             color={other.info.color}
             x={other.cursor.x}
-            y={other.cursor.y}
+            y={other.cursor.y - (me.presence.currentProcess - 1) * 1000}
           />
         );
       })}
