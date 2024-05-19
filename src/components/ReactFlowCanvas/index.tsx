@@ -32,6 +32,7 @@ import MiddleNode from "./Node/MiddleNode";
 import AnnotationNode from "./Node/AnnotationNode";
 import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
+import AreaNode from "./Node/AreaNode";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -54,6 +55,7 @@ const nodeTypes = {
   annotation: AnnotationNode,
   pageNode: PageNode,
   contentNode: ContentNode,
+  areaNode: AreaNode,
 };
 
 const edgeTypes = {
@@ -63,13 +65,10 @@ const edgeTypes = {
 
 const defaultEdgeOptions = {
   style: { strokeWidth: 1, stroke: "gray" },
-  type: "floating-label-arrow",
+  type: "default",
   markerEnd: {
     type: MarkerType.ArrowClosed,
     color: "gray",
-  },
-  data: {
-    endLabel: "가치",
   },
 };
 
@@ -97,6 +96,22 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const onConnect = useMutation(
     ({ storage }, connection: Connection | Edge) => {
       const existingEdges = storage.get("edges");
+      const sourceNode = storage
+        .get("nodes")
+        .find((node: Node) => node.id === connection.source);
+      if (sourceNode.type === "stakeholderNode") {
+        const valueEdge = {
+          ...connection,
+          type: "floating-label-arrow",
+          id: nanoid(),
+          data: {
+            endLabel: "Value",
+          },
+        };
+        storage.set("edges", addEdge(valueEdge, storage.get("edges")));
+        connectingNodeId.current = null;
+        return;
+      }
       storage.set("edges", addEdge(connection, existingEdges));
       connectingNodeId.current = null;
     },
