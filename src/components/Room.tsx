@@ -41,8 +41,8 @@ const Room = ({ roomId }: RoomProps) => {
         layerIds: new LiveList(),
         timer: new LiveObject({
           timerState: false,
-          currentTime: 180,
-          defaultTime: 180,
+          currentTime: 0,
+          defaultTime: 0,
         }),
         process: new LiveList(steps),
         templates: new LiveList<Template>(syncTemplates),
