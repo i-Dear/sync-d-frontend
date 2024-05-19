@@ -18,18 +18,10 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
     });
   }, []);
 
-  // const [isPlaceholderVisible, setPlaceholderVisible] = useState(!value);
-
   const handleContentChange = (e: ContentEditableEvent) => {
     const newValue = e.target.value;
     updateValue(newValue);
   };
-
-  // const handleFocus = () => {
-  //   if (isPlaceholderVisible) {
-  //     setPlaceholderVisible(false);
-  //   }
-  // };
 
   return (
     <foreignObject
