@@ -113,6 +113,12 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
         return;
       }
       storage.set("edges", addEdge(connection, existingEdges));
+      const nodeOne = storage
+        .get("nodes")
+        .find((node: Node) => node.id === connection.source);
+      console.log("1.", connectingNodeId.current);
+      console.log("2.node", nodeOne);
+      console.log("3.connection", connection);
       connectingNodeId.current = null;
     },
     [edges],

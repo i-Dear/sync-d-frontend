@@ -28,7 +28,7 @@ const CollabToolAside = memo(({ roomId }: GroupCallProps) => {
       <Timer />
       <GroupCall roomId={roomId} />
       <MusicPlayer />
-      <ToastContainer autoClose={3000} />
+      <ToastContainer autoClose={10000} />
     </aside>
   );
 });

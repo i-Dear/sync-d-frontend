@@ -43,20 +43,31 @@ const Modal = ({ setCamera }: ModalProps) => {
     setIsMouseDownInside(true);
   };
 
+  const nonClosableModals = [
+    "synced",
+    "processingScenario",
+    "skip",
+    "voteComplete",
+  ];
+  // const handleMouseUp = (e: React.MouseEvent) => {
+  //   if (
+  //     !isMouseDownInside &&
+  //     e.target === e.currentTarget &&
+  //     // !nonClosableModals.includes(modalType)
+  //   ) {
+  //     setModalState(false);
+  //   }
+  //   setIsMouseDownInside(false);
+  // };
   const handleMouseUp = (e: React.MouseEvent) => {
-    const nonClosableModals = [
-      "synced",
-      "processingScenario",
-      "skip",
-      "voteComplete",
-    ];
-    if (
-      !isMouseDownInside &&
-      e.target === e.currentTarget &&
-      !nonClosableModals.includes(modalType)
-    ) {
-      setModalState(false);
+    if (!isMouseDownInside && e.target === e.currentTarget) {
+      if (
+        modalType !== "processingScenario" &&
+        !nonClosableModals.includes(modalType)
+      )
+        setModalState(false);
     }
+    setIsMouseDownInside(false);
   };
   const ModalComponent = ModalMap[modalType];
 
