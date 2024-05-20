@@ -55,7 +55,7 @@ export default function Note({
         onChange={handleContentChange}
         className="flex h-full w-full justify-normal p-[1rem] outline-none "
         style={{
-          fontSize: 12,
+          fontSize: 14,
           color: "black",
           fontFamily: "Manrope, sans-serif",
         }}

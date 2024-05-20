@@ -1,14 +1,442 @@
 [
   {
-    "name": "smile",
-    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Noto_Emoji_KitKat_263a.svg/100px-Noto_Emoji_KitKat_263a.svg.png"
+    "name": "u1F617",
+    "src": "/sticker/u1F617.svg"
   },
   {
-    "name": "grin",
-    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Emoji_u1f600.svg/100px-Emoji_u1f600.svg.png"
+    "name": "u1F618",
+    "src": "/sticker/u1F618.svg"
   },
   {
-    "name": "squinting",
-    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Emoji_u1f61d.svg/100px-Emoji_u1f61d.svg.png"
+    "name": "u1F619",
+    "src": "/sticker/u1F619.svg"
+  },
+  {
+    "name": "u1F61A",
+    "src": "/sticker/u1F61A.svg"
+  },
+  {
+    "name": "u1F61B",
+    "src": "/sticker/u1F61B.svg"
+  },
+  {
+    "name": "u1F61C",
+    "src": "/sticker/u1F61C.svg"
+  },
+  {
+    "name": "u1F61D",
+    "src": "/sticker/u1F61D.svg"
+  },
+  {
+    "name": "u1F61E",
+    "src": "/sticker/u1F61E.svg"
+  },
+  {
+    "name": "u1F61F",
+    "src": "/sticker/u1F61F.svg"
+  },
+  {
+    "name": "u1F620",
+    "src": "/sticker/u1F620.svg"
+  },
+  {
+    "name": "u1F621",
+    "src": "/sticker/u1F621.svg"
+  },
+  {
+    "name": "u1F622",
+    "src": "/sticker/u1F622.svg"
+  },
+  {
+    "name": "u1F623",
+    "src": "/sticker/u1F623.svg"
+  },
+  {
+    "name": "u1F624",
+    "src": "/sticker/u1F624.svg"
+  },
+  {
+    "name": "u1F625",
+    "src": "/sticker/u1F625.svg"
+  },
+  {
+    "name": "u1F626",
+    "src": "/sticker/u1F626.svg"
+  },
+  {
+    "name": "u1F627",
+    "src": "/sticker/u1F627.svg"
+  },
+  {
+    "name": "u1F628",
+    "src": "/sticker/u1F628.svg"
+  },
+  {
+    "name": "u1F629",
+    "src": "/sticker/u1F629.svg"
+  },
+  {
+    "name": "u1F62A",
+    "src": "/sticker/u1F62A.svg"
+  },
+  {
+    "name": "u1F62B",
+    "src": "/sticker/u1F62B.svg"
+  },
+  {
+    "name": "u1F62C",
+    "src": "/sticker/u1F62C.svg"
+  },
+  {
+    "name": "u1F62D",
+    "src": "/sticker/u1F62D.svg"
+  },
+  {
+    "name": "u1F62E",
+    "src": "/sticker/u1F62E.svg"
+  },
+  {
+    "name": "u1F62E_u200D_u1F4A8",
+    "src": "/sticker/u1F62E_u200D_u1F4A8.svg"
+  },
+  {
+    "name": "u1F62F",
+    "src": "/sticker/u1F62F.svg"
+  },
+  {
+    "name": "u1F630",
+    "src": "/sticker/u1F630.svg"
+  },
+  {
+    "name": "u1F631",
+    "src": "/sticker/u1F631.svg"
+  },
+  {
+    "name": "u1F632",
+    "src": "/sticker/u1F632.svg"
+  },
+  {
+    "name": "u1F633",
+    "src": "/sticker/u1F633.svg"
+  },
+  {
+    "name": "u1F634",
+    "src": "/sticker/u1F634.svg"
+  },
+  {
+    "name": "u1F635",
+    "src": "/sticker/u1F635.svg"
+  },
+  {
+    "name": "u1F635_u200D_u1F4AB",
+    "src": "/sticker/u1F635_u200D_u1F4AB.svg"
+  },
+  {
+    "name": "u1F636",
+    "src": "/sticker/u1F636.svg"
+  },
+  {
+    "name": "u1F636_u200D_u1F32B",
+    "src": "/sticker/u1F636_u200D_u1F32B.svg"
+  },
+  {
+    "name": "u1F637",
+    "src": "/sticker/u1F637.svg"
+  },
+  {
+    "name": "u1F644",
+    "src": "/sticker/u1F644.svg"
+  },
+  {
+    "name": "u1F645_u200D_u2642",
+    "src": "/sticker/u1F645_u200D_u2642.svg"
+  },
+  {
+    "name": "u1F646_u200D_u2642",
+    "src": "/sticker/u1F646_u200D_u2642.svg"
+  },
+  {
+    "name": "u1F647_u200D_u2642",
+    "src": "/sticker/u1F647_u200D_u2642.svg"
+  },
+  {
+    "name": "u1F649",
+    "src": "/sticker/u1F649.svg"
+  },
+  {
+    "name": "u1F64C",
+    "src": "/sticker/u1F64C.svg"
+  },
+  {
+    "name": "u1F64F",
+    "src": "/sticker/u1F64F.svg"
+  },
+  {
+    "name": "u1F90F",
+    "src": "/sticker/u1F90F.svg"
+  },
+  {
+    "name": "u1F910",
+    "src": "/sticker/u1F910.svg"
+  },
+  {
+    "name": "u1F911",
+    "src": "/sticker/u1F911.svg"
+  },
+  {
+    "name": "u1F912",
+    "src": "/sticker/u1F912.svg"
+  },
+  {
+    "name": "u1F913",
+    "src": "/sticker/u1F913.svg"
+  },
+  {
+    "name": "u1F914",
+    "src": "/sticker/u1F914.svg"
+  },
+  {
+    "name": "u1F915",
+    "src": "/sticker/u1F915.svg"
+  },
+  {
+    "name": "u1F916",
+    "src": "/sticker/u1F916.svg"
+  },
+  {
+    "name": "u1F917",
+    "src": "/sticker/u1F917.svg"
+  },
+  {
+    "name": "u1F91A",
+    "src": "/sticker/u1F91A.svg"
+  },
+  {
+    "name": "u1F91C",
+    "src": "/sticker/u1F91C.svg"
+  },
+  {
+    "name": "u1F91D",
+    "src": "/sticker/u1F91D.svg"
+  },
+  {
+    "name": "u1F91E",
+    "src": "/sticker/u1F91E.svg"
+  },
+  {
+    "name": "u1F91F",
+    "src": "/sticker/u1F91F.svg"
+  },
+  {
+    "name": "u1F920",
+    "src": "/sticker/u1F920.svg"
+  },
+  {
+    "name": "u1F921",
+    "src": "/sticker/u1F921.svg"
+  },
+  {
+    "name": "u1F922",
+    "src": "/sticker/u1F922.svg"
+  },
+  {
+    "name": "u1F923",
+    "src": "/sticker/u1F923.svg"
+  },
+  {
+    "name": "u1F924",
+    "src": "/sticker/u1F924.svg"
+  },
+  {
+    "name": "u1F925",
+    "src": "/sticker/u1F925.svg"
+  },
+  {
+    "name": "u1F926_u200D_u2642",
+    "src": "/sticker/u1F926_u200D_u2642.svg"
+  },
+  {
+    "name": "u1F927",
+    "src": "/sticker/u1F927.svg"
+  },
+  {
+    "name": "u1F928",
+    "src": "/sticker/u1F928.svg"
+  },
+  {
+    "name": "u1F929",
+    "src": "/sticker/u1F929.svg"
+  },
+  {
+    "name": "u1F92A",
+    "src": "/sticker/u1F92A.svg"
+  },
+  {
+    "name": "u1F92B",
+    "src": "/sticker/u1F92B.svg"
+  },
+  {
+    "name": "u1F92C",
+    "src": "/sticker/u1F92C.svg"
+  },
+  {
+    "name": "u1F92D",
+    "src": "/sticker/u1F92D.svg"
+  },
+  {
+    "name": "u1F92E",
+    "src": "/sticker/u1F92E.svg"
+  },
+  {
+    "name": "u1F92F",
+    "src": "/sticker/u1F92F.svg"
+  },
+  {
+    "name": "u1F934",
+    "src": "/sticker/u1F934.svg"
+  },
+  {
+    "name": "u1F937_u200D_u2642",
+    "src": "/sticker/u1F937_u200D_u2642.svg"
+  },
+  {
+    "name": "u1F970",
+    "src": "/sticker/u1F970.svg"
+  },
+  {
+    "name": "u1F971",
+    "src": "/sticker/u1F971.svg"
+  },
+  {
+    "name": "u1F972",
+    "src": "/sticker/u1F972.svg"
+  },
+  {
+    "name": "u1F973",
+    "src": "/sticker/u1F973.svg"
+  },
+  {
+    "name": "u1F974",
+    "src": "/sticker/u1F974.svg"
+  },
+  {
+    "name": "u1F975",
+    "src": "/sticker/u1F975.svg"
+  },
+  {
+    "name": "u1F976",
+    "src": "/sticker/u1F976.svg"
+  },
+  {
+    "name": "u1F978",
+    "src": "/sticker/u1F978.svg"
+  },
+  {
+    "name": "u1F979",
+    "src": "/sticker/u1F979.svg"
+  },
+  {
+    "name": "u1FAE0",
+    "src": "/sticker/u1FAE0.svg"
+  },
+  {
+    "name": "u1FAE1",
+    "src": "/sticker/u1FAE1.svg"
+  },
+  {
+    "name": "u1FAE2",
+    "src": "/sticker/u1FAE2.svg"
+  },
+  {
+    "name": "u1FAE3",
+    "src": "/sticker/u1FAE3.svg"
+  },
+  {
+    "name": "u1FAE4",
+    "src": "/sticker/u1FAE4.svg"
+  },
+  {
+    "name": "u1FAE5",
+    "src": "/sticker/u1FAE5.svg"
+  },
+  {
+    "name": "u1FAE8",
+    "src": "/sticker/u1FAE8.svg"
+  },
+  {
+    "name": "u1FAF0",
+    "src": "/sticker/u1FAF0.svg"
+  },
+  {
+    "name": "u1FAF6",
+    "src": "/sticker/u1FAF6.svg"
+  },
+  {
+    "name": "u2B50",
+    "src": "/sticker/u2B50.svg"
+  },
+  {
+    "name": "u26A0",
+    "src": "/sticker/u26A0.svg"
+  },
+  {
+    "name": "u261D",
+    "src": "/sticker/u261D.svg"
+  },
+  {
+    "name": "u270A",
+    "src": "/sticker/u270A.svg"
+  },
+  {
+    "name": "u270B",
+    "src": "/sticker/u270B.svg"
+  },
+  {
+    "name": "u270C",
+    "src": "/sticker/u270C.svg"
+  },
+  {
+    "name": "u274E",
+    "src": "/sticker/u274E.svg"
+  },
+  {
+    "name": "u2618",
+    "src": "/sticker/u2618.svg"
+  },
+  {
+    "name": "u2620",
+    "src": "/sticker/u2620.svg"
+  },
+  {
+    "name": "u2622",
+    "src": "/sticker/u2622.svg"
+  },
+  {
+    "name": "u2705",
+    "src": "/sticker/u2705.svg"
+  },
+  {
+    "name": "u2728",
+    "src": "/sticker/u2728.svg"
+  },
+  {
+    "name": "u2753",
+    "src": "/sticker/u2753.svg"
+  },
+  {
+    "name": "u2754",
+    "src": "/sticker/u2754.svg"
+  },
+  {
+    "name": "u2755",
+    "src": "/sticker/u2755.svg"
+  },
+  {
+    "name": "u2757",
+    "src": "/sticker/u2757.svg"
+  },
+  {
+    "name": "uE106",
+    "src": "/sticker/uE106.svg"
   }
 ]

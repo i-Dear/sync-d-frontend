@@ -1,4 +1,8 @@
-import { useStorage, useMutation } from "~/liveblocks.config";
+import {
+  useStorage,
+  useMutation,
+  useUpdateMyPresence,
+} from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { Process } from "@/lib/types";
 import { SetStateAction, useState } from "react";
@@ -10,6 +14,7 @@ interface ModalProps {
 
 const SyncedModal = ({ setCamera }: ModalProps) => {
   const { setModalState } = useModalStore();
+  const updateMyPresence = useUpdateMyPresence();
 
   const process = useStorage((root) => root.process);
 
@@ -24,6 +29,10 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
       x: latestUndoneProcess.camera.x,
       y: latestUndoneProcess.camera.y,
     }));
+    updateMyPresence({
+      currentProcess: latestUndoneStep,
+      isSynced: false,
+    });
   };
 
   return (
