@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function ThirdStepProb(props: ThirdStepProbTemplate) {
   const { id, title, x, y, width, height, value } = props;
-
+  const [isHovered, setIsHovered] = useState(false);
   const templates = useStorage((root) => root.templates);
 
   const handleAdd = useMutation(
@@ -50,14 +50,30 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
         cy={height / 2}
         rx={width / 2}
         ry={height / 2}
-        fill="#FFF"
+        fill={value === 0 ? (isHovered ? "#369EFF" : "#FFF") : "#FFF"}
         stroke="#D4EAFB"
         strokeWidth="4"
         onClick={() => (value === 0 ? handleAdd() : "")}
+        onMouseEnter={() => {
+          setIsHovered(true);
+        }}
+        onMouseLeave={() => setIsHovered(false)}
+        className={value === 0 ? "cursor-pointer" : ""}
       />
       {value === 0 ? (
         <g>
-          <foreignObject x={x + 50} y={y + 50} width={200} height={100}>
+          <foreignObject
+            x={x + 50}
+            y={y + 50}
+            width={200}
+            height={100}
+            onMouseEnter={() => {
+              setIsHovered(true);
+            }}
+            onClick={handleAdd}
+            onMouseLeave={() => setIsHovered(false)}
+            className="cursor-pointer"
+          >
             <PlusMarkIcon fill="#D4EAFB " width={100} height={100} />
           </foreignObject>
         </g>
@@ -67,7 +83,7 @@ export default function ThirdStepProb(props: ThirdStepProbTemplate) {
           y={y + 135}
           fontFamily="Arial"
           fontSize="110"
-          fill="#F0F2F5"
+          fill="#D4EAFB"
         >
           {value}
         </text>

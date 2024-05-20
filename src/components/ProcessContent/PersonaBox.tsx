@@ -9,8 +9,11 @@ import ContentEditable from "react-contenteditable";
 export default function PersonaBox(props: PersonaBoxTemplate) {
   const { id, x, y, width, height, value } = props;
 
-  //personaTemplate 추가 로직
+  const [isHovered, setIsHovered] = useState(false);
+
+  // PersonaTemplate 추가 로직
   const templates = useStorage((root) => root.templates);
+
   const handleAdd = useMutation(
     ({ storage }) => {
       const templates = storage.get("templates");
@@ -53,6 +56,7 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
   const handleChange = (key: string, newValue: string) => {
     updateValue(key, newValue);
   };
+
   const updateValue = useMutation(
     ({ storage }, key, newValue) => {
       const liveTemplates = storage.get("templates");
@@ -70,7 +74,6 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
     },
     [value],
   );
-
   return (
     <g>
       <rect
@@ -80,17 +83,29 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
         rx={10}
         ry={10}
         height={height ? height : 200}
-        fill={id === "401" ? "#FFF" : "#E9F5FF"}
+        fill={id === "401" ? (isHovered ? "#369EFF" : "#FFF") : "#E9F5FF"}
         stroke={id === "401" ? "#D4EAFB" : ""}
         strokeWidth="4"
         onClick={() => (id === "401" ? handleAdd() : "")}
+        onMouseEnter={() => {
+          setIsHovered(true);
+        }}
+        onMouseLeave={() => setIsHovered(false)}
+        className="cursor-pointer"
       />
       {id === "401" ? (
-        <g>
-          <foreignObject x={x + 100} y={y + 75} width={100} height={100}>
-            <PlusMarkIcon fill="#D4EAFB" width={100} height={100} />
-          </foreignObject>
-        </g>
+        <foreignObject
+          x={x + 100}
+          y={y + 75}
+          width={100}
+          height={100}
+          onClick={handleAdd}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="cursor-pointer"
+        >
+          <PlusMarkIcon fill="#D4EAFB" width={100} height={100} />
+        </foreignObject>
       ) : (
         <foreignObject
           x={x}

@@ -94,9 +94,10 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
         position,
         type: "contentNode",
         data: {
-          label: `${node.data.label} Content`,
+          label: `기능`,
         },
         origin: [0.5, 0.0],
+        dragHandle: ".dragHandle",
       };
 
       addNode(newNode);
@@ -124,7 +125,7 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
         position,
         type: "pageNode",
         data: {
-          label: `${node.data.label} Page`,
+          label: `페이지`,
         },
         origin: [0.5, 0.0],
         dragHandle: ".dragHandle",
