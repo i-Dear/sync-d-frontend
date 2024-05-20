@@ -44,7 +44,7 @@ function Cursor({ x, y, color = ["", ""], name = "" }: Props) {
           />
         </svg>
         <div
-          className="absolute left-4 top-4 overflow-hidden whitespace-nowrap rounded-lg px-2 py-1 text-sm font-medium"
+          className="absolute left-6 top-6 overflow-hidden whitespace-nowrap rounded-lg px-2 py-1 text-[1rem] font-medium"
           style={{
             backgroundImage: `linear-gradient(to bottom right, ${color[0]}, ${color[1]})`,
             color: textColor,

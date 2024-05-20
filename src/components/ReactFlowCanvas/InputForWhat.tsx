@@ -61,17 +61,17 @@ const InputForWhat = ({
   };
 
   return (
-    <div className="z-100 absolute bottom-[8rem] left-[8rem] flex h-[8.4rem] w-[48.7rem] items-center justify-center gap-[1.6rem] rounded-[1.2rem] bg-white p-[1.6rem] shadow-lg shadow-light-gray-100">
+    <div className="z-100 absolute bottom-[8rem] left-[8rem] flex h-[7.6rem] w-[44rem] items-center justify-center gap-[1.6rem] rounded-[1.2rem] bg-white p-[1.6rem] shadow-lg shadow-light-gray-100">
       <input
         type="text"
-        placeholder="근본적인 문제는 무엇일까요?"
+        placeholder="WHAT's the matter?"
         value={label}
-        className=" h-[4.8rem] w-[40rem] rounded-[0.8rem] border border-light-gray-100 p-[1.2rem] text-[1.6rem] font-normal text-black focus:outline-none"
+        className=" h-[4rem] w-[40rem] rounded-[0.8rem] border border-light-gray-100 p-[1.2rem] text-[1.6rem] font-normal text-black focus:outline-none"
         onChange={onChangeLabel}
         onKeyPress={handleKeyPress}
       />
       <button
-        className="bg-primary-100 h-[4.8rem] w-[8rem] rounded-[0.8rem] bg-primary-400 text-[1.6rem] font-semibold text-white"
+        className="bg-primary-100 h-[4rem] w-[8rem] rounded-[0.8rem] bg-primary-400 text-[1.6rem] font-normal text-white"
         onClick={handleClick}
       >
         추가

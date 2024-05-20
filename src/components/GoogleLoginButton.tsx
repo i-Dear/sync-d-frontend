@@ -4,6 +4,7 @@ import Image from "next/image";
 
 const GoogleLoginButton = () => {
   const handleGoogleLogin = () => {
+    document.cookie = `referer=${window.location.href}`;
     window.location.href =
       "https://syncd-backend.dev.i-dear.org/v1/auth/login/google";
   };
