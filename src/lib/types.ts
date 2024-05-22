@@ -46,6 +46,7 @@ export enum LayerType {
   Note,
   Sticker,
   Epic,
+  Persona,
 }
 
 export type Camera = {
@@ -60,19 +61,8 @@ export type Layer =
   | TextLayer
   | NoteLayer
   | StickerLayer
-  | EpicLayer;
-
-export type EpicLayer = {
-  type: LayerType.Epic;
-  x: number;
-  y: number;
-  length: number;
-  width: number;
-  height: number;
-  title?: string;
-  value?: UserStory[];
-  fill?: Color;
-};
+  | EpicLayer
+  | PersonaLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -144,6 +134,32 @@ export type StickerLayer = {
   title?: string;
 };
 
+export type EpicLayer = {
+  type: LayerType.Epic;
+  x: number;
+  y: number;
+  length: number;
+  width: number;
+  height: number;
+  title?: string;
+  value?: UserStory[];
+  fill?: Color;
+};
+
+export type PersonaLayer = {
+  type: LayerType.Persona;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill?: string;
+  title?: string;
+  value: PersonaContent[];
+};
+export type PersonaContent = {
+  title: string;
+  value: string;
+};
 export type Point = {
   x: number;
   y: number;
@@ -284,11 +300,6 @@ export type PersonaBoxTemplate = {
   width: number;
   fill?: string;
   value: PersonaContent[];
-};
-
-export type PersonaContent = {
-  title: string;
-  value: string;
 };
 
 export type EpicBoxTemplate = {

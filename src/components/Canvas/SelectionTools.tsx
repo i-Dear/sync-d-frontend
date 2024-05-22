@@ -100,9 +100,11 @@ function SelectionTools({
         transform: `translate(calc(${x}px - 50%), calc(${y - 16}px - 100%))`,
       }}
     >
-      {layerData?.type !== 6 && <ColorPicker onChange={setFill} />}
+      {layerData?.type !== 6 && layerData?.type !== 7 && (
+        <ColorPicker onChange={setFill} />
+      )}
 
-      {layerData?.type !== 6 && (
+      {layerData?.type !== 6 && layerData?.type !== 7 && (
         <div>
           <IconButton onClick={moveToFront}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -129,7 +131,9 @@ function SelectionTools({
 
       <div
         className={`flex items-center ${
-          layerData?.type !== 6 ? "ml-2 border-l border-divider pl-2" : ""
+          layerData?.type !== 6 && layerData?.type !== 7
+            ? "ml-2 border-l border-divider pl-2"
+            : ""
         }`}
       >
         <IconButton onClick={deleteLayers}>

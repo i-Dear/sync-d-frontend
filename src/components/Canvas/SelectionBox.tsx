@@ -28,10 +28,10 @@ const SelectionBox = memo(
     if (!bounds) {
       return null;
     }
-
+    const excludedTypes = [6, 7];
     return (
       <>
-        {layerData?.type !== 6 && (
+        {layerData?.type !== 6 && layerData?.type !== 7 && (
           <rect
             className="pointer-events-none fill-transparent stroke-primary stroke-1"
             style={{
@@ -44,7 +44,7 @@ const SelectionBox = memo(
           />
         )}
 
-        {isShowingHandles && layerData?.type !== 6 && (
+        {isShowingHandles && layerData?.type !== 6 && layerData?.type !== 7 && (
           <>
             <rect
               className="fill-white stroke-primary stroke-1"
