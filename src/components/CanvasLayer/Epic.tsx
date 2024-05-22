@@ -35,7 +35,6 @@ export default function Epic({
     const liveLayers = storage.get("layers");
     liveLayers.get(id)?.set("title", newValue);
     const data = liveLayers.get(id)?.get("value");
-    console.log(data);
   }, []);
 
   const handleChangeValue = (index: number, value: string) => {
