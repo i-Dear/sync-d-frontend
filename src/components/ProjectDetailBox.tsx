@@ -26,6 +26,7 @@ const ProjectDetailBox = ({ project }: { project: ProjectInfo }) => {
       onClick: () => {
         if (!authToken) return console.error("authToken does not exist");
         deleteProject(authToken, project.id);
+        window.location.reload();
       },
     },
   ];
