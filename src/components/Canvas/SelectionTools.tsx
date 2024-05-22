@@ -93,6 +93,7 @@ function SelectionTools({
   const x = selectionBounds.width / 2 + selectionBounds.x + camera.x;
   const y = selectionBounds.y + camera.y;
 
+  //Epic:6 Persona:7 Vote:8
   const excludedTypes = [6, 7, 8];
   const isExcludedType = layerData
     ? excludedTypes.includes(layerData.type)
