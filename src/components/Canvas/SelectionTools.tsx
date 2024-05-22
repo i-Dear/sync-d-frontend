@@ -107,7 +107,7 @@ function SelectionTools({
     >
       {!isExcludedType && <ColorPicker onChange={setFill} />}
 
-      {!isExcludedType && (
+      {
         <div>
           <IconButton onClick={moveToFront}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -130,7 +130,7 @@ function SelectionTools({
             </svg>
           </IconButton>
         </div>
-      )}
+      }
 
       <div
         className={`flex items-center ${
