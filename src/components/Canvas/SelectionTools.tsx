@@ -93,6 +93,10 @@ function SelectionTools({
   const x = selectionBounds.width / 2 + selectionBounds.x + camera.x;
   const y = selectionBounds.y + camera.y;
 
+  const excludedTypes = [6, 7, 8];
+  const isExcludedType = layerData
+    ? excludedTypes.includes(layerData.type)
+    : false;
   return (
     <div
       className="absolute flex select-none flex-row rounded-xl bg-surface-panel p-3 shadow-popup"
@@ -100,11 +104,9 @@ function SelectionTools({
         transform: `translate(calc(${x}px - 50%), calc(${y - 16}px - 100%))`,
       }}
     >
-      {layerData?.type !== 6 && layerData?.type !== 7 && (
-        <ColorPicker onChange={setFill} />
-      )}
+      {!isExcludedType && <ColorPicker onChange={setFill} />}
 
-      {layerData?.type !== 6 && layerData?.type !== 7 && (
+      {!isExcludedType && (
         <div>
           <IconButton onClick={moveToFront}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
