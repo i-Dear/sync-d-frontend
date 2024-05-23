@@ -66,7 +66,7 @@ export const steps: Process[] = [
   },
   {
     step: 10,
-    title: "시나리오 작성",
+    title: "유저 시나리오 작성",
     description: "이해관계자 별 시나리오를 작성해보세요.",
     camera: { x: 0, y: -9000 },
     done: false,

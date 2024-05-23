@@ -86,7 +86,7 @@ export default [
   {
     id: "rootNode",
     type: "pageNode",
-    position: { x: 650, y: 1950 },
+    position: { x: 650, y: 1690 },
     data: { label: "메인 페이지" },
     dragHandle: ".dragHandle",
   },
@@ -96,14 +96,13 @@ export default [
     draggable: false,
     selectable: false,
     data: {
-      level: 1,
       label:
-        "이전 단계에서 우리가 탐구한 각 페르소나의 문제 상황을 정리해보세요 !",
+        "이전 단계에서 우리가 탐구한 각 페르소나의 문제 상황을 정리해보세요!\n2분간, 간결하고 명확하게 작성하여 공유해주세요! 모든건 익명이니까 우리, 눈치보지마요 👀",
       arrowStyle: {
         transform: "rotate(-50deg) translate(0.5rem, -0.5rem)",
       },
     },
-    position: { x: 100, y: 30 },
+    position: { x: 100, y: 35 },
   },
   {
     id: "annotation-2",
@@ -111,10 +110,10 @@ export default [
     draggable: false,
     selectable: false,
     data: {
-      level: 2,
       label:
-        "2분간, 간결하고 명확하게 작성하여 공유해주세요! 모든건 익명이니까 우리, 눈치보지마요 👀",
+        "우리 서비스에는 어떠한 페이지들이 있을까요? \n또 각 페이지들은 어떤 기능들을 가지고 있을까요? \n좌측 상단 도움말을 눌러 예시 이미지를 참고해 여러분 서비스의 Tree를 그려주세요!",
+      font: "text-lg",
     },
-    position: { x: 100, y: 50 },
+    position: { x: 100, y: 1710 },
   },
 ] as Node[];
