@@ -29,14 +29,13 @@ export default function InputFormBox(props: InputFormBoxTemplate) {
       y={y}
       width={width ? width : 800}
       height={height ? height : 200}
-      style={{ borderBottom: "4px solid black", display: "flex" }}
     >
       <div className="flex">
         <DoubleQuoteOpenIcon fill="black" width={20} height={20} />
         <ContentEditable
           html={value ? value : ""}
           onChange={handleContentChange}
-          className={`flex h-full w-full justify-normal p-[1rem] outline-none ${font ? font : "text-base"} font-Manrope text-black`}
+          className={`flex h-full w-full justify-normal border-b-2 border-div-text p-[1rem] outline-none ${font ? font : "text-base"} font-Manrope text-black`}
         />
         <DoubleQuoteCloseIcon fill="black" width={20} height={20} />
       </div>
