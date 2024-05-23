@@ -192,6 +192,14 @@ const Canvas = () => {
     [lastUsedColor, stickerSrc],
   );
 
+  const resetTemplate = useMutation(({ storage }) => {
+    const templates = storage.get("templates");
+    templates.clear();
+    syncTemplates.forEach((template) => {
+      templates.push(template);
+    });
+  }, []);
+
   const InitTemplate = useMutation(({ storage }) => {
     const templates = storage.get("templates");
     // templates.clear(); << 이거 있으면 충돌, 없으면 삭제 단됨
@@ -490,6 +498,10 @@ const Canvas = () => {
       InitTemplate();
     }
   }, [InitTemplate]);
+
+  // useEffect(() => {
+  //   resetTemplate();
+  // }, [resetTemplate]);
 
   return (
     <div>

@@ -41,7 +41,7 @@ const StepViewport: Record<number, Viewport> = {
   6: { x: -600, y: 0, zoom: 1 },
   7: { x: -1050, y: 0, zoom: 1 },
   9: { x: 0, y: -1000, zoom: 1 },
-  12: { x: 0, y: -1500, zoom: 0.8 },
+  12: { x: 0, y: -1500, zoom: 0.9 },
 };
 
 const connectionLineStyle = {
@@ -251,7 +251,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
     }
   }, []);
 
-  // 노드엣지 초기화 버튼 (주석 풀면 초기화)
+  // // 노드엣지 초기화 버튼 (주석 풀면 초기화)
   //init();
 
   return (
