@@ -16,12 +16,16 @@ export default function NoteBox(props: NoteBoxTemplate) {
       {props.title && (
         <text
           x={x + 20}
-          y={y + 40}
+          y={y + 30}
           fontFamily="Arial"
-          fontSize="16"
+          fontSize="14"
           fill="#121417"
         >
-          {title}
+          {title?.split("\n").map((line, index) => (
+            <tspan x={x + 20} dy={index > 0 ? "1.2em" : 0} key={index}>
+              {line}
+            </tspan>
+          ))}
         </text>
       )}
     </g>
