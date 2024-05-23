@@ -10,6 +10,8 @@ import Text from "@/components/CanvasLayer/Text";
 import Sticker from "@/components/CanvasLayer/Sticker";
 import Epic from "@/components/CanvasLayer/Epic";
 import Persona from "@/components/CanvasLayer/Persona";
+import Vote from "@/components/CanvasLayer/Vote";
+
 type Props = {
   id: string;
   mode: CanvasMode;
@@ -97,6 +99,15 @@ const LayerComponent = memo(
       case LayerType.Persona:
         return (
           <Persona
+            id={id}
+            layer={layer}
+            onPointerDown={onLayerPointerDown}
+            selectionColor={selectionColor}
+          />
+        );
+      case LayerType.Vote:
+        return (
+          <Vote
             id={id}
             layer={layer}
             onPointerDown={onLayerPointerDown}

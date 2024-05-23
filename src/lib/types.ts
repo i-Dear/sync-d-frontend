@@ -47,6 +47,7 @@ export enum LayerType {
   Sticker,
   Epic,
   Persona,
+  Vote,
 }
 
 export type Camera = {
@@ -62,7 +63,8 @@ export type Layer =
   | NoteLayer
   | StickerLayer
   | EpicLayer
-  | PersonaLayer;
+  | PersonaLayer
+  | VoteLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -156,10 +158,22 @@ export type PersonaLayer = {
   title?: string;
   value: PersonaContent[];
 };
+
 export type PersonaContent = {
   title: string;
   value: string;
 };
+
+export type VoteLayer = {
+  type: LayerType.Vote;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  value?: string;
+  fill?: string;
+};
+
 export type Point = {
   x: number;
   y: number;
