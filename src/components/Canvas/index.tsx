@@ -194,7 +194,7 @@ const Canvas = () => {
 
   const InitTemplate = useMutation(({ storage }) => {
     const templates = storage.get("templates");
-    templates.clear(); // 이거 있으면 충돌, 없으면 삭제 단됨
+    //templates.clear(); // 이거 있으면 충돌, 없으면 삭제 단됨
 
     for (const template of syncTemplates) {
       const index = templates.findIndex((item) => item.id === template.id);
