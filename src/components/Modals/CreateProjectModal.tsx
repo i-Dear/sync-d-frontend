@@ -34,7 +34,7 @@ const CreateProjectModal = () => {
       method: "POST",
     });
 
-    router.refresh();
+    window.location.reload();
   };
 
   const onSubmit = async (data: any) => {
