@@ -11,6 +11,7 @@ import SyncedModal from "./SyncModal";
 import VoteCompleteModal from "./VoteEndModal";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
+import XMarkIcon from "~/public/Xmark";
 
 interface ModalMapType {
   [key: string]: (props?: any) => JSX.Element;
@@ -75,15 +76,25 @@ const Modal = ({ setCamera }: ModalProps) => {
     <>
       {isModalOpen && (
         <div
-          className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 px-[25rem] py-[20rem] text-center"
+          className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-30 px-[25rem] py-[20rem] text-center"
           onMouseUp={handleMouseUp}
         >
-          <div onClick={stopPropagation} onMouseDown={handleMouseDown}>
+          <div
+            onClick={stopPropagation}
+            onMouseDown={handleMouseDown}
+            className="relative"
+          >
             {modalType === "synced" || modalType === "voteComplete" ? (
               <ModalComponent setCamera={setCamera} />
             ) : (
               <ModalComponent />
             )}
+            <button
+              className="absolute right-[2.4rem] top-[2.4rem] cursor-pointer"
+              onClick={() => setModalState(false)}
+            >
+              <XMarkIcon fill="lightgray" />
+            </button>
           </div>
         </div>
       )}

@@ -27,6 +27,11 @@
     @apply overflow-hidden bg-white;
     font-size: 1.6rem;
   }
+
+  .highlight {
+    display: inline;
+    box-shadow: inset 0 -1rem 0 rgba(212, 234, 251, 0.7);
+  }
 }
 
 a {
