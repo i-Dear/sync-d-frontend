@@ -172,6 +172,7 @@ export type VoteLayer = {
   height: number;
   value?: string;
   fill?: string;
+  title?: string;
 };
 
 export type Point = {
