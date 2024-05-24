@@ -144,7 +144,7 @@ export type EpicLayer = {
   width: number;
   height: number;
   title?: string;
-  value?: UserStory[];
+  value: UserStory[];
   fill?: Color;
 };
 
@@ -325,11 +325,6 @@ export type EpicBoxTemplate = {
   y: number;
   width?: number;
   height?: number;
-  font?: number;
-  fontWeight?: string;
-  length: number;
-  fill: string;
-  value?: string;
 };
 
 export type UserStory = {
