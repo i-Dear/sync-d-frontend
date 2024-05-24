@@ -115,7 +115,7 @@ export const syncTemplates: Template[] = [
     fill: "#E9F5FF",
   },
   {
-    id: "206",
+    id: "204",
     type: TemplateType.GuideTextBox,
     title: "한 문장으로 팀의 목표를 정의해주세요💪🏻",
     x: 200,
@@ -126,7 +126,7 @@ export const syncTemplates: Template[] = [
     fontWeight: "600",
   },
   {
-    id: "204",
+    id: "205",
     type: TemplateType.InputFormBox,
     title: "한 문장으로 팀의 목표를 정의해주세요💪🏻",
     x: 200,
@@ -408,7 +408,7 @@ export const syncTemplates: Template[] = [
     value: "",
   },
   {
-    id: "1005",
+    id: "1007",
     type: TemplateType.GuideTextBox,
     title: "시나리오 4",
     x: 100,
@@ -419,7 +419,7 @@ export const syncTemplates: Template[] = [
     fontWeight: "600",
   },
   {
-    id: "1006",
+    id: "1008",
     type: TemplateType.InputFormBox,
     title: "시나리오를 작성해주세요",
     x: 100,
@@ -431,7 +431,7 @@ export const syncTemplates: Template[] = [
     value: "",
   },
   {
-    id: "1100",
+    id: "1009",
     type: TemplateType.GuideTextBox,
     title:
       "Sync-D가 여러분이 작성해주신 유저 시나리오 에픽과 유저 스토리를 만들어 드렸어요!\n유저스토리는 기능 개발을 위해 사용자의 요구를 간결하고 명확하게 이해하고, 효과적으로 기능 단위 개발을 할 수 있도록 도와줘요.\n 에픽은 유저스토리의 상위 개념으로, 여러 유저스토리로 나뉠 수 있는 큰 단위의 작업량을 가진 업무를 의미해요.\nSync-D가 제공한 에픽과 유저스토리를 확인하고, 서비스의 방향에 맞게 수정/보완해주세요!",
