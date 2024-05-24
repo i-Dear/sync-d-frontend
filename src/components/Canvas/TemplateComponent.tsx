@@ -3,7 +3,7 @@ import { Template, TemplateType } from "@/lib/types";
 import NoteBox from "../ProcessContent/NoteBox";
 import GuideTextBox from "../ProcessContent/GuideTextBox";
 import InputFormBox from "../ProcessContent/InputFormBox";
-import ThirdStepProb from "../ProcessContent/ThirdStepProb";
+import VoteBox from "../ProcessContent/VoteBox";
 import EpicBox from "../ProcessContent/EpicBox";
 import PersonaBox from "../ProcessContent/PersonaBox";
 
@@ -56,9 +56,9 @@ const TemplateComponent = memo(({ template }: { template: Template }) => {
           value={template.value}
         />
       );
-    case TemplateType.ThirdStepProb:
+    case TemplateType.VoteBox:
       return (
-        <ThirdStepProb
+        <VoteBox
           id={template.id}
           type={template.type}
           x={template.x}
@@ -80,11 +80,6 @@ const TemplateComponent = memo(({ template }: { template: Template }) => {
           width={template.width}
           height={template.height}
           title={template.title}
-          font={template.font}
-          fontWeight={template.fontWeight}
-          value={template.value}
-          fill={template.fill}
-          length={template.length}
         />
       );
     case TemplateType.PersonaBox:
