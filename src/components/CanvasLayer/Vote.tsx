@@ -45,31 +45,20 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
     setFocused(false);
   };
   return (
-    // <foreignObject
-    //   x={x}
-    //   y={y}
-    //   width={width ? width : 300}
-    //   height={height ? height : 250}
-    //   style={{ background: "#E9F5FF" }}
-    //   className={cn("h-[250] flex-col rounded-lg p-[2rem]", {
-    //     "border border-2 border-primary": isFocused,
-    //   })}
-    //   onPointerDown={(e) => onPointerDown(e, id)}
-    //   onFocus={handleFocus}
-    //   onBlur={handleBlur}
-    // >
-    //   <ContentEditable
-    //     html={value || ""}
-    //     onChange={(e) => {
-    //       updateValue(e.target.value);
-    //     }}
-    //     className={`font-Manrope flex h-[30px] w-full items-center justify-normal text-3xl font-black text-primary-400 outline-none`}
-    //   />
-    // </foreignObject>
-    <g
-      className="flex items-center justify-center"
-      onPointerDown={(e) => onPointerDown(e, id)}
-    >
+    <g onPointerDown={(e) => onPointerDown(e, id)}>
+      <rect
+        x={x - 10}
+        y={y - 10}
+        rx={10}
+        ry={10}
+        width={width}
+        height={height}
+        fill="#FFF" // White background color
+        stroke="#F0F2F5"
+        strokeWidth="2"
+        strokeDasharray="5,5" // Dashed line
+        className="rounded-3xl"
+      />
       <g>
         <ellipse
           style={{
@@ -94,18 +83,8 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
           >
             {length}
           </text>
-          {/* <foreignObject
-            x={x + 50}
-            y={y + 50}
-            width={200}
-            height={100}
-            className="cursor-pointer"
-          >
-            {length}
-          </foreignObject> */}
         </g>
       </g>
-
       <foreignObject
         x={x + 225}
         y={y + 25}
