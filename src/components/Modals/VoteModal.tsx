@@ -82,41 +82,43 @@ const VoteModal = () => {
   );
 
   return (
-    <div className=" flex h-full w-full flex-col bg-white">
-      <div className="border-grey-100 flex h-[50px] items-center justify-center border p-[8px]">
-        투표
+    <div className="relative flex h-fit w-[64rem] flex-col items-center justify-start gap-[1.6rem] rounded-[2rem] bg-white px-[4.45rem] py-[3.2rem] shadow-2xl scrollbar-hide">
+      <div className="flex w-full flex-col items-start justify-start gap-[1.2rem]">
+        <h1 className="highlight text-[1.6rem] font-bold leading-[1.2rem] tracking-[-0.08rem]">
+          우리팀이 해결하고자 하는 문제 상황을 정해봐요 !
+        </h1>
+        <p className="leading-1 text-left text-[1.4rem] font-normal text-div-text">
+          이제 팀 전체가 초점을 맞출 문제 상황을 투표를 통해 결정할 시간입니다.
+          흥미로운 문제 상황이나, 심각한 문제 상황 등 여러 관점에서 고려해
+          하나의 문제 상황을 투표해주세요 !
+        </p>
       </div>
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="grid grid-cols-3 grid-rows-2 gap-[8rem]">
+      <div className="flex h-fit w-full items-center justify-center p-[1.2rem]">
+        <div className="grid grid-cols-3 grid-rows-2 gap-[4rem]">
           {votelist.map((v, index) => (
             <div
               key={index}
-              className={`flex h-[20rem] w-[20rem] items-center justify-center rounded-full border font-mono text-9xl font-semibold text-gray-200 ${
-                vote === index + 1 ? "bg-primary" : ""
+              className={`flex h-[14.6rem] w-[14.6rem] cursor-pointer items-center justify-center rounded-full border-[0.4rem] text-gray-200 hover:border-primary-200 hover:text-primary-200 ${
+                vote === index + 1 ? "border-primary bg-primary text-white" : ""
               }`}
               onClick={handleVote((index + 1) as voteCandidate)}
             >
-              {v.value}
+              <span className="h-[14.6rem] text-[9.6rem] font-semibold leading-[16.6rem] ">
+                {v.value}
+              </span>
             </div>
           ))}
         </div>
       </div>
-      <div className="border-grey-100 flex h-[50px] items-center justify-center gap-[3rem] border p-[8px]">
-        <button
-          onClick={() => {
-            vote && submitVote(vote);
-          }}
-          className="w-[80px] cursor-pointer rounded-2xl bg-primary-500 p-2 text-center text-[18px] text-white"
-        >
-          완료
-        </button>
-        <button
-          className="w-[80px] cursor-pointer rounded-2xl bg-primary  p-2 text-center text-[18px] text-white"
-          onClick={() => setModalState(false)}
-        >
-          닫기
-        </button>
-      </div>
+
+      <button
+        className={`mt-[1.6rem] flex h-[4.8rem] w-full cursor-pointer items-center justify-center rounded-[1.2rem]  p-[1.6rem] text-[1.6rem] font-semibold text-white ${vote === null ? "bg-light-gray-100 text-gray-200" : "bg-primary"}`}
+        onClick={() => {
+          vote && submitVote(vote);
+        }}
+      >
+        투표하기
+      </button>
     </div>
   );
 };
