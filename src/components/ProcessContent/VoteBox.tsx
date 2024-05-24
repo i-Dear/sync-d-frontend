@@ -54,8 +54,8 @@ export default function VoteBox(props: VoteBoxTemplate) {
       value: "",
       width: 560,
       height: 220,
-      x: 450,
-      y: 2050,
+      x: 650,
+      y: 2125,
       length: voteCounts + 1,
     });
     liveLayerIds.push(layerId);
