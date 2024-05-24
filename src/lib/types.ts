@@ -243,7 +243,7 @@ export enum TemplateType {
   NoteBox,
   GuideTextBox,
   InputFormBox,
-  ThirdStepProb,
+  VoteBox,
   EpicBox,
   PersonaBox,
 }
@@ -252,7 +252,7 @@ export type Template =
   | NoteBoxTemplate
   | GuideTextBoxTemplate
   | InputFormBoxTemplate
-  | ThirdStepProbTemplate
+  | VoteBoxTemplate
   | EpicBoxTemplate
   | PersonaBoxTemplate;
 
@@ -293,8 +293,8 @@ export type InputFormBoxTemplate = {
   value?: string;
 };
 
-export type ThirdStepProbTemplate = {
-  type: TemplateType.ThirdStepProb;
+export type VoteBoxTemplate = {
+  type: TemplateType.VoteBox;
   id: string;
   title?: string;
   x: number;
