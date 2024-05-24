@@ -149,7 +149,7 @@ export const syncTemplates: Template[] = [
     height: 50,
   },
   {
-    id: "300",
+    id: "301",
     type: TemplateType.GuideTextBox,
     title: "아래 + 버튼을 눌러 문제 투표 후보지를 추가해주세요!",
     x: 100,
