@@ -93,6 +93,11 @@ function SelectionTools({
   const x = selectionBounds.width / 2 + selectionBounds.x + camera.x;
   const y = selectionBounds.y + camera.y;
 
+  //Epic:6 Persona:7 Vote:8
+  const excludedTypes = [6, 7, 8];
+  const isExcludedType = layerData
+    ? excludedTypes.includes(layerData.type)
+    : false;
   return (
     <div
       className="absolute flex select-none flex-row rounded-xl bg-surface-panel p-3 shadow-popup"
@@ -100,9 +105,9 @@ function SelectionTools({
         transform: `translate(calc(${x}px - 50%), calc(${y - 16}px - 100%))`,
       }}
     >
-      {layerData?.type !== 6 && <ColorPicker onChange={setFill} />}
+      {!isExcludedType && <ColorPicker onChange={setFill} />}
 
-      {layerData?.type !== 6 && (
+      {
         <div>
           <IconButton onClick={moveToFront}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -125,11 +130,13 @@ function SelectionTools({
             </svg>
           </IconButton>
         </div>
-      )}
+      }
 
       <div
         className={`flex items-center ${
-          layerData?.type !== 6 ? "ml-2 border-l border-divider pl-2" : ""
+          layerData?.type !== 6 && layerData?.type !== 7
+            ? "ml-2 border-l border-divider pl-2"
+            : ""
         }`}
       >
         <IconButton onClick={deleteLayers}>

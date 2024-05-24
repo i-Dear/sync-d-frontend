@@ -17,7 +17,9 @@ export default function useDeleteLayersBackspace(key?: string) {
         if (
           (layerType === 3 && selection.length === 1) ||
           (layerType === 4 && selection.length === 1) ||
-          (layerType === 6 && selection.length === 1)
+          (layerType === 6 && selection.length === 1) ||
+          (layerType === 7 && selection.length === 1) ||
+          (layerType === 8 && selection.length === 1)
         ) {
           continue;
         }

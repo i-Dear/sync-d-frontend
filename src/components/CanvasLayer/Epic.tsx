@@ -1,11 +1,9 @@
-import { PersonaBoxTemplate, PersonaContent } from "@/lib/types";
 import { useMutation } from "~/liveblocks.config";
-import { UserStory, LayerType } from "@/lib/types";
-import { useStorage } from "~/liveblocks.config";
+import { UserStory } from "@/lib/types";
 import PlusMarkIcon from "~/public/PlusMark";
 import XMarkIcon from "~/public/Xmark";
 import { useEffect, useState } from "react";
-import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import ContentEditable from "react-contenteditable";
 import { EpicLayer } from "@/lib/types";
 
 type EpicProps = {
@@ -22,7 +20,7 @@ export default function Epic({
   selectionColor,
 }: EpicProps) {
   const { x, y, width, length, height, title, value } = layer;
-
+  const [isFocused, setFocused] = useState(false);
   const handleChangeTitle = (key: string, value: string) => {
     if (key === "title") {
       updateTitle(value);
@@ -35,7 +33,6 @@ export default function Epic({
     const liveLayers = storage.get("layers");
     liveLayers.get(id)?.set("title", newValue);
     const data = liveLayers.get(id)?.get("value");
-    console.log(data);
   }, []);
 
   const handleChangeValue = (index: number, value: string) => {
@@ -76,10 +73,21 @@ export default function Epic({
     const newHeight = newStory.length * 70 + 160;
     liveLayers.get(id)?.set("height", newHeight);
   }, []);
+
   const [storyId, setStoryId] = useState(0);
+
   useEffect(() => {
     setStoryId(Math.floor(Math.random() * 10000) + 1);
   }, [value]);
+
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+  };
+
   return (
     <foreignObject
       x={x}
@@ -88,7 +96,9 @@ export default function Epic({
       height={height === 0 ? length * 70 + 160 : height}
       style={{ background: "#E9F5FF" }}
       onPointerDown={(e) => onPointerDown(e, id)}
-      className=" shadow-grey-950  rounded-lg p-[2rem] shadow-lg drop-shadow-lg"
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      className={` shadow-grey-950 ${isFocused ? "border border-black" : ""} rounded-lg p-[2rem] shadow-lg drop-shadow-lg`}
     >
       <ContentEditable
         html={title || " "}

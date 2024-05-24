@@ -6,7 +6,7 @@ import {
 } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { useState } from "react";
-import { ThirdStepProbTemplate, TemplateType, Process } from "@/lib/types";
+import { VoteBoxTemplate, TemplateType, Process } from "@/lib/types";
 
 type voteCandidate = 1 | 2 | 3 | 4 | 5;
 const VoteModal = () => {
@@ -26,8 +26,8 @@ const VoteModal = () => {
 
   //투표 리스트에서 +를 제외하고 1~n번까지 불러옴
   const votelist = templates.filter(
-    (v) => v.type === TemplateType.ThirdStepProb && v.value !== 0,
-  ) as ThirdStepProbTemplate[];
+    (v) => v.type === TemplateType.VoteBox && v.value !== 0,
+  ) as VoteBoxTemplate[];
   // console.log(votelist);
 
   const submitVote = (vote: voteCandidate) => {

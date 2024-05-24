@@ -46,6 +46,8 @@ export enum LayerType {
   Note,
   Sticker,
   Epic,
+  Persona,
+  Vote,
 }
 
 export type Camera = {
@@ -60,19 +62,9 @@ export type Layer =
   | TextLayer
   | NoteLayer
   | StickerLayer
-  | EpicLayer;
-
-export type EpicLayer = {
-  type: LayerType.Epic;
-  x: number;
-  y: number;
-  length: number;
-  width: number;
-  height: number;
-  title?: string;
-  value?: UserStory[];
-  fill?: Color;
-};
+  | EpicLayer
+  | PersonaLayer
+  | VoteLayer;
 
 export type RectangleLayer = {
   type: LayerType.Rectangle;
@@ -144,6 +136,46 @@ export type StickerLayer = {
   title?: string;
 };
 
+export type EpicLayer = {
+  type: LayerType.Epic;
+  x: number;
+  y: number;
+  length: number;
+  width: number;
+  height: number;
+  title?: string;
+  value: UserStory[];
+  fill?: Color;
+};
+
+export type PersonaLayer = {
+  type: LayerType.Persona;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  fill?: string;
+  title?: string;
+  value: PersonaContent[];
+};
+
+export type PersonaContent = {
+  title: string;
+  value: string;
+};
+
+export type VoteLayer = {
+  type: LayerType.Vote;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  value?: string;
+  fill?: string;
+  title?: string;
+  length: number;
+};
+
 export type Point = {
   x: number;
   y: number;
@@ -212,7 +244,7 @@ export enum TemplateType {
   NoteBox,
   GuideTextBox,
   InputFormBox,
-  ThirdStepProb,
+  VoteBox,
   EpicBox,
   PersonaBox,
 }
@@ -221,7 +253,7 @@ export type Template =
   | NoteBoxTemplate
   | GuideTextBoxTemplate
   | InputFormBoxTemplate
-  | ThirdStepProbTemplate
+  | VoteBoxTemplate
   | EpicBoxTemplate
   | PersonaBoxTemplate;
 
@@ -262,8 +294,8 @@ export type InputFormBoxTemplate = {
   value?: string;
 };
 
-export type ThirdStepProbTemplate = {
-  type: TemplateType.ThirdStepProb;
+export type VoteBoxTemplate = {
+  type: TemplateType.VoteBox;
   id: string;
   title?: string;
   x: number;
@@ -286,11 +318,6 @@ export type PersonaBoxTemplate = {
   value: PersonaContent[];
 };
 
-export type PersonaContent = {
-  title: string;
-  value: string;
-};
-
 export type EpicBoxTemplate = {
   type: TemplateType.EpicBox;
   id: string;
@@ -299,11 +326,6 @@ export type EpicBoxTemplate = {
   y: number;
   width?: number;
   height?: number;
-  font?: number;
-  fontWeight?: string;
-  length: number;
-  fill: string;
-  value?: string;
 };
 
 export type UserStory = {

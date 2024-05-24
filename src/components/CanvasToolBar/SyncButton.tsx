@@ -4,21 +4,13 @@ import {
   useStorage,
   useMutation,
   useMyPresence,
-  useSelf,
   useOthersMapped,
   useBroadcastEvent,
-  useEventListener,
   useUpdateMyPresence,
 } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { Template, Epic, Process } from "@/lib/types";
-import {
-  fetchScenario,
-  // addEpicTemplate,
-  // addUserStoryTemplate,
-  addEpicLayer,
-  addUserStoryLayer,
-} from "@/utils/processSync";
+import { fetchScenario, addEpicLayer } from "@/utils/processSync";
 
 const SyncButton = () => {
   const { setModalType, setModalState } = useModalStore();
@@ -33,10 +25,6 @@ const SyncButton = () => {
   const [mySyncState, setMySyncState] = useState(false);
   const [syncCount, setSyncCount] = useState(0);
 
-  // const updateMySyncState = useMutation(({ setMyPresence }, value) => {
-  //   setMySyncState(value);
-  //   setMyPresence({ isSynced: value });
-  // }, []);
   const updateMySyncState = (value: boolean) => {
     setMySyncState(value);
     updateMyPresence({ isSynced: value });
