@@ -22,14 +22,6 @@ const VoteModal = () => {
     setVoteCompleted(true);
   };
 
-  const templates = useStorage((root) => root.templates);
-
-  //투표 리스트에서 +를 제외하고 1~n번까지 불러옴
-  const votelist = templates.filter(
-    (v) => v.type === TemplateType.VoteBox && v.value !== 0,
-  ) as VoteBoxTemplate[];
-  // console.log(votelist);
-
   const submitVote = (vote: voteCandidate) => {
     if (vote) {
       setModalType("complete");
@@ -55,6 +47,14 @@ const VoteModal = () => {
   );
 
   const voteList = useStorage((root) => root.voteList);
+  const layers = useStorage((root) => root.layers);
+  const layerIds = useStorage((root) => root.layerIds);
+
+  const voteTypeList = layerIds.filter((id) => layers.get(id)?.type === 8);
+
+  const voteValueList = voteTypeList.map((v, idx) => {
+    return layers.get(v)?.value as string;
+  });
 
   const updateValue = useMutation(
     ({ storage }, vote: voteCandidate) => {
@@ -95,19 +95,22 @@ const VoteModal = () => {
       </div>
       <div className="flex h-fit w-full items-center justify-center p-[1.2rem]">
         <div className="grid grid-cols-3 grid-rows-2 gap-[4rem]">
-          {votelist.map((v, index) => (
-            <div
-              key={index}
-              className={`flex h-[14.6rem] w-[14.6rem] cursor-pointer items-center justify-center rounded-full border-[0.4rem] text-gray-200 hover:border-primary-200 hover:text-primary-200 ${
-                vote === index + 1 ? "border-primary bg-primary text-white" : ""
-              }`}
-              onClick={handleVote((index + 1) as voteCandidate)}
-            >
-              <span className="h-[14.6rem] text-[9.6rem] font-semibold leading-[16.6rem] ">
-                {v.value}
-              </span>
-            </div>
-          ))}
+          {voteValueList &&
+            voteValueList.map((v, index) => (
+              <div
+                key={index}
+                className={`flex h-[14.6rem] w-[14.6rem] cursor-pointer items-center justify-center rounded-full border-[0.4rem] text-gray-200 hover:border-primary-200 hover:text-primary-200 ${
+                  vote === index + 1
+                    ? "border-primary bg-primary text-white"
+                    : ""
+                }`}
+                onClick={handleVote((index + 1) as voteCandidate)}
+              >
+                <span className="h-[14.6rem] text-[9.6rem] font-semibold leading-[16.6rem] ">
+                  {index + 1}
+                </span>
+              </div>
+            ))}
         </div>
       </div>
 

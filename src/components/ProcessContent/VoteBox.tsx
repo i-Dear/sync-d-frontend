@@ -12,34 +12,6 @@ export default function VoteBox(props: VoteBoxTemplate) {
   const [isHovered, setIsHovered] = useState(false);
   const templates = useStorage((root) => root.templates);
 
-  // const handleAdd = useMutation(
-  //   ({ storage }) => {
-  //     const templates = storage.get("templates");
-  //     const ThirdStepList = templates.filter(
-  //       (v) => v.type === TemplateType.VoteBox,
-  //     );
-  //     const ThirdStepLength = ThirdStepList.length;
-
-  //     if (ThirdStepLength >= 6) return;
-
-  //     const lastThirdStep = ThirdStepList[
-  //       ThirdStepLength - 1
-  //     ] as VoteBoxTemplate;
-
-  //     templates.push({
-  //       id: `${parseInt(lastThirdStep.id) + 1}`,
-  //       type: TemplateType.VoteBox,
-  //       title: "문제템플릿",
-  //       x: ThirdStepLength === 3 ? 200 : lastThirdStep.x + 250,
-  //       y: ThirdStepLength >= 3 ? 2450 : 2050,
-  //       width: width,
-  //       height: height,
-  //       fill: "#D4EAFB",
-  //       value: lastThirdStep.value + 1,
-  //     });
-  //   },
-  //   [templates],
-  // );
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
