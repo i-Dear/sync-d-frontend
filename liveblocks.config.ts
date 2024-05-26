@@ -104,7 +104,8 @@ export type RoomEvent = {
     | "SCENARIO_MODAL_OFF"
     | "ALL_SYNCED"
     | "TIMER_END"
-    | "VOTE_END";
+    | "VOTE_COMPLETED"
+    | "LAST_PROCESS_COMPLETED";
   message: string;
 };
 
