@@ -8,7 +8,8 @@ const SkipButton = () => {
   const { setModalType, setModalState } = useModalStore();
 
   const [myPresence] = useMyPresence();
-  const [currentProcess, setCurrentProcess] = useState(
+  const { currentProcess } = myPresence;
+  const [latestUndoneStep, setLatestUndoneStep] = useState(
     myPresence.currentProcess,
   );
 
@@ -16,8 +17,7 @@ const SkipButton = () => {
 
   useEffect(() => {
     const latestUndoneProcess = processes.find((process) => !process.done);
-    const latestUndoneStep = latestUndoneProcess?.step;
-    setCurrentProcess(latestUndoneStep || 1);
+    setLatestUndoneStep(latestUndoneProcess?.step || 1);
   }, [processes]);
 
   const handleSkipButtonClick = () => {
@@ -27,7 +27,8 @@ const SkipButton = () => {
 
   return (
     <>
-      {SKIPABLE_PROCESSES.includes(currentProcess) ? (
+      {currentProcess === latestUndoneStep &&
+      SKIPABLE_PROCESSES.includes(currentProcess) ? (
         <button
           onClick={handleSkipButtonClick}
           className="w-[80px] cursor-pointer rounded-2xl bg-gray-500 p-2 text-center text-[18px] text-white"
