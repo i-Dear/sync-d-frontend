@@ -28,7 +28,6 @@ const SyncButton = () => {
   const updateMySyncState = (value: boolean) => {
     setMySyncState(value);
     updateMyPresence({ isSynced: value });
-    console.log(value);
   };
 
   const othersSyncState = useOthersMapped((other) => other.presence.isSynced);
@@ -87,7 +86,13 @@ const SyncButton = () => {
         updateEpic(epics);
       }
       if (currentProcess === 12) {
+        broadcast({
+          type: "LAST_PROCESS_COMPLETED",
+          message: "THE END!",
+        });
         console.log("sync Complete! 빵빠레!");
+        setModalType("complete");
+        setModalState(true);
         return;
       }
       updateMySyncState(false);
