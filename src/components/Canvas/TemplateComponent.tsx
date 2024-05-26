@@ -3,7 +3,7 @@ import { Template, TemplateType } from "@/lib/types";
 import NoteBox from "../ProcessContent/NoteBox";
 import GuideTextBox from "../ProcessContent/GuideTextBox";
 import InputFormBox from "../ProcessContent/InputFormBox";
-import VoteBox from "../ProcessContent/VoteBox";
+import VoteBox from "../ProcessContent/VoteBox";
 import EpicBox from "../ProcessContent/EpicBox";
 import PersonaBox from "../ProcessContent/PersonaBox";
 
