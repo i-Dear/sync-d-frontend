@@ -86,6 +86,10 @@ const SyncButton = () => {
         });
         updateEpic(epics);
       }
+      if (currentProcess === 12) {
+        console.log("sync Complete! 빵빠레!");
+        return;
+      }
       updateMySyncState(false);
       broadcast({ type: "ALL_SYNCED", message: "sync Complete!" });
       setModalType("synced");
@@ -106,7 +110,7 @@ const SyncButton = () => {
 
   return (
     <>
-      {currentProcess === latestUndoneStep && latestUndoneStep !== 12 ? (
+      {currentProcess === latestUndoneStep ? (
         <div className="relative flex items-center">
           <button
             className="w-[80px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] text-white"

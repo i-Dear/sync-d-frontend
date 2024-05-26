@@ -2,7 +2,7 @@ import useModalStore from "@/store/useModalStore";
 import { useState, useEffect } from "react";
 import { useMyPresence, useStorage } from "~/liveblocks.config";
 
-const SKIPABLE_PROCESSES = [1, 2, 10, 11];
+const SKIPABLE_PROCESSES = [1, 2];
 
 const SkipButton = () => {
   const { setModalType, setModalState } = useModalStore();
