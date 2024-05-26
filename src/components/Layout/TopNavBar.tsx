@@ -13,12 +13,14 @@ const TopNavBar = () => {
 
   return (
     <div className="flex h-[4.8rem] w-full items-center justify-between border-b-[1px] border-light-gray-100 bg-white px-[3.2rem]">
-      <div className="flex h-full items-center">
-        <LogoIcon />
-        <span className="ml-[1.2rem] h-full text-[1.6rem] font-semibold leading-[5rem]">
-          Sync-D
-        </span>
-      </div>
+      <Link href="/dashboard">
+        <div className="flex h-full items-center">
+          <LogoIcon />
+          <span className="ml-[1.2rem] h-full text-[1.6rem] font-semibold leading-[5rem]">
+            Sync-D
+          </span>
+        </div>
+      </Link>
       <div className="flex items-center gap-[3.2rem]">
         <Link href="/dashboard">
           <div className="flex h-full w-fit cursor-pointer items-center">
