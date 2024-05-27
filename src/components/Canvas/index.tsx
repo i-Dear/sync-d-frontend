@@ -56,7 +56,7 @@ import { syncTemplates } from "@/lib/templates";
 import Modal from "@/components/Modals";
 import ReactFlowCanvas from "@/components/ReactFlowCanvas";
 
-const MAX_LAYERS = 100;
+const MAX_LAYERS = 500;
 
 const Canvas = () => {
   const userInfo = useUserInfoStore();
