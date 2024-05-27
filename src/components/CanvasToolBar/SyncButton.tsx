@@ -90,9 +90,9 @@ const SyncButton = () => {
           type: "LAST_PROCESS_COMPLETED",
           message: "THE END!",
         });
-        console.log("sync Complete! 빵빠레!");
         setModalType("complete");
         setModalState(true);
+        completeProcess();
         return;
       }
       updateMySyncState(false);

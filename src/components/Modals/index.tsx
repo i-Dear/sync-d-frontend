@@ -13,6 +13,8 @@ import CompleteModal from "./CompleteModal";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 import XMarkIcon from "~/public/Xmark";
+import Lottie from "react-lottie";
+import confettiJson from "~/public/lotties/confetti.json";
 
 interface ModalMapType {
   [key: string]: (props?: any) => JSX.Element;
@@ -64,13 +66,36 @@ const Modal = ({ setCamera }: ModalProps) => {
   };
   const ModalComponent = ModalMap[modalType];
 
+  const defaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: confettiJson,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
     <>
       {isModalOpen && (
         <div
-          className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-30 px-[25rem] py-[20rem] text-center"
+          className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-30"
           onMouseUp={handleMouseUp}
         >
+          {modalType === "complete" && (
+            <Lottie
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+              options={defaultOptions}
+              height={"100%"}
+              width={"100%"}
+              isClickToPauseDisabled={true}
+            />
+          )}
           <div
             onClick={stopPropagation}
             onMouseDown={handleMouseDown}
