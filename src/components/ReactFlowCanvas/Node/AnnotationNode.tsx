@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { Node } from "reactflow";
+import { NodeProps } from "reactflow";
 
-const AnnotationNode = ({ data }: { data: Node["data"] }) => {
+const AnnotationNode = ({ data }: NodeProps) => {
   return (
     <div className="flex flex-col items-start justify-center">
       <div className="flex items-center gap-[0.4rem] p-[1rem]">
