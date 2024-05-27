@@ -28,18 +28,15 @@ const SyncButton = () => {
   const updateMySyncState = (value: boolean) => {
     setMySyncState(value);
     updateMyPresence({ isSynced: value });
-    console.log(value);
   };
 
   const othersSyncState = useOthersMapped((other) => other.presence.isSynced);
   useEffect(() => {
-    console.log("useEffect내부", othersSyncState);
     const otherSyncList = othersSyncState.filter((other) => {
       if (other[1] === true) {
         return "synced";
       }
     });
-    console.log("otherSyncList", otherSyncList, otherSyncList.length);
     setSyncCount(otherSyncList.length);
   }, [othersSyncState]);
   const totalMembers = othersSyncState.length + 1;
@@ -88,6 +85,16 @@ const SyncButton = () => {
         });
         updateEpic(epics);
       }
+      if (currentProcess === 12) {
+        broadcast({
+          type: "LAST_PROCESS_COMPLETED",
+          message: "THE END!",
+        });
+        console.log("sync Complete! 빵빠레!");
+        setModalType("complete");
+        setModalState(true);
+        return;
+      }
       updateMySyncState(false);
       broadcast({ type: "ALL_SYNCED", message: "sync Complete!" });
       setModalType("synced");
@@ -107,34 +114,38 @@ const SyncButton = () => {
   }, []);
 
   return (
-    <div className="relative flex items-center">
-      <button
-        className="w-[80px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] text-white"
-        onClick={handleClick}
-      >
-        Sync
-      </button>
-      <div className="absolute right-[-40px] flex items-center space-x-1">
-        {/* 싱크 진행도 */}
-        <div
-          className={`h-[10px] w-[4px] border ${
-            mySyncState
-              ? "border-green-500 bg-green-500"
-              : "border-gray-300 bg-gray-300"
-          }`}
-        ></div>
-        {Array.from({ length: totalMembers - 1 }, (_, index) => (
-          <div
-            key={index}
-            className={`h-[10px] w-[4px] border ${
-              index < syncCount
-                ? "border-green-500 bg-green-500"
-                : "border-gray-300 bg-gray-300"
-            }`}
-          ></div>
-        ))}
-      </div>
-    </div>
+    <>
+      {currentProcess === latestUndoneStep ? (
+        <div className="relative flex items-center">
+          <button
+            className="w-[80px] cursor-pointer rounded-2xl bg-primary p-2 text-center text-[18px] text-white"
+            onClick={handleClick}
+          >
+            Sync
+          </button>
+          <div className="absolute right-[-40px] flex items-center space-x-1">
+            {/* 싱크 진행도 */}
+            <div
+              className={`h-[10px] w-[4px] border ${
+                mySyncState
+                  ? "border-green-500 bg-green-500"
+                  : "border-gray-300 bg-gray-300"
+              }`}
+            ></div>
+            {Array.from({ length: totalMembers - 1 }, (_, index) => (
+              <div
+                key={index}
+                className={`h-[10px] w-[4px] border ${
+                  index < syncCount
+                    ? "border-green-500 bg-green-500"
+                    : "border-gray-300 bg-gray-300"
+                }`}
+              ></div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 

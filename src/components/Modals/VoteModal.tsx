@@ -24,7 +24,7 @@ const VoteModal = () => {
 
   const submitVote = (vote: voteCandidate) => {
     if (vote) {
-      setModalType("complete");
+      setModalType("voteEnd");
       updateValue(vote);
     }
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
@@ -70,9 +70,9 @@ const VoteModal = () => {
 
       console.log("prevTotalCount", prevTotalCount);
       console.log("newTotalCount", newTotalCount);
-
+      //마지막 투표자는 투표단계 완료 이니시
       if (newTotalCount === totalPeople) {
-        broadcast({ type: "VOTE_END", message: "sync Complete!" });
+        broadcast({ type: "VOTE_COMPLETED", message: "vote Complete!" });
         setModalType("voteComplete");
         setModalState(true);
         completeProcess();

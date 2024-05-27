@@ -4,11 +4,12 @@ import useModalStore from "@/store/useModalStore";
 import GuideModal from "./GuideModal";
 import SkipModal from "./SkipModal";
 import VoteModal from "./VoteModal";
-import CompleteModal from "./CompleteModal";
+import VoteEndModal from "./VoteEndModal";
 import CreateProjectModal from "./CreateProjectModal";
 import ProcessingScenarioModal from "./ProcessingScenarioModal";
 import SyncedModal from "./SyncModal";
-import VoteCompleteModal from "./VoteEndModal";
+import VoteCompleteModal from "./VoteCompleteModal";
+import CompleteModal from "./CompleteModal";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 import XMarkIcon from "~/public/Xmark";
@@ -25,11 +26,12 @@ const ModalMap: ModalMapType = {
   guide: GuideModal,
   skip: SkipModal,
   vote: VoteModal,
-  complete: CompleteModal,
+  voteEnd: VoteEndModal,
+  voteComplete: VoteCompleteModal,
   createProject: CreateProjectModal,
   processingScenario: ProcessingScenarioModal,
   synced: SyncedModal,
-  voteComplete: VoteCompleteModal,
+  complete: CompleteModal,
 };
 
 const Modal = ({ setCamera }: ModalProps) => {
@@ -50,16 +52,6 @@ const Modal = ({ setCamera }: ModalProps) => {
     "skip",
     "voteComplete",
   ];
-  // const handleMouseUp = (e: React.MouseEvent) => {
-  //   if (
-  //     !isMouseDownInside &&
-  //     e.target === e.currentTarget &&
-  //     // !nonClosableModals.includes(modalType)
-  //   ) {
-  //     setModalState(false);
-  //   }
-  //   setIsMouseDownInside(false);
-  // };
   const handleMouseUp = (e: React.MouseEvent) => {
     if (!isMouseDownInside && e.target === e.currentTarget) {
       if (
