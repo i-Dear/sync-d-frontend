@@ -2,6 +2,7 @@ import "./globals.css";
 import "reactflow/dist/base.css";
 import "reactflow/dist/style.css";
 import type { Metadata, Viewport } from "next";
+import Metrics from "@/metrics";
 
 export const metadata: Metadata = {
   title: "Sync-D",
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>{children}</body>
+      <Metrics />
     </html>
   );
 }
