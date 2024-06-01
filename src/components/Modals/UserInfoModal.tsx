@@ -136,7 +136,7 @@ const UserInfoModal = () => {
             {userInfo.avatar && (
               <div className="relative flex items-center justify-center">
                 <Image
-                  src={userInfo.avatar}
+                  src={imageUrl ? imageUrl : userInfo.avatar}
                   alt="avatar"
                   width={100}
                   height={100}
