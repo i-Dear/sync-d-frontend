@@ -28,7 +28,9 @@ export default function Sticker({
         height={height}
       >
         <Image
-          layout="fill"
+          draggable={false}
+          width={width}
+          height={height}
           alt=""
           src={stickerSrc ? stickerSrc : stickerData[0].src}
           onPointerDown={(e) => onPointerDown(e, id)}
