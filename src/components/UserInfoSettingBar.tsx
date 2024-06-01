@@ -4,13 +4,18 @@ import Image from "next/image";
 import EditIcon from "~/public/edit.svg";
 import LogoutIcon from "~/public/logout.svg";
 import SettingsIcon from "~/public/settings.svg";
+import useModalStore from "@/store/useModalStore";
 
 const UserInfoSettingBar = ({ userInfo }: { userInfo: UserInfo }) => {
+  const { setModalType, setModalState } = useModalStore();
   const Menus: MenuType[] = [
     {
       title: "Setting",
       icon: SettingsIcon,
-      onClick: () => console.log("Setting"),
+      onClick: () => {
+        setModalType("userInfo");
+        setModalState(true);
+      },
     },
     {
       title: "Logout",
