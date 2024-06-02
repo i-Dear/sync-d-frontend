@@ -73,11 +73,10 @@ const UserInfoModal = () => {
         return;
       }
       setModalState(false);
-      console.log("updateUser");
       const formData = new FormData();
       formData.append("name", userName);
-      contentImage && formData.append("avatar", contentImage);
-      await fetch("https://syncd-backend.dev.i-dear.org/v1/updateUserInfo", {
+      contentImage && formData.append("img", contentImage);
+      await fetch("https://syncd-backend.dev.i-dear.org/v1/user/update", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -85,6 +84,7 @@ const UserInfoModal = () => {
         body: formData,
       });
       reset();
+      window.location.reload();
     } catch (error) {
       console.log("error", error);
     }
@@ -140,12 +140,12 @@ const UserInfoModal = () => {
                   alt="avatar"
                   width={100}
                   height={100}
-                  className="rounded-full"
+                  className="border-gray  rounded-full border"
                 />
                 <label
                   htmlFor="input-file"
                   role="button"
-                  className="absolute bottom-0 right-0 flex h-[2rem] w-[2rem] items-center justify-center rounded-full bg-gray-800"
+                  className="absolute bottom-0 right-3 flex h-[2rem] w-[2rem] items-center justify-center rounded-full bg-gray-800"
                 >
                   <EditIcon />
                 </label>

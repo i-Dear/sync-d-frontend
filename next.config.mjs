@@ -32,6 +32,7 @@ const nextConfig = {
         pathname: "**",
       },
     ],
+    domains: ["syncd-img.s3.ap-northeast-2.amazonaws.com"],
   },
 };
 
