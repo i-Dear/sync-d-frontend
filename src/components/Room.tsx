@@ -3,13 +3,11 @@
 import { RoomProvider } from "~/liveblocks.config";
 import { ClientSideSuspense } from "@liveblocks/react";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
-import { Layer, Template, Epic } from "@/lib/types";
+import { Layer, Template, Epic, SerializableNode } from "@/lib/types";
 import { Loading } from "./Loading";
 import Canvas from "./Canvas";
 import { steps } from "@/lib/static-data";
 import { syncTemplates } from "@/lib/templates";
-import Modal from "./Modals";
-import nodes from "@/lib/nodes";
 
 interface RoomProps {
   roomId: string;
@@ -46,7 +44,7 @@ const Room = ({ roomId }: RoomProps) => {
         }),
         process: new LiveList(steps),
         templates: new LiveList<Template>(syncTemplates),
-        nodes: nodes,
+        nodes: new LiveMap<string, LiveObject<SerializableNode>>(),
         edges: [],
         voteList: new LiveObject({
           voteCount: new LiveObject({
