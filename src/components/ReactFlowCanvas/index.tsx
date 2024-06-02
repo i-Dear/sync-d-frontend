@@ -33,6 +33,10 @@ import AnnotationNode from "./Node/AnnotationNode";
 import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
+import { LiveObject } from "@liveblocks/client";
+import { serializeNode } from "@/lib/utils";
+import { SerializableNode } from "@/lib/types";
+import useNodes from "@/lib/useNodes";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -74,7 +78,8 @@ const defaultEdgeOptions = {
 
 const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const connectingNodeId = useRef<string | null>(null);
-  const nodes = useStorage((root) => root.nodes);
+  const liveNodeMap = useStorage((root) => root.nodes);
+  const nodes = useNodes();
   const edges = useStorage((root) => root.edges);
   const [nodeColor, setNodeColor] = useState("#121417");
   const reactFlow = useReactFlow();
@@ -87,8 +92,14 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const addNode = useMutation(
     ({ storage }, node: Node) => {
-      const existingNodes = storage.get("nodes");
-      storage.set("nodes", [...existingNodes, node]);
+      const liveNodes = storage.get("nodes");
+      const nodeId = nanoid();
+
+      console.log(node);
+      const newNode = new LiveObject(serializeNode(node));
+      console.log(newNode);
+      liveNodes.set(nodeId, newNode as LiveObject<SerializableNode>);
+      storage.set;
     },
     [nodes],
   );
@@ -96,9 +107,14 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const onConnect = useMutation(
     ({ storage }, connection: Connection | Edge) => {
       const existingEdges = storage.get("edges");
+      if (!connection.source || !connection.target) return;
+
       const sourceNode = storage
         .get("nodes")
-        .find((node: Node) => node.id === connection.source);
+        .get(connection.source)
+        ?.toObject();
+      if (!sourceNode) return;
+
       if (sourceNode.type === "stakeholderNode") {
         const valueEdge = {
           ...connection,
@@ -113,12 +129,6 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
         return;
       }
       storage.set("edges", addEdge(connection, existingEdges));
-      const nodeOne = storage
-        .get("nodes")
-        .find((node: Node) => node.id === connection.source);
-      console.log("1.", connectingNodeId.current);
-      console.log("2.node", nodeOne);
-      console.log("3.connection", connection);
       connectingNodeId.current = null;
     },
     [edges],
@@ -151,9 +161,9 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
           y: event.clientY,
         });
 
-        const previousNodeData = nodes.find(
-          (node: Node) => node.id === connectingNodeId.current,
-        ).data;
+        const previousNodeData = liveNodeMap.get(
+          connectingNodeId.current,
+        )?.data;
 
         const newNode = {
           id,
@@ -228,7 +238,19 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const onNodesChange = useMutation(
     ({ storage }, changes: NodeChange[]) => {
-      storage.set("nodes", applyNodeChanges(changes, nodes));
+      console.log(changes);
+      const changedNodes = applyNodeChanges(changes, nodes);
+      const liveNodeMap = storage.get("nodes");
+      // changedNodes에 없으면, liveNodeMap에서도 삭제
+      // 그 외에 변경사항은 전부 반영
+      changedNodes.forEach((node) => {
+        if (!node) return;
+        if (node.type === "delete") {
+          liveNodeMap.delete(node.id);
+        } else {
+          liveNodeMap.set(node.id, new LiveObject(serializeNode(node)));
+        }
+      });
     },
     [nodes],
   );
@@ -241,7 +263,9 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   );
 
   const init = useMutation(({ storage }) => {
-    storage.set("nodes", initialNodes);
+    initialNodes.forEach((node) => {
+      storage.get("nodes").set(node.id, new LiveObject(serializeNode(node)));
+    });
     storage.set("edges", []);
   }, []);
 
