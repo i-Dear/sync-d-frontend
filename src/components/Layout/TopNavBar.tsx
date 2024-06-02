@@ -36,11 +36,11 @@ const TopNavBar = () => {
             <span className="h-full text-[1.4rem]">Dashboard </span>
           </div>
         </Link>
-        <Link href="/projects">
+        {/* <Link href="/projects">
           <div className="flex h-full w-fit cursor-pointer items-center">
             <span className="h-full text-[1.4rem]">Projects </span>
           </div>
-        </Link>
+        </Link> */}
         {pathname.includes("/board") && (
           <div
             onClick={handleClickShare}
