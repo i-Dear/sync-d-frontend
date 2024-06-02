@@ -9,8 +9,10 @@ import {
   XYWH,
   PathLayer,
   Camera,
+  SerializableNode,
 } from "./types";
 import { twMerge } from "tailwind-merge";
+import { Node } from "reactflow";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -232,4 +234,38 @@ export const formatTimeToMinSec = (seconds: number): [string, string] => {
     `${remainingSeconds < 10 ? "0" : ""}${minutes}`,
     `${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`,
   ];
+};
+
+// Node를 SerializableNode로 변환하는 함수
+export const serializeNode = (node: Node): SerializableNode => {
+  return {
+    ...node,
+    style: JSON.stringify(node.style), // CSSProperties를 문자열로 변환
+    position: { x: node.position.x, y: node.position.y },
+    positionAbsolute: node.positionAbsolute
+      ? { x: node.positionAbsolute.x, y: node.positionAbsolute.y }
+      : undefined,
+    sourcePosition: node.sourcePosition,
+    targetPosition: node.targetPosition,
+  };
+};
+
+// SerializableNode를 Node로 변환하는 함수
+export const deserializeNode = (serializableNode: SerializableNode): Node => {
+  return {
+    ...serializableNode,
+    style: serializableNode?.style
+      ? JSON.parse(serializableNode.style)
+      : undefined,
+    position: {
+      x: serializableNode?.position.x,
+      y: serializableNode?.position.y,
+    },
+    positionAbsolute: serializableNode?.positionAbsolute
+      ? {
+          x: serializableNode.positionAbsolute.x,
+          y: serializableNode.positionAbsolute.y,
+        }
+      : undefined,
+  };
 };
