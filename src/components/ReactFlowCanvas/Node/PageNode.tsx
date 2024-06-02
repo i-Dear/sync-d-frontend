@@ -1,3 +1,6 @@
+import { SerializableNode } from "@/lib/types";
+import { deserializeNode, serializeNode } from "@/lib/utils";
+import { LiveObject } from "@liveblocks/client";
 import { nanoid } from "nanoid";
 import { memo, useCallback } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
@@ -7,6 +10,7 @@ import {
   Handle,
   MarkerType,
   Node,
+  NodeProps,
   NodeToolbar,
   Position,
   XYPosition,
@@ -15,10 +19,12 @@ import {
 import { useMutation, useStorage } from "~/liveblocks.config";
 import PlusMarkIcon from "~/public/PlusMark";
 
-const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
+const PageNode = ({ id, data }: NodeProps) => {
   const nodes = useStorage((root) => root.nodes);
   const edges = useStorage((root) => root.edges);
-  const node = nodes.find((node: Node) => node.id === id);
+  const node = deserializeNode(
+    useStorage((root) => root.nodes).get(id) as SerializableNode,
+  );
 
   const contentNodeEdges = edges.filter(
     (edge: Edge) => edge.source === id && edge.target.includes("contentNode"),
@@ -49,25 +55,26 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
     y: node ? node.position.y + 200 : 0,
   };
 
-  const forceNodeChange = useMutation(({ storage }) => {
-    storage.set("nodes", [...storage.get("nodes")]);
-  }, []);
-
   const addNode = useMutation(
     ({ storage }, node: Node) => {
-      const existingNodes = storage.get("nodes");
-      storage.set("nodes", [...existingNodes, node]);
+      const liveNodes = storage.get("nodes");
+      const nodeId = nanoid();
+
+      const newNode = new LiveObject(serializeNode(node));
+      liveNodes.set(nodeId, newNode as LiveObject<SerializableNode>);
+      storage.set;
     },
     [nodes],
   );
 
   const onChangeNodeValue = useMutation(
     ({ storage }, nodeId: string, newLabel: string) => {
-      const node = storage
-        .get("nodes")
-        .find((node: Node) => node.id === nodeId);
-      node.data.label = newLabel;
-      forceNodeChange(); // 작성 중에도 실시간 업데이트
+      const currentNode = storage.get("nodes").get(nodeId);
+      if (currentNode) {
+        currentNode.update({
+          label: newLabel,
+        });
+      }
     },
     [],
   );

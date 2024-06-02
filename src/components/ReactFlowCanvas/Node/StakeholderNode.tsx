@@ -1,3 +1,5 @@
+import { SerializableNode } from "@/lib/types";
+import { deserializeNode } from "@/lib/utils";
 import React, { memo } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { Handle, Node, Position, useStore } from "reactflow";
@@ -7,21 +9,23 @@ const connectionNodeIdSelector = (state: any) => state.connectionNodeId;
 
 const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
   const connectionNodeId = useStore(connectionNodeIdSelector);
-  const label = useStorage((root) => root.nodes).find(
-    (node: Node) => node.id === id,
-  )?.data.label;
-
-  const forceNodeChange = useMutation(({ storage }) => {
-    storage.set("nodes", [...storage.get("nodes")]);
-  }, []);
+  const node = deserializeNode(
+    useStorage((root) => root.nodes).get(id) as SerializableNode,
+  );
 
   const onChangeNodeValue = useMutation(
     ({ storage }, nodeId: string, newLabel: string) => {
-      const node = storage
-        .get("nodes")
-        .find((node: Node) => node.id === nodeId);
-      node.data.label = newLabel;
-      forceNodeChange(); // 작성 중에도 실시간 업데이트
+      const currentNode = storage.get("nodes").get(nodeId);
+      console.log(newLabel, currentNode);
+      if (currentNode) {
+        currentNode.update({
+          id: nodeId,
+          data: {
+            label: newLabel,
+            color: currentNode.toObject().data.color,
+          },
+        });
+      }
     },
     [],
   );
@@ -60,7 +64,7 @@ const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
       />
       <ContentEditable
         className=" flex h-full w-full items-center justify-center p-[1rem] text-[1.4rem] text-black outline-none"
-        html={label || ""}
+        html={node.data?.label || ""}
         style={{ color: data.color }}
         onChange={handleLabelChange}
       />

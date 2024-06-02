@@ -1,24 +1,23 @@
+import { SerializableNode } from "@/lib/types";
+import { deserializeNode } from "@/lib/utils";
 import React, { memo } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { Handle, Node, Position } from "reactflow";
 import { useMutation, useStorage } from "~/liveblocks.config";
 
 const MiddleNode = ({ id, data }: { id: string; data: any }) => {
-  const label = useStorage((root) => root.nodes).find(
-    (node: Node) => node.id === id,
-  )?.data.label;
-
-  const forceNodeChange = useMutation(({ storage }) => {
-    storage.set("nodes", [...storage.get("nodes")]);
-  }, []);
+  const node = deserializeNode(
+    useStorage((root) => root.nodes).get(id) as SerializableNode,
+  );
 
   const onChangeNodeValue = useMutation(
     ({ storage }, nodeId: string, newLabel: string) => {
-      const node = storage
-        .get("nodes")
-        .find((node: Node) => node.id === nodeId);
-      node.data.label = newLabel;
-      forceNodeChange(); // 작성 중에도 실시간 업데이트
+      const currentNode = storage.get("nodes").get(nodeId);
+      if (currentNode) {
+        currentNode.update({
+          label: newLabel,
+        });
+      }
     },
     [],
   );
@@ -49,7 +48,7 @@ const MiddleNode = ({ id, data }: { id: string; data: any }) => {
       />
 
       <ContentEditable
-        html={label || ""}
+        html={node.data?.label || ""}
         className="flex w-full items-center justify-center text-[1.2rem] font-normal text-black outline-none"
         onChange={handleLabelChange}
       />
