@@ -46,7 +46,10 @@ const GroupCallButton = (groupCallId: TypeGroupCallId) => {
   }, []);
 
   const authToken = localStorage.getItem("authToken");
-  const authOption = { userId: userInfo.id, accessToken: authToken! }; // Authentication options using user information
+  const authOption = {
+    userId: userInfo.id.split("@")[0],
+    accessToken: authToken!,
+  }; // Authentication options using user information
   useSendBirdInit(authOption);
 
   const joinGroupCall = async () => {
