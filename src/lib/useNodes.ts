@@ -10,7 +10,7 @@ const useNodes = () => {
     return Array.from(rawNodes.values()).map((node) =>
       deserializeNode(node as SerializableNode),
     );
-  }, [rawNodes, rawNodes.size]);
+  }, [rawNodes]);
 };
 
 export default useNodes;
