@@ -51,18 +51,15 @@ const PageNode = ({ id, data }: NodeProps) => {
   }
 
   const additionalPageNodeXYPosition: XYPosition = {
-    x: node ? node.position.x + computeX(pageNodeEdges) : 0,
+    x: node ? node.position.x + computeX(pageNodeEdges % 5) : 0,
     y: node ? node.position.y + 200 : 0,
   };
 
   const addNode = useMutation(
     ({ storage }, node: Node) => {
       const liveNodes = storage.get("nodes");
-      const nodeId = nanoid();
-
       const newNode = new LiveObject(serializeNode(node));
-      liveNodes.set(nodeId, newNode as LiveObject<SerializableNode>);
-      storage.set;
+      liveNodes.set(node.id, newNode as LiveObject<SerializableNode>);
     },
     [nodes],
   );
@@ -72,7 +69,10 @@ const PageNode = ({ id, data }: NodeProps) => {
       const currentNode = storage.get("nodes").get(nodeId);
       if (currentNode) {
         currentNode.update({
-          label: newLabel,
+          id: nodeId,
+          data: {
+            label: newLabel,
+          },
         });
       }
     },
@@ -155,7 +155,7 @@ const PageNode = ({ id, data }: NodeProps) => {
   );
 
   return (
-    <>
+    <div className="relative flex h-[4.8rem] min-w-[12.8rem] items-center justify-center rounded-[1.2rem] border-[0.1rem] bg-primary p-[1rem] scrollbar-hide">
       <Handle position={Position.Right} className="invisible" type="source" />
       <Handle
         position={Position.Bottom}
@@ -182,7 +182,7 @@ const PageNode = ({ id, data }: NodeProps) => {
         </button>
       </NodeToolbar>
       <ContentEditable
-        className="pointer-events-auto flex h-[4.8rem] w-[12.8rem]  items-center justify-center rounded-[1.2rem] bg-primary p-[1rem] text-[1.4rem] font-semibold text-white outline-none"
+        className="pointer-events-auto flex h-[4.8rem] w-full items-center justify-start pl-[2.5rem] text-[1.4rem] font-semibold text-white outline-none"
         html={node?.data?.label || ""}
         style={{ color: data.color }}
         onChange={handleLabelChange}
@@ -190,7 +190,7 @@ const PageNode = ({ id, data }: NodeProps) => {
       <div className="absolute left-[1rem] top-[1rem] flex items-center gap-[0.8rem]">
         <span className="dragHandle h-[1.25rem] w-[1.25rem] rounded-full bg-white" />
       </div>
-    </>
+    </div>
   );
 };
 
