@@ -79,6 +79,7 @@ const defaultEdgeOptions = {
 const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const connectingNodeId = useRef<string | null>(null);
   const liveNodeMap = useStorage((root) => root.nodes);
+  // liveNodeMap에서 Node 리스트만 따로 빼서 비직렬화 (reactFlow에서 보여줄 Nodes)
   const nodes = useNodes();
   const edges = useStorage((root) => root.edges);
   const [nodeColor, setNodeColor] = useState("#121417");
@@ -93,13 +94,11 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const addNode = useMutation(
     ({ storage }, node: Node) => {
       const liveNodes = storage.get("nodes");
+
       const nodeId = nanoid();
 
-      console.log(node);
       const newNode = new LiveObject(serializeNode(node));
-      console.log(newNode);
       liveNodes.set(nodeId, newNode as LiveObject<SerializableNode>);
-      storage.set;
     },
     [nodes],
   );
@@ -238,18 +237,21 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const onNodesChange = useMutation(
     ({ storage }, changes: NodeChange[]) => {
-      console.log(changes);
       const changedNodes = applyNodeChanges(changes, nodes);
+      const remainingNodeIds = changedNodes.map((node) => node.id);
       const liveNodeMap = storage.get("nodes");
-      // changedNodes에 없으면, liveNodeMap에서도 삭제
-      // 그 외에 변경사항은 전부 반영
-      changedNodes.forEach((node) => {
-        if (!node) return;
-        if (node.type === "delete") {
-          liveNodeMap.delete(node.id);
-        } else {
-          liveNodeMap.set(node.id, new LiveObject(serializeNode(node)));
+
+      // liveNodeMap의 key에서 changedNodes에 속하지 않는 key를 삭제
+      liveNodeMap.forEach((_, key) => {
+        // Storage에 저장되어 있던 노드 중, 업데이트 후 노드 목록에 속하지 않는 노드는 삭제
+        if (!remainingNodeIds.includes(key)) {
+          liveNodeMap.delete(key);
         }
+      });
+
+      // changedNodes를 liveNodeMap에 업데이트
+      changedNodes.forEach((node) => {
+        liveNodeMap.set(node.id, new LiveObject(serializeNode(node)));
       });
     },
     [nodes],
@@ -274,9 +276,6 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
       init();
     }
   }, []);
-
-  // // 노드엣지 초기화 버튼 (주석 풀면 초기화)
-  //init();
 
   return (
     <div className="h-full w-full grow" ref={reactFlowWrapper}>
