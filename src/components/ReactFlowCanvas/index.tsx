@@ -34,9 +34,10 @@ import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
 import { LiveObject } from "@liveblocks/client";
-import { deserializeNode, serializeNode } from "@/lib/utils";
+import { serializeNode } from "@/lib/utils";
 import { SerializableNode } from "@/lib/types";
 import useNodes from "@/lib/useNodes";
+import { isNodePositionChanges, isNodeRemoveChanges } from "@/lib/guard";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -94,9 +95,9 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const addNode = useMutation(
     ({ storage }, node: Node) => {
       const liveNodes = storage.get("nodes");
-      const nodeId = nanoid();
       const newNode = new LiveObject(serializeNode(node));
-      liveNodes.set(nodeId, newNode as LiveObject<SerializableNode>);
+
+      liveNodes.set(node.id, newNode as LiveObject<SerializableNode>);
     },
     [nodes],
   );
@@ -167,7 +168,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
           position,
           type: "middleNode",
           data: {
-            label: `From ${previousNodeData.label}`,
+            label: `${previousNodeData.label}`,
             color: previousNodeData.color,
           },
           origin: [0.5, 0.0],
@@ -235,9 +236,28 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const onNodesChange = useMutation(
     ({ storage }, changes: NodeChange[]) => {
+      const liveNodeMap = storage.get("nodes");
+
+      // 유발한 Node의 변경이 전부 position일 때 (이동만 발생했을 때)
+      if (isNodePositionChanges(changes)) {
+        const changedNodes = applyNodeChanges(changes, nodes);
+        changedNodes.forEach((node) => {
+          storage.get("nodes").get(node.id)?.update(serializeNode(node));
+        });
+        return;
+      }
+
+      // 유발한 Node의 변경이 전부 remove일 때
+      if (isNodeRemoveChanges(changes)) {
+        changes.forEach((change) => {
+          liveNodeMap.delete(change.id);
+        });
+        return;
+      }
+
+      // 그 외 복합적인 모든 경우
       const changedNodes = applyNodeChanges(changes, nodes);
       const remainingNodeIds = changedNodes.map((node) => node.id);
-      const liveNodeMap = storage.get("nodes");
 
       // liveNodeMap의 key에서 changedNodes에 속하지 않는 key를 삭제
       liveNodeMap.forEach((_, key) => {
