@@ -2,10 +2,10 @@ import { SerializableNode } from "@/lib/types";
 import { deserializeNode } from "@/lib/utils";
 import React, { memo } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { Handle, Node, Position } from "reactflow";
+import { Handle, NodeProps, Position } from "reactflow";
 import { useMutation, useStorage } from "~/liveblocks.config";
 
-const MiddleNode = ({ id, data }: { id: string; data: any }) => {
+const MiddleNode = ({ id, data }: NodeProps) => {
   const node = deserializeNode(
     useStorage((root) => root.nodes).get(id) as SerializableNode,
   );
@@ -15,7 +15,11 @@ const MiddleNode = ({ id, data }: { id: string; data: any }) => {
       const currentNode = storage.get("nodes").get(nodeId);
       if (currentNode) {
         currentNode.update({
-          label: newLabel,
+          id: nodeId,
+          data: {
+            label: newLabel,
+            color: currentNode.toObject().data.color,
+          },
         });
       }
     },
