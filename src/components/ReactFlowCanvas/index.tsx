@@ -34,7 +34,7 @@ import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
 import { LiveObject } from "@liveblocks/client";
-import { serializeNode } from "@/lib/utils";
+import { deserializeNode, serializeNode } from "@/lib/utils";
 import { SerializableNode } from "@/lib/types";
 import useNodes from "@/lib/useNodes";
 
@@ -94,9 +94,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const addNode = useMutation(
     ({ storage }, node: Node) => {
       const liveNodes = storage.get("nodes");
-
       const nodeId = nanoid();
-
       const newNode = new LiveObject(serializeNode(node));
       liveNodes.set(nodeId, newNode as LiveObject<SerializableNode>);
     },
@@ -251,7 +249,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
       // changedNodes를 liveNodeMap에 업데이트
       changedNodes.forEach((node) => {
-        liveNodeMap.set(node.id, new LiveObject(serializeNode(node)));
+        liveNodeMap.get(node.id)?.update(serializeNode(node));
       });
     },
     [nodes],

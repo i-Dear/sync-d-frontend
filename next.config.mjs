@@ -1,8 +1,8 @@
-/** @type {import('next').NextConfig} */
+/ @type {import('next').NextConfig} */;
 const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
-      test: /\.svg$/i,
+      test: /.svg$/i,
       use: ["@svgr/webpack"],
     });
 
@@ -23,7 +23,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "assets.vercel.com",
-        pathname: "/image/upload/**",
+        pathname: "/image/upload/",
       },
       {
         protocol: "https",
@@ -32,6 +32,7 @@ const nextConfig = {
         pathname: "**",
       },
     ],
+    domains: ["syncd-img.s3.ap-northeast-2.amazonaws.com"],
   },
 };
 
