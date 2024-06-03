@@ -30,7 +30,7 @@ export default function Home() {
       </div>
       <div className="absolute bottom-0 flex h-[5.6rem] w-full items-center justify-center">
         <span className="text-lg font-extralight text-light-gray-100">
-          © 2023 i-dear All rights reserved.
+          © 2023 i-dear All rights reserved. syncd.official@gmail.com
         </span>
       </div>
     </div>

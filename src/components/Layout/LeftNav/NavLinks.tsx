@@ -17,11 +17,11 @@ const NavLinks = () => {
       href: `/dashboard`,
       icon: DashboardIcon,
     },
-    {
-      title: "Projects",
-      href: `/projects`,
-      icon: ProjectIcon,
-    },
+    // {
+    //   title: "Projects",
+    //   href: `/projects`,
+    //   icon: ProjectIcon,
+    // },
   ];
 
   return (

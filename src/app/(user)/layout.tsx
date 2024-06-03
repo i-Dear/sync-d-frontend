@@ -13,6 +13,9 @@ const Layout = ({
         <LeftNav />
         <main className="h-full w-full">{children}</main>
       </div>
+      <footer className="flex w-full justify-center text-xl text-gray-400">
+        Contact us - syncd.official@gmail.com
+      </footer>
     </div>
   );
 };

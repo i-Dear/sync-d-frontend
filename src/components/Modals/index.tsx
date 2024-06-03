@@ -10,6 +10,8 @@ import ProcessingScenarioModal from "./ProcessingScenarioModal";
 import SyncedModal from "./SyncModal";
 import VoteCompleteModal from "./VoteCompleteModal";
 import CompleteModal from "./CompleteModal";
+import InviteModal from "./InviteModal";
+import UserInfoModal from "./UserInfoModal";
 import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 import XMarkIcon from "~/public/Xmark";
@@ -34,6 +36,8 @@ const ModalMap: ModalMapType = {
   processingScenario: ProcessingScenarioModal,
   synced: SyncedModal,
   complete: CompleteModal,
+  invite: InviteModal,
+  userInfo: UserInfoModal,
 };
 
 const Modal = ({ setCamera }: ModalProps) => {
