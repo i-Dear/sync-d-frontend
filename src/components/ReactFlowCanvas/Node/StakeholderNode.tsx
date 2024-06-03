@@ -2,12 +2,12 @@ import { SerializableNode } from "@/lib/types";
 import { deserializeNode } from "@/lib/utils";
 import React, { memo } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { Handle, Node, Position, useStore } from "reactflow";
+import { Handle, NodeProps, Position, useStore } from "reactflow";
 import { useMutation, useStorage } from "~/liveblocks.config";
 
 const connectionNodeIdSelector = (state: any) => state.connectionNodeId;
 
-const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
+const StakeholderNode = ({ id, data }: NodeProps) => {
   const connectionNodeId = useStore(connectionNodeIdSelector);
   const node = deserializeNode(
     useStorage((root) => root.nodes).get(id) as SerializableNode,
@@ -16,7 +16,6 @@ const StakeholderNode = ({ id, data }: { id: string; data: any }) => {
   const onChangeNodeValue = useMutation(
     ({ storage }, nodeId: string, newLabel: string) => {
       const currentNode = storage.get("nodes").get(nodeId);
-      console.log(newLabel, currentNode);
       if (currentNode) {
         currentNode.update({
           id: nodeId,
