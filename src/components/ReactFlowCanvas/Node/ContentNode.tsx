@@ -15,19 +15,23 @@ const ContentNode = ({ id, data }: NodeProps) => {
       const currentNode = storage.get("nodes").get(nodeId);
       if (currentNode) {
         currentNode.update({
-          label: newLabel,
+          id: nodeId,
+          data: {
+            label: newLabel,
+          },
         });
       }
     },
     [],
   );
+
   const handleLabelChange = (e: ContentEditableEvent) => {
     const newLabel = e.target.value;
     onChangeNodeValue(id, newLabel);
   };
 
   return (
-    <div>
+    <div className="relative flex h-[4.8rem] min-w-[12.8rem] items-center justify-center rounded-[1.2rem] border-[0.1rem] bg-light-gray-100 p-[1rem] scrollbar-hide">
       <Handle
         position={Position.Left}
         className="invisible"
@@ -35,7 +39,7 @@ const ContentNode = ({ id, data }: NodeProps) => {
         type="target"
       />
       <ContentEditable
-        className="pointer-events-auto flex h-[4.8rem] w-[12.8rem] items-center justify-center rounded-[1.2rem] bg-light-gray-100 p-[1rem] text-[1.4rem] font-normal text-div-text outline-none"
+        className="pointer-events-auto flex w-full items-center justify-start p-[1rem]  pl-[2.5rem] text-[1.4rem] font-normal text-div-text outline-none"
         html={node?.data?.label || ""}
         style={{ color: data.color }}
         onChange={handleLabelChange}
