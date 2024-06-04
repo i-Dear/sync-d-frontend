@@ -13,6 +13,7 @@ import {
   Template,
   UserInfo,
   Epic,
+  SerializableNode,
 } from "@/lib/types";
 
 const client = createClient({
@@ -70,7 +71,7 @@ type Storage = {
   layerIds: LiveList<string>;
   templates: LiveList<Template>;
   process: LiveList<Process>;
-  nodes: any;
+  nodes: LiveMap<string, LiveObject<SerializableNode>>;
   edges: any;
   voteList: LiveObject<{
     voteCount: LiveObject<{

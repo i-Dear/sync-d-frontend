@@ -1,3 +1,11 @@
+import { LsonObject } from "@liveblocks/client";
+import {
+  CoordinateExtent,
+  EdgeUpdatable,
+  NodeHandleBounds,
+  Position,
+} from "reactflow";
+
 export type NavListType = {
   title: string;
   href: string;
@@ -337,4 +345,40 @@ export type Epic = {
   id: string;
   name: string;
   userStories: UserStory[];
+};
+
+// LsonObject를 확장한 SerializableNode 타입 정의
+export type SerializableNode = LsonObject & {
+  id: string;
+  position: { x: number; y: number };
+  data: any;
+  type?: string;
+  style?: string;
+  className?: string;
+  sourcePosition?: Position;
+  targetPosition?: Position;
+  hidden?: boolean;
+  selected?: boolean;
+  dragging?: boolean;
+  draggable?: boolean;
+  selectable?: boolean;
+  connectable?: boolean;
+  deletable?: boolean;
+  dragHandle?: string;
+  width?: number | null;
+  height?: number | null;
+  parentNode?: string;
+  parentId?: string;
+  zIndex?: number;
+  extent?: "parent" | CoordinateExtent;
+  expandParent?: boolean;
+  positionAbsolute?: { x: number; y: number };
+  ariaLabel?: string;
+  focusable?: boolean;
+  resizing?: boolean;
+  internalsSymbol?: {
+    z?: number;
+    handleBounds?: NodeHandleBounds;
+    isParent?: boolean;
+  };
 };

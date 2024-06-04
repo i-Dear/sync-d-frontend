@@ -1,3 +1,6 @@
+import { SerializableNode } from "@/lib/types";
+import { deserializeNode, serializeNode } from "@/lib/utils";
+import { LiveObject } from "@liveblocks/client";
 import { nanoid } from "nanoid";
 import { memo, useCallback } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
@@ -7,6 +10,7 @@ import {
   Handle,
   MarkerType,
   Node,
+  NodeProps,
   NodeToolbar,
   Position,
   XYPosition,
@@ -15,10 +19,12 @@ import {
 import { useMutation, useStorage } from "~/liveblocks.config";
 import PlusMarkIcon from "~/public/PlusMark";
 
-const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
+const PageNode = ({ id, data }: NodeProps) => {
   const nodes = useStorage((root) => root.nodes);
   const edges = useStorage((root) => root.edges);
-  const node = nodes.find((node: Node) => node.id === id);
+  const node = deserializeNode(
+    useStorage((root) => root.nodes).get(id) as SerializableNode,
+  );
 
   const contentNodeEdges = edges.filter(
     (edge: Edge) => edge.source === id && edge.target.includes("contentNode"),
@@ -45,29 +51,30 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
   }
 
   const additionalPageNodeXYPosition: XYPosition = {
-    x: node ? node.position.x + computeX(pageNodeEdges) : 0,
+    x: node ? node.position.x + computeX(pageNodeEdges % 5) : 0,
     y: node ? node.position.y + 200 : 0,
   };
 
-  const forceNodeChange = useMutation(({ storage }) => {
-    storage.set("nodes", [...storage.get("nodes")]);
-  }, []);
-
   const addNode = useMutation(
     ({ storage }, node: Node) => {
-      const existingNodes = storage.get("nodes");
-      storage.set("nodes", [...existingNodes, node]);
+      const liveNodes = storage.get("nodes");
+      const newNode = new LiveObject(serializeNode(node));
+      liveNodes.set(node.id, newNode as LiveObject<SerializableNode>);
     },
     [nodes],
   );
 
   const onChangeNodeValue = useMutation(
     ({ storage }, nodeId: string, newLabel: string) => {
-      const node = storage
-        .get("nodes")
-        .find((node: Node) => node.id === nodeId);
-      node.data.label = newLabel;
-      forceNodeChange(); // 작성 중에도 실시간 업데이트
+      const currentNode = storage.get("nodes").get(nodeId);
+      if (currentNode) {
+        currentNode.update({
+          id: nodeId,
+          data: {
+            label: newLabel,
+          },
+        });
+      }
     },
     [],
   );
@@ -148,7 +155,7 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
   );
 
   return (
-    <>
+    <div className="relative flex h-[4.8rem] min-w-[12.8rem] items-center justify-center rounded-[1.2rem] border-[0.1rem] bg-primary p-[1rem] scrollbar-hide">
       <Handle position={Position.Right} className="invisible" type="source" />
       <Handle
         position={Position.Bottom}
@@ -175,7 +182,7 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
         </button>
       </NodeToolbar>
       <ContentEditable
-        className="pointer-events-auto flex h-[4.8rem] w-[12.8rem]  items-center justify-center rounded-[1.2rem] bg-primary p-[1rem] text-[1.4rem] font-semibold text-white outline-none"
+        className="pointer-events-auto flex h-[4.8rem] w-full items-center justify-start pl-[2.5rem] text-[1.4rem] font-semibold text-white outline-none"
         html={node?.data?.label || ""}
         style={{ color: data.color }}
         onChange={handleLabelChange}
@@ -183,7 +190,7 @@ const PageNode = ({ id, data }: { id: string; data: Node["data"] }) => {
       <div className="absolute left-[1rem] top-[1rem] flex items-center gap-[0.8rem]">
         <span className="dragHandle h-[1.25rem] w-[1.25rem] rounded-full bg-white" />
       </div>
-    </>
+    </div>
   );
 };
 

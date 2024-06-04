@@ -33,6 +33,15 @@ import AnnotationNode from "./Node/AnnotationNode";
 import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
+import { LiveObject } from "@liveblocks/client";
+import { serializeNode } from "@/lib/utils";
+import { SerializableNode } from "@/lib/types";
+import useNodes from "@/lib/useNodes";
+import {
+  isNodeDimensionChanges,
+  isNodePositionChanges,
+  isNodeRemoveChanges,
+} from "@/lib/guard";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -74,7 +83,9 @@ const defaultEdgeOptions = {
 
 const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const connectingNodeId = useRef<string | null>(null);
-  const nodes = useStorage((root) => root.nodes);
+  const liveNodeMap = useStorage((root) => root.nodes);
+  // liveNodeMap에서 Node 리스트만 따로 빼서 비직렬화 (reactFlow에서 보여줄 Nodes)
+  const nodes = useNodes();
   const edges = useStorage((root) => root.edges);
   const [nodeColor, setNodeColor] = useState("#121417");
   const reactFlow = useReactFlow();
@@ -87,8 +98,10 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const addNode = useMutation(
     ({ storage }, node: Node) => {
-      const existingNodes = storage.get("nodes");
-      storage.set("nodes", [...existingNodes, node]);
+      const liveNodes = storage.get("nodes");
+      const newNode = new LiveObject(serializeNode(node));
+
+      liveNodes.set(node.id, newNode as LiveObject<SerializableNode>);
     },
     [nodes],
   );
@@ -96,9 +109,14 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const onConnect = useMutation(
     ({ storage }, connection: Connection | Edge) => {
       const existingEdges = storage.get("edges");
+      if (!connection.source || !connection.target) return;
+
       const sourceNode = storage
         .get("nodes")
-        .find((node: Node) => node.id === connection.source);
+        .get(connection.source)
+        ?.toObject();
+      if (!sourceNode) return;
+
       if (sourceNode.type === "stakeholderNode") {
         const valueEdge = {
           ...connection,
@@ -113,12 +131,6 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
         return;
       }
       storage.set("edges", addEdge(connection, existingEdges));
-      const nodeOne = storage
-        .get("nodes")
-        .find((node: Node) => node.id === connection.source);
-      console.log("1.", connectingNodeId.current);
-      console.log("2.node", nodeOne);
-      console.log("3.connection", connection);
       connectingNodeId.current = null;
     },
     [edges],
@@ -151,16 +163,16 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
           y: event.clientY,
         });
 
-        const previousNodeData = nodes.find(
-          (node: Node) => node.id === connectingNodeId.current,
-        ).data;
+        const previousNodeData = liveNodeMap.get(
+          connectingNodeId.current,
+        )?.data;
 
         const newNode = {
           id,
           position,
           type: "middleNode",
           data: {
-            label: `From ${previousNodeData.label}`,
+            label: `${previousNodeData.label}`,
             color: previousNodeData.color,
           },
           origin: [0.5, 0.0],
@@ -228,7 +240,41 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const onNodesChange = useMutation(
     ({ storage }, changes: NodeChange[]) => {
-      storage.set("nodes", applyNodeChanges(changes, nodes));
+      const liveNodeMap = storage.get("nodes");
+
+      // 유발한 Node의 변경이 전부 position일 때 (이동만 발생했을 때)
+      if (isNodePositionChanges(changes) || isNodeDimensionChanges(changes)) {
+        const changedNodes = applyNodeChanges(changes, nodes);
+        changedNodes.forEach((node) => {
+          storage.get("nodes").get(node.id)?.update(serializeNode(node));
+        });
+        return;
+      }
+
+      // 유발한 Node의 변경이 전부 remove일 때
+      if (isNodeRemoveChanges(changes)) {
+        changes.forEach((change) => {
+          liveNodeMap.delete(change.id);
+        });
+        return;
+      }
+
+      // 그 외 복합적인 모든 경우
+      const changedNodes = applyNodeChanges(changes, nodes);
+      const remainingNodeIds = changedNodes.map((node) => node.id);
+
+      // liveNodeMap의 key에서 changedNodes에 속하지 않는 key를 삭제
+      liveNodeMap.forEach((_, key) => {
+        // Storage에 저장되어 있던 노드 중, 업데이트 후 노드 목록에 속하지 않는 노드는 삭제
+        if (!remainingNodeIds.includes(key)) {
+          liveNodeMap.delete(key);
+        }
+      });
+
+      // changedNodes를 liveNodeMap에 업데이트
+      changedNodes.forEach((node) => {
+        liveNodeMap.get(node.id)?.update(serializeNode(node));
+      });
     },
     [nodes],
   );
@@ -241,7 +287,9 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   );
 
   const init = useMutation(({ storage }) => {
-    storage.set("nodes", initialNodes);
+    initialNodes.forEach((node) => {
+      storage.get("nodes").set(node.id, new LiveObject(serializeNode(node)));
+    });
     storage.set("edges", []);
   }, []);
 
@@ -250,9 +298,6 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
       init();
     }
   }, []);
-
-  // // 노드엣지 초기화 버튼 (주석 풀면 초기화)
-  //init();
 
   return (
     <div className="h-full w-full grow" ref={reactFlowWrapper}>
