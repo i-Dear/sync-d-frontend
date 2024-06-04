@@ -37,7 +37,11 @@ import { LiveObject } from "@liveblocks/client";
 import { serializeNode } from "@/lib/utils";
 import { SerializableNode } from "@/lib/types";
 import useNodes from "@/lib/useNodes";
-import { isNodePositionChanges, isNodeRemoveChanges } from "@/lib/guard";
+import {
+  isNodeDimensionChanges,
+  isNodePositionChanges,
+  isNodeRemoveChanges,
+} from "@/lib/guard";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -239,7 +243,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
       const liveNodeMap = storage.get("nodes");
 
       // 유발한 Node의 변경이 전부 position일 때 (이동만 발생했을 때)
-      if (isNodePositionChanges(changes)) {
+      if (isNodePositionChanges(changes) || isNodeDimensionChanges(changes)) {
         const changedNodes = applyNodeChanges(changes, nodes);
         changedNodes.forEach((node) => {
           storage.get("nodes").get(node.id)?.update(serializeNode(node));

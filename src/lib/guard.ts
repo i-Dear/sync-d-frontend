@@ -1,4 +1,9 @@
-import { NodeChange, NodePositionChange, NodeRemoveChange } from "reactflow";
+import {
+  NodeChange,
+  NodeDimensionChange,
+  NodePositionChange,
+  NodeRemoveChange,
+} from "reactflow";
 
 export const isNodeRemoveChanges = (
   changes: NodeChange[],
@@ -10,4 +15,10 @@ export const isNodePositionChanges = (
   changes: NodeChange[],
 ): changes is NodePositionChange[] => {
   return changes.every((change) => change.type === "position");
+};
+
+export const isNodeDimensionChanges = (
+  changes: NodeChange[],
+): changes is NodeDimensionChange[] => {
+  return changes.every((change) => change.type === "dimensions");
 };
