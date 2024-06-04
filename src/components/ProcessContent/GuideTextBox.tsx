@@ -20,6 +20,12 @@ export default function GuideTextBox(props: GuideTextBoxTemplate) {
           fontSize={font ? font : "14"}
           fill="#121417"
           fontWeight={fontWeight ? fontWeight : "bold"}
+          style={{
+            userSelect: "none",
+            WebkitUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+          }}
         >
           {title?.split("\n").map((line, index) => (
             <tspan x={x + 20} dy={index > 0 ? "1.2em" : 0} key={index}>
