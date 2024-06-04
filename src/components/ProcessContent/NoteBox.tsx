@@ -20,6 +20,12 @@ export default function NoteBox(props: NoteBoxTemplate) {
           fontFamily="Arial"
           fontSize="14"
           fill="#121417"
+          style={{
+            userSelect: "none",
+            WebkitUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+          }}
         >
           {title?.split("\n").map((line, index) => (
             <tspan x={x + 20} dy={index > 0 ? "1.2em" : 0} key={index}>

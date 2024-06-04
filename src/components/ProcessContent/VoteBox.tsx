@@ -93,7 +93,7 @@ export default function VoteBox(props: VoteBoxTemplate) {
         <div className="flex">
           <DoubleQuoteOpenIcon fill="#61788A" width={20} height={20} />
           <div
-            className={`font-Manrope text-bold flex h-full w-full justify-center p-[1rem]  text-3xl text-zinc-600 outline-none`}
+            className={`font-Manrope text-bold flex h-full w-full select-none justify-center  p-[1rem] text-3xl text-zinc-600 outline-none`}
           >
             문제 정의
           </div>
@@ -109,7 +109,7 @@ export default function VoteBox(props: VoteBoxTemplate) {
         className="cursor-pointer rounded-xl"
       >
         <div
-          className={`font-Manrope text-bold flex h-full w-full justify-normal  p-[2rem]  text-3xl text-zinc-600 outline-none`}
+          className={`font-Manrope text-bold flex h-full w-full select-none  justify-normal  p-[2rem] text-3xl text-zinc-600 outline-none`}
         >
           문제를 설명해주세요!
         </div>
