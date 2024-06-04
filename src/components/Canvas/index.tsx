@@ -30,6 +30,7 @@ import {
   Point,
 } from "@/lib/types";
 import {
+  cn,
   colorToCss,
   connectionIdToColor,
   findIntersectingLayersWithRectangle,
@@ -55,6 +56,7 @@ import TemplateComponent from "./TemplateComponent";
 import { syncTemplates } from "@/lib/templates";
 import Modal from "@/components/Modals";
 import ReactFlowCanvas from "@/components/ReactFlowCanvas";
+import CanvasButton from "../CanvasToolBar/CanvasButton";
 
 const MAX_LAYERS = 500;
 
@@ -591,15 +593,39 @@ const Canvas = () => {
           </g>
         </svg>
       </div>
-
-      <ToolsBar
-        canvasState={canvasState}
-        setCanvasState={setState}
-        undo={history.undo}
-        redo={history.redo}
-        canUndo={canUndo}
-        canRedo={canRedo}
-      />
+      <div
+        className={cn(
+          "absolute bottom-[8rem] left-0 right-0 flex items-center justify-center",
+          currentProcess === 5 && "bottom-[4rem]",
+          currentProcess === 6 && "bottom-[4rem]",
+          currentProcess === 7 && "bottom-[4rem]",
+          currentProcess === 9 && "bottom-[4rem]",
+          currentProcess === 12 && "bottom-[4rem]",
+        )}
+      >
+        <CanvasButton />
+      </div>
+      5, 6, 7, 9, 12 단계에서는 툴바가 안보이도록 처리
+      <div
+        className={
+          currentProcess === 5 ||
+          currentProcess === 6 ||
+          currentProcess === 7 ||
+          currentProcess === 9 ||
+          currentProcess === 12
+            ? "hidden"
+            : ""
+        }
+      >
+        <ToolsBar
+          canvasState={canvasState}
+          setCanvasState={setState}
+          undo={history.undo}
+          redo={history.redo}
+          canUndo={canUndo}
+          canRedo={canRedo}
+        />
+      </div>
       <Modal setCamera={setCamera} />
     </div>
   );
