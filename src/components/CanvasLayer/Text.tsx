@@ -1,7 +1,8 @@
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { TextLayer } from "@/lib/types";
-import { cn, colorToCss } from "@/lib/utils";
+
 import { useMutation } from "~/liveblocks.config";
+import { colorToCss } from "@/lib/utils";
 
 interface TextProps {
   id: string;
@@ -10,14 +11,14 @@ interface TextProps {
   selectionColor?: string;
 }
 
-const calculateFontSize = (width: number, height: number) => {
-  const maxFontSize = 96;
-  const scaleFactor = 0.5;
-  const fontSizeBasedOnHeight = height * scaleFactor;
-  const fontSizeBasedOnWidth = width * scaleFactor;
+// const calculateFontSize = (width: number, height: number) => {
+//   const maxFontSize = 96;
+//   const scaleFactor = 0.5;
+//   const fontSizeBasedOnHeight = height * scaleFactor;
+//   const fontSizeBasedOnWidth = width * scaleFactor;
 
-  return Math.min(fontSizeBasedOnHeight, fontSizeBasedOnWidth, maxFontSize);
-};
+//   return Math.min(fontSizeBasedOnHeight, fontSizeBasedOnWidth, maxFontSize);
+// };
 
 const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
   const { x, y, width, height, fill, value } = layer;
@@ -39,9 +40,6 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
       width={width}
       height={height}
       onPointerDown={(e) => onPointerDown(e, id)}
-      style={{
-        outline: selectionColor ? `1px solid ${selectionColor}` : "none",
-      }}
     >
       <ContentEditable
         html={value || " "}
@@ -49,7 +47,7 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
         className="flex h-full w-full justify-normal text-center outline-none drop-shadow-md"
         style={{
           fontSize: 14,
-          color: "black",
+          color: colorToCss(fill) || "black",
         }}
       />
     </foreignObject>
