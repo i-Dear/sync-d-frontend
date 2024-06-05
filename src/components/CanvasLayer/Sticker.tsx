@@ -26,6 +26,12 @@ export default function Sticker({
         strokeWidth={1}
         width={width}
         height={height}
+        style={{
+          userSelect: "none",
+          WebkitUserSelect: "none",
+          MozUserSelect: "none",
+          msUserSelect: "none",
+        }}
       >
         <Image
           draggable={false}
