@@ -5,8 +5,17 @@ import TrashIcon from "~/public/trash.svg";
 import { deleteProject } from "@/lib/data";
 import useGetAuthToken from "@/hooks/useGetAuthToken";
 import { cn } from "@/lib/utils";
+import XMarkIcon from "~/public/Xmark";
 
-const ProjectDetailBox = ({ project }: { project: ProjectInfo }) => {
+type ProjectDetailBoxProps = {
+  project: ProjectInfo;
+  setIsDetailBoxOpen: () => void;
+};
+
+const ProjectDetailBox = ({
+  project,
+  setIsDetailBoxOpen,
+}: ProjectDetailBoxProps) => {
   const authToken = useGetAuthToken();
 
   const Menus: MenuType[] = [
@@ -32,7 +41,7 @@ const ProjectDetailBox = ({ project }: { project: ProjectInfo }) => {
   ];
 
   return (
-    <div className="flex h-[16.8rem] w-[16.4rem] flex-col items-center justify-start rounded-[1.2rem] bg-white shadow-md shadow-light-gray-100">
+    <div className="relative flex h-[16.8rem] w-[16.4rem] flex-col items-center justify-start rounded-[1.2rem] bg-white shadow-md shadow-light-gray-100">
       <div className="flex w-full flex-col items-start justify-center gap-[0.4rem] border-b-[1px] border-light-gray-100 p-[1.6rem]">
         <span className="text-[1.4rem] font-thin text-time">
           role:{" "}
@@ -62,6 +71,12 @@ const ProjectDetailBox = ({ project }: { project: ProjectInfo }) => {
           </div>
         ))}
       </div>
+      <button
+        className="absolute right-6 top-8 cursor-pointer"
+        onClick={() => setIsDetailBoxOpen()}
+      >
+        <XMarkIcon width={18} height={18} fill="lightgray" />
+      </button>
     </div>
   );
 };
