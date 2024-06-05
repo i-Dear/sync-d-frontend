@@ -9,7 +9,7 @@ const AreaNode = ({ data }: NodeProps) => {
         {data.description.map((description: string, index: number) => (
           <span
             key={index}
-            className="block text-[1.2rem] font-normal text-black"
+            className="block select-none text-[1.2rem] font-normal text-black"
           >
             {description}
           </span>
