@@ -50,7 +50,7 @@ const StepViewport: Record<number, Viewport> = {
   6: { x: -600, y: 0, zoom: 1 },
   7: { x: -1050, y: 0, zoom: 1 },
   9: { x: 0, y: -1000, zoom: 1 },
-  12: { x: 0, y: -1500, zoom: 0.9 },
+  12: { x: 0, y: -2000, zoom: 0.9 },
 };
 
 const connectionLineStyle = {
@@ -145,13 +145,13 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
   const onConnectEnd = useCallback(
     (event: any) => {
-      // 노드끼리 연결했을 때는 무시 -> 가치 엣지 생성
       if (!connectingNodeId.current) return;
+      const sourceNodeType = liveNodeMap.get(connectingNodeId.current)?.type;
 
       // 허공에 연결했을 때만 새로운 노드 생성
       const targetIsPane = event.target.classList.contains("react-flow__pane");
 
-      if (targetIsPane) {
+      if (targetIsPane && sourceNodeType !== "stakeholderNode") {
         const id = nanoid();
 
         if (!reactFlowInstance) {
@@ -287,10 +287,16 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   );
 
   const init = useMutation(({ storage }) => {
-    initialNodes.forEach((node) => {
-      storage.get("nodes").set(node.id, new LiveObject(serializeNode(node)));
-    });
-    storage.set("edges", []);
+    if (storage.get("nodes")) {
+      Array.from(storage.get("nodes").keys()).forEach((key) => {
+        storage.get("nodes").delete(key);
+      });
+
+      initialNodes.forEach((node) => {
+        storage.get("nodes").set(node.id, new LiveObject(serializeNode(node)));
+      });
+      storage.set("edges", []);
+    }
   }, []);
 
   useEffect(() => {
@@ -298,6 +304,10 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
       init();
     }
   }, []);
+
+  // useEffect(() => {
+  //   init();
+  // }, []);
 
   return (
     <div className="h-full w-full grow" ref={reactFlowWrapper}>

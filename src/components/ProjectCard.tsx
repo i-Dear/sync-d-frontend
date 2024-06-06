@@ -70,19 +70,22 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
             {project.description}
           </p>
           <p className="w-full text-[1.4rem] font-thin text-time">5 members</p>
-          {isDetailBoxOpen && detailBoxPosition && (
-            <div
-              className="fixed z-10"
-              style={{
-                top: `${detailBoxPosition.y}px`,
-                left: `${detailBoxPosition.x}px`,
-              }}
-            >
-              <ProjectDetailBox project={project} />
-            </div>
-          )}
         </div>
       </Link>
+      {isDetailBoxOpen && detailBoxPosition && (
+        <div
+          className="fixed z-10"
+          style={{
+            top: `${detailBoxPosition.y}px`,
+            left: `${detailBoxPosition.x}px`,
+          }}
+        >
+          <ProjectDetailBox
+            project={project}
+            setIsDetailBoxOpen={setIsDetailBoxOpen}
+          />
+        </div>
+      )}
     </div>
   );
 };

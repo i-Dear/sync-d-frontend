@@ -86,7 +86,7 @@ export default [
   {
     id: "rootNode",
     type: "pageNode",
-    position: { x: 650, y: 1690 },
+    position: { x: 650, y: 2250 },
     data: { label: "메인 페이지" },
     dragHandle: ".dragHandle",
   },
@@ -114,6 +114,6 @@ export default [
         "우리 서비스에는 어떠한 페이지들이 있을까요? \n또 각 페이지들은 어떤 기능들을 가지고 있을까요? \n좌측 상단 도움말을 눌러 예시 이미지를 참고해 여러분 서비스의 Tree를 그려주세요!",
       font: "text-lg",
     },
-    position: { x: 100, y: 1710 },
+    position: { x: 100, y: 2270 },
   },
 ] as Node[];
