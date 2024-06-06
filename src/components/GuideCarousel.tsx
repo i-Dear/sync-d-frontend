@@ -15,18 +15,15 @@ interface StyledCarouselProps {
 
 const GuideCarousel = ({ exampleList }: StyledCarouselProps) => {
   return (
-    <Carousel className="flex h-full items-center justify-center">
+    <Carousel className="mx-[4rem] flex h-full items-center justify-center">
       <CarouselContent className="flex w-full">
         {exampleList.map((example, index) => (
-          <CarouselItem className="flex justify-center" key={index}>
+          <CarouselItem
+            className="flex items-center justify-center"
+            key={index}
+          >
             <div className="flex justify-center">
-              <Image
-                className="flex justify-center"
-                width={700}
-                height={0}
-                src={example.src}
-                alt={`guide`}
-              />
+              <Image width={700} height={0} src={example.src} alt={`guide`} />
             </div>
           </CarouselItem>
         ))}
