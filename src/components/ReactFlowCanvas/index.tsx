@@ -14,6 +14,8 @@ import ReactFlow, {
   useReactFlow,
   PanOnScrollMode,
   Edge,
+  Panel,
+  getNodesBounds,
 } from "reactflow";
 
 import { useMutation, useStorage } from "~/liveblocks.config";
@@ -33,6 +35,7 @@ import AnnotationNode from "./Node/AnnotationNode";
 import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
+import { toPng } from "html-to-image";
 import { LiveObject } from "@liveblocks/client";
 import { serializeNode } from "@/lib/utils";
 import { SerializableNode } from "@/lib/types";
@@ -299,6 +302,82 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
     }
   }, []);
 
+  const downloadImage = (dataUrl: string) => {
+    const a = document.createElement("a");
+
+    a.href = dataUrl;
+    a.download = "reactflow.png";
+    a.click();
+  };
+
+  const handleCapture = () => {
+    const nodes = reactFlow.getNodes();
+    const whatHowWhyNodes = nodes.filter(
+      (node) =>
+        node.type === "input" ||
+        node.type === "areaNode" ||
+        node.type === "middleNode",
+    );
+    const bounds = getNodesBounds(whatHowWhyNodes);
+
+    reactFlow.setViewport({
+      x: 0,
+      y: 0,
+      zoom: 1,
+    });
+
+    setTimeout(() => {
+      toPng(document.querySelector(".react-flow__viewport") as HTMLElement, {
+        backgroundColor: "#ffffff",
+        width: bounds.width + 150,
+        height: bounds.height + 150,
+        canvasWidth: bounds.width + 150,
+        canvasHeight: bounds.height + 150,
+      }).then((dataUrl) => {
+        const blobData = convertDataUrlToBlob(dataUrl);
+        console.log("Image Captured", blobData);
+        sendBlobToBackend(blobData);
+        downloadImage(dataUrl);
+      });
+    }, 2000);
+  };
+
+  const convertDataUrlToBlob = (dataUrl: string) => {
+    const byteString = atob(dataUrl.split(",")[1]);
+    const mimeString = dataUrl.split(",")[0].split(":")[1].split(";")[0];
+
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], { type: mimeString });
+  };
+
+  const sendBlobToBackend = (blob: Blob) => {
+    const formData = new FormData();
+    formData.append("name", "이미지 테스트 중");
+    formData.append("description", "이미지 테스트 중");
+    formData.append("img", blob, "reactflow.png"); // 파일 이름 추가
+    formData.append("userEmails", "");
+
+    fetch("https://syncd-backend.dev.i-dear.org/v1/project/create", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Successfully sent image to backend", data);
+      })
+      .catch((error) => {
+        console.error("Error sending image to backend", error);
+      });
+  };
   useEffect(() => {
     if (nodes.length === 0) {
       init();
@@ -332,6 +411,14 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
         panOnScrollMode={PanOnScrollMode.Horizontal}
       >
         <Controls />
+        <Panel position="top-left">
+          <button
+            className="download-btn h-[20rem] w-[20rem] bg-primary"
+            onClick={handleCapture}
+          >
+            Download Image
+          </button>
+        </Panel>
       </ReactFlow>
       {currentProcess === 9 && (
         <NodeCreator nodeColor={nodeColor} setNodeColor={setNodeColor} />
