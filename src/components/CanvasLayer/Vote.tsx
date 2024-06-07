@@ -14,7 +14,7 @@ type VoteProps = {
 };
 
 export default function Persona({ layer, onPointerDown, id }: VoteProps) {
-  const { x, y, width, height, title, value, length } = layer;
+  const { x, y, width, height, title, value, number } = layer;
   const [isFocused, setFocused] = useState(false);
 
   const updateTitle = useMutation(({ storage }, value) => {
@@ -35,15 +35,6 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
     .map((id) => layers.get(id))
     .filter((v) => v?.type === 8).length;
 
-  const number = voteCounts;
-
-  const handleFocus = () => {
-    setFocused(true);
-  };
-
-  const handleBlur = () => {
-    setFocused(false);
-  };
   return (
     <g onPointerDown={(e) => onPointerDown(e, id)}>
       <rect
@@ -81,7 +72,7 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
             fontSize="110"
             fill="#D4EAFB"
           >
-            {length + 1}
+            {number + 1}
           </text>
         </g>
       </g>

@@ -15,8 +15,8 @@ export default function useDeleteLayers() {
         const layerType = layerData?.get("type");
         if (layerType === 8) {
           const layerDataObject = layerData?.toObject() as VoteLayer;
-          const length = layerDataObject.length;
-          storage.get("voteList").get("voteMap").set(length, false);
+          const number = layerDataObject.number;
+          storage.get("voteList").get("voteMap").set(number, false);
         }
         liveLayers.delete(id);
 

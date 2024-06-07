@@ -19,8 +19,8 @@ export default function VoteBox(props: VoteBoxTemplate) {
       .map((id) => layers.get(id))
       .filter((v) => v?.get("type") === 8).length;
     if (voteCounts >= 5) return;
-    const length = voteMap.findIndex((v) => !v);
-    storage.get("voteList").get("voteMap").set(length, true);
+    const number = voteMap.findIndex((v) => !v);
+    storage.get("voteList").get("voteMap").set(number, true);
     const layerId = nanoid();
     const voteLayer = new LiveObject<Layer>({
       type: LayerType.Vote,
@@ -28,9 +28,9 @@ export default function VoteBox(props: VoteBoxTemplate) {
       value: "",
       width: 560,
       height: 220,
-      x: 650 + length * 50,
-      y: 2125 + length * 50,
-      length: length,
+      x: 650 + number * 50,
+      y: 2125 + number * 50,
+      number: number,
     });
     liveLayerIds.push(layerId);
     layers.set(layerId, voteLayer);
