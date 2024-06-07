@@ -54,3 +54,36 @@ export const deleteProject = async (token: string, projectId: string) => {
     return false;
   }
 };
+
+export const updateProgress = async (
+  token: string,
+  projectId: string,
+  projectStage: number,
+) => {
+  try {
+    const response = await fetch(
+      `https://syncd-backend.dev.i-dear.org/v1/project/sync`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          projectId,
+          projectStage,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("프로젝트 진행 상태 업데이트에 실패했습니다.");
+    }
+
+    return true;
+  } catch (error) {
+    console.error("프로젝트 진행 상태 업데이트에 실패 했습니다.", error);
+    return false;
+  }
+};
