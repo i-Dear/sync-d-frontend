@@ -5,6 +5,7 @@ import Link from "next/link";
 import EllipsisVertical from "~/public/ellipsis-vertical.svg";
 import ProjectDetailBox from "./ProjectDetailBox";
 import { useToggle } from "@/hooks/useToggle";
+import { Progress } from "./Common/Progress";
 
 const ProjectCard = ({ project }: { project: ProjectInfo }) => {
   const [detailBoxPosition, setDetailBoxPosition] = useState<{
@@ -46,15 +47,30 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
   }, [detailBoxPosition]);
 
   return (
-    <div className="flex h-[30rem] w-[30.6rem] flex-col items-center justify-start">
+    <div className="relative flex h-[30rem] w-[30.6rem] flex-col items-center justify-start">
       <Link href={`/board/${project.id}`}>
-        <div className="w-[30.6rem]">
+        <div className="relative h-[18.6rem] w-[30.6rem] overflow-hidden rounded-[1.2rem]">
+          {project.progress === 12 && (
+            <Image
+              src="/confetti.png"
+              alt="confetti"
+              fill={true}
+              className="absolute left-0 top-0 z-10 h-full w-full"
+              priority
+            />
+          )}
           <Image
-            src="/default-thumbnail.png"
+            src={project.projectImg || "/default-thumbnail.png"}
             alt="projectThumbnail"
-            width={306}
-            height={186}
+            style={{
+              objectFit: "cover",
+            }}
+            fill={true}
+            priority
           />
+          <div className="absolute bottom-0 h-[6px] w-full bg-slate-100">
+            <Progress value={(project.progress / 12) * 100} />
+          </div>
         </div>
         <div className="relative flex w-full flex-col items-start justify-start p-[1.2rem]">
           <div className="flex w-full items-center justify-between">
@@ -69,9 +85,16 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
           <p className="w-full text-[1.4rem] font-thin text-time">
             {project.description}
           </p>
-          <p className="w-full text-[1.4rem] font-thin text-time">5 members</p>
+          <p className="w-full text-[1.4rem] font-thin text-time">
+            {project.userEmails.length} members
+          </p>
         </div>
       </Link>
+      {project.progress === 12 && (
+        <button className="absolute bottom-[3.6rem] right-[1rem] h-[3.2rem] w-[6.6rem] rounded-[0.8rem] bg-primary text-[1.4rem] font-semibold text-white">
+          결과 &gt;
+        </button>
+      )}
       {isDetailBoxOpen && detailBoxPosition && (
         <div
           className="fixed z-10"
