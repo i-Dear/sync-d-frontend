@@ -10,7 +10,6 @@ import DoubleQuoteCloseIcon from "~/public/DoubleQouteClose";
 export default function VoteBox(props: VoteBoxTemplate) {
   const { id, title, x, y, width, height, value } = props;
   const [isHovered, setIsHovered] = useState(false);
-  const templates = useStorage((root) => root.templates);
 
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
@@ -29,8 +28,8 @@ export default function VoteBox(props: VoteBoxTemplate) {
       value: "",
       width: 560,
       height: 220,
-      x: 650,
-      y: 2125,
+      x: 650 + length * 50,
+      y: 2125 + length * 50,
       length: length,
     });
     liveLayerIds.push(layerId);
