@@ -81,7 +81,7 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
             fontSize="110"
             fill="#D4EAFB"
           >
-            {length}
+            {length + 1}
           </text>
         </g>
       </g>

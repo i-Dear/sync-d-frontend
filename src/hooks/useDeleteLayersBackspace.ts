@@ -14,6 +14,7 @@ export default function useDeleteLayersBackspace(key?: string) {
         const layerData = liveLayers.get(id);
 
         const layerType = layerData?.get("type");
+        // 편집 레이어에서 선택된애들이 하나씩이면 백스페이스로 안지워지게
         if (
           (layerType === 3 && selection.length === 1) ||
           (layerType === 4 && selection.length === 1) ||

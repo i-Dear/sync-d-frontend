@@ -15,10 +15,13 @@ export default function VoteBox(props: VoteBoxTemplate) {
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
+    const voteMap = storage.get("voteList").get("voteMap");
     const voteCounts = liveLayerIds
       .map((id) => layers.get(id))
       .filter((v) => v?.get("type") === 8).length;
     if (voteCounts >= 5) return;
+    const length = voteMap.findIndex((v) => !v);
+    storage.get("voteList").get("voteMap").set(length, true);
     const layerId = nanoid();
     const voteLayer = new LiveObject<Layer>({
       type: LayerType.Vote,
@@ -28,7 +31,7 @@ export default function VoteBox(props: VoteBoxTemplate) {
       height: 220,
       x: 650,
       y: 2125,
-      length: voteCounts + 1,
+      length: length,
     });
     liveLayerIds.push(layerId);
     layers.set(layerId, voteLayer);
