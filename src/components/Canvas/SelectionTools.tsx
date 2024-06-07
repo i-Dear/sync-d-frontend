@@ -105,7 +105,9 @@ function SelectionTools({
         transform: `translate(calc(${x}px - 50%), calc(${y - 16}px - 100%))`,
       }}
     >
-      {!isExcludedType && <ColorPicker onChange={setFill} />}
+      {!isExcludedType && layerData && layerData.type !== 5 && (
+        <ColorPicker onChange={setFill} />
+      )}
 
       {
         <div>

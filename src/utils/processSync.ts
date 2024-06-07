@@ -71,10 +71,10 @@ export const addEpicLayer = (
     value: epic.userStories,
     height: 0,
     x:
-      idx < 4
-        ? 50 + (parseInt(epic.id) - 1) * 400
-        : 50 + (parseInt(epic.id) - 5) * 400,
-    y: idx < 4 ? 10100 : 10600,
+      idx < 3
+        ? 450 + (parseInt(epic.id) - 1) * 400
+        : 50 + (parseInt(epic.id) - 4) * 400,
+    y: idx < 3 ? 10100 : 10600,
 
     width: 380,
   });

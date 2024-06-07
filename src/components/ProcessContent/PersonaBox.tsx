@@ -11,6 +11,10 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
 
   const [isHovered, setIsHovered] = useState(false);
 
+  const getRandomOffset = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
@@ -26,8 +30,8 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
       ],
       width: 380,
       height: 250,
-      x: 450,
-      y: 3150,
+      x: 450 + getRandomOffset(0, 200),
+      y: 3150 + getRandomOffset(0, 200),
     });
     liveLayerIds.push(layerId);
     layers.set(layerId, personaLayer);
