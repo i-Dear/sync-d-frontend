@@ -57,7 +57,7 @@ import { syncTemplates } from "@/lib/templates";
 import Modal from "@/components/Modals";
 import ReactFlowCanvas from "@/components/ReactFlowCanvas";
 import CanvasButton from "../CanvasToolBar/CanvasButton";
-
+import useModalStore from "@/store/useModalStore";
 const MAX_LAYERS = 500;
 
 const Canvas = () => {
@@ -504,6 +504,20 @@ const Canvas = () => {
   // useEffect(() => {
   //   resetTemplate();
   // }, [resetTemplate]);
+  const { isModalOpen, setModalState, setModalType } = useModalStore();
+
+  const checkFirstProject = () => {
+    const isFirstProject = localStorage.getItem("isFirstProject");
+
+    if (isFirstProject === "true") {
+      return;
+    } else {
+      localStorage.setItem("isFirstProject", "true");
+      setModalState(true), setModalType("guide");
+    }
+  };
+
+  checkFirstProject();
 
   return (
     <div>
