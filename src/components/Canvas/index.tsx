@@ -507,12 +507,17 @@ const Canvas = () => {
   const { isModalOpen, setModalState, setModalType } = useModalStore();
 
   const checkFirstProject = () => {
-    const isFirstProject = localStorage.getItem("isFirstProject");
-
-    if (isFirstProject === "true") {
+    if (localStorage.getItem("isFirstProject")) {
       return;
     } else {
-      localStorage.setItem("isFirstProject", "true");
+      const isFirstProjectArray = new Array(12).fill(false);
+      isFirstProjectArray[0] = true; // 첫 번째 값을 true로 설정
+
+      localStorage.setItem(
+        "isFirstProject",
+        JSON.stringify(isFirstProjectArray),
+      );
+
       setModalState(true), setModalType("guide");
     }
   };

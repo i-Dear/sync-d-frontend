@@ -9,13 +9,14 @@ import { SetStateAction, useState } from "react";
 import { Camera } from "@/lib/types";
 import Lottie from "react-lottie";
 import checkJson from "~/public/lotties/check.json";
+import { set } from "react-hook-form";
 
 interface ModalProps {
   setCamera: React.Dispatch<SetStateAction<Camera>>;
 }
 
 const SyncedModal = ({ setCamera }: ModalProps) => {
-  const { setModalState } = useModalStore();
+  const { setModalType, setModalState } = useModalStore();
   const updateMyPresence = useUpdateMyPresence();
 
   const process = useStorage((root) => root.process);
@@ -35,6 +36,19 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
       currentProcess: latestUndoneStep,
       isSynced: false,
     });
+    const localStorageProcess = JSON.parse(
+      localStorage.getItem("isFirstProject") as string,
+    );
+
+    if (localStorageProcess[latestUndoneStep - 1] === false) {
+      setModalType("guide");
+      setModalState(true);
+      localStorageProcess[latestUndoneStep - 1] = true;
+      localStorage.setItem(
+        "isFirstProject",
+        JSON.stringify(localStorageProcess),
+      );
+    }
   };
 
   const defaultOptions = {
