@@ -10,6 +10,12 @@ const ProjectCards = () => {
   const authToken = useGetAuthToken();
   const { projects, setUserInfo, setProjectsInfo } = useUserInfoStore();
 
+  const recentProjects = projects.sort(
+    (a, b) =>
+      new Date(b.lastModifiedDate).getTime() -
+      new Date(a.lastModifiedDate).getTime(),
+  );
+
   useEffect(() => {
     if (authToken) {
       getUserInfo(authToken).then((data) => {
@@ -28,8 +34,8 @@ const ProjectCards = () => {
 
   return (
     <div className="flex w-[98.2rem] items-center justify-start gap-[3.2rem] overflow-x-auto scrollbar-hide">
-      {projects.length ? (
-        projects.map((project) => (
+      {recentProjects.length ? (
+        recentProjects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))
       ) : (

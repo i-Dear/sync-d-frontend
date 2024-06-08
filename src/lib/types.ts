@@ -29,8 +29,12 @@ export type Process = {
 export type ProjectInfo = {
   name: string;
   id: string;
+  projectImg: string;
   description: string;
+  lastModifiedDate: string;
+  progress: number;
   role: string;
+  userEmails: string[];
 };
 
 export type UserInfo = {
