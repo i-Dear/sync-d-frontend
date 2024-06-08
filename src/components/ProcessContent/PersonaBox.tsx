@@ -11,10 +11,6 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const getRandomOffset = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
