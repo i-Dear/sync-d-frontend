@@ -11,15 +11,6 @@ interface TextProps {
   selectionColor?: string;
 }
 
-// const calculateFontSize = (width: number, height: number) => {
-//   const maxFontSize = 96;
-//   const scaleFactor = 0.5;
-//   const fontSizeBasedOnHeight = height * scaleFactor;
-//   const fontSizeBasedOnWidth = width * scaleFactor;
-
-//   return Math.min(fontSizeBasedOnHeight, fontSizeBasedOnWidth, maxFontSize);
-// };
-
 const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
   const { x, y, width, height, fill, value } = layer;
 
@@ -44,7 +35,7 @@ const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) => {
       <ContentEditable
         html={value || " "}
         onChange={handleContentChange}
-        className="flex h-full w-full justify-normal text-center outline-none drop-shadow-md"
+        className="h-full w-full outline-none drop-shadow-md"
         style={{
           fontSize: 14,
           color: colorToCss(fill) || "black",
