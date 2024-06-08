@@ -5,9 +5,10 @@ import {
   useBroadcastEvent,
 } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
-import { useState } from "react";
+import { use, useState } from "react";
 import { VoteBoxTemplate, TemplateType, Process } from "@/lib/types";
-
+import useSyncedData from "@/hooks/useSyncedData";
+import useCompleteProcess from "@/hooks/useCompleteProcess";
 type voteCandidate = 1 | 2 | 3 | 4 | 5;
 const VoteModal = () => {
   const broadcast = useBroadcastEvent();
@@ -29,22 +30,8 @@ const VoteModal = () => {
     }
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
   };
-  const process = useStorage((root) => root.process);
 
-  const latestUndoneProcess = process.find((process) => !process.done);
-  const latestUndoneStep = latestUndoneProcess?.step;
-  const completeProcess = useMutation(
-    ({ storage }) => {
-      if (!latestUndoneStep) return;
-      const storageProcess = storage.get("process");
-      const updatedProcess = {
-        ...storageProcess.get(latestUndoneStep - 1),
-        done: true,
-      } as Process;
-      storageProcess.set(latestUndoneStep - 1, updatedProcess);
-    },
-    [process],
-  );
+  const completeProcess = useCompleteProcess();
 
   const voteList = useStorage((root) => root.voteList);
   const layers = useStorage((root) => root.layers);

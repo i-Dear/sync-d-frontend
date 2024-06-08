@@ -3,9 +3,11 @@ import { InputFormBoxTemplate, PersonaContent, Process } from "@/lib/types";
 import { UserStory, Epic, Persona, SyncedData, Core } from "@/lib/types";
 import { use, useState } from "react";
 import { fetchSyncedData } from "@/utils/processSync";
+import useCountVoteResult from "./useCountVoteResult";
 const useSyncedData = () => {
   const [syncedData, setSyncedData] = useState<SyncedData>();
   const { id } = useRoom();
+  const voteResult = useCountVoteResult();
   return useMutation(
     ({ storage }) => {
       const layerIds = storage.get("layerIds");
@@ -16,9 +18,11 @@ const useSyncedData = () => {
       ) as Process;
       const step = latestUndoneProcess?.step;
 
-      if (step === 3) {
+      if (step === 4) {
         //문제의식
-      } else if (step === 4) {
+        const { winningVote } = voteResult();
+        console.log(winningVote, "이긴 표 ");
+      } else if (step === 5) {
         //페르소나 단계
         const personaData = [] as Persona[];
         const personas = layerIds
@@ -33,9 +37,11 @@ const useSyncedData = () => {
               detail: value[2].value,
             });
         });
+        console.log(personaData, "페르소나 데이터");
         setSyncedData(personaData);
-        fetchSyncedData(id, syncedData as SyncedData, step);
-      } else if (step === 8) {
+        console.log(syncedData);
+        fetchSyncedData(id, syncedData as SyncedData, 4);
+      } else if (step === 9) {
         //결정 단계가 끝나면
         const coreData = {
           coreTarget: "",
@@ -67,7 +73,8 @@ const useSyncedData = () => {
           (coreData.coreValue = coreValue.value as string);
         console.log("coreData", coreData);
         setSyncedData(coreData);
-        fetchSyncedData(id, syncedData as SyncedData, step);
+        console.log(syncedData);
+        fetchSyncedData(id, syncedData as SyncedData, 8);
       } else if (step === 11) {
         const epicData = [] as Epic[];
         const epics = layerIds
@@ -86,8 +93,8 @@ const useSyncedData = () => {
         setSyncedData(epicData);
       } else {
       }
-      console.log("syncedData", syncedData);
-      fetchSyncedData(id, syncedData as SyncedData, step);
+
+      // fetchSyncedData(id, syncedData as SyncedData, step);
     },
     [syncedData],
   );
