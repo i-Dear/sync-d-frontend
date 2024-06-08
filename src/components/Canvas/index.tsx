@@ -57,7 +57,7 @@ import { syncTemplates } from "@/lib/templates";
 import Modal from "@/components/Modals";
 import ReactFlowCanvas from "@/components/ReactFlowCanvas";
 import CanvasButton from "../CanvasToolBar/CanvasButton";
-
+import useModalStore from "@/store/useModalStore";
 const MAX_LAYERS = 500;
 
 const Canvas = () => {
@@ -504,6 +504,25 @@ const Canvas = () => {
   // useEffect(() => {
   //   resetTemplate();
   // }, [resetTemplate]);
+  const { isModalOpen, setModalState, setModalType } = useModalStore();
+
+  const checkFirstVistiedStep = () => {
+    if (localStorage.getItem("isFirstVisitedStep")) {
+      return;
+    } else {
+      const isFirstVisitedStepArray = new Array(12).fill(false);
+      isFirstVisitedStepArray[0] = true; // 첫 번째 값을 true로 설정
+
+      localStorage.setItem(
+        "isFirstVisitedStep",
+        JSON.stringify(isFirstVisitedStepArray),
+      );
+
+      setModalState(true), setModalType("guide");
+    }
+  };
+
+  checkFirstVistiedStep();
 
   return (
     <div>
