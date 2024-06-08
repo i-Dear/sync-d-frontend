@@ -68,8 +68,6 @@ const VoteModal = () => {
       const newTotalCount = prevTotalCount + 1;
       voteList.set("totalCount", newTotalCount);
 
-      console.log("prevTotalCount", prevTotalCount);
-      console.log("newTotalCount", newTotalCount);
       //마지막 투표자는 투표단계 완료 이니시
       if (newTotalCount === totalPeople) {
         broadcast({ type: "VOTE_COMPLETED", message: "vote Complete!" });
