@@ -1,15 +1,10 @@
-import {
-  useStorage,
-  useMutation,
-  useUpdateMyPresence,
-} from "~/liveblocks.config";
+import { useStorage, useUpdateMyPresence } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { Process } from "@/lib/types";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 import { Camera } from "@/lib/types";
 import Lottie from "react-lottie";
 import checkJson from "~/public/lotties/check.json";
-import { set } from "react-hook-form";
 
 interface ModalProps {
   setCamera: React.Dispatch<SetStateAction<Camera>>;
