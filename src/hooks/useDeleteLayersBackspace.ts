@@ -1,5 +1,5 @@
 import { useSelf, useMutation } from "~/liveblocks.config";
-
+import { VoteLayer } from "@/lib/types";
 /**
  * Delete all the selected layers.
  */
@@ -23,7 +23,12 @@ export default function useDeleteLayersBackspace(key?: string) {
           (layerType === 8 && selection.length === 1)
         ) {
           continue;
+        } else if (layerType === 8) {
+          const layerDataObject = layerData?.toObject() as VoteLayer;
+          const number = layerDataObject.number;
+          storage.get("voteList").get("voteMap").set(number, false);
         }
+        liveLayers.delete(id);
 
         liveLayers.delete(id);
         // Find the layer index in the z-index list and remove it
