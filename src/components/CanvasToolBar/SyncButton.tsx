@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import {
   useRoom,
@@ -13,12 +15,16 @@ import { Template, Epic, Process } from "@/lib/types";
 import { fetchScenario, addEpicLayer } from "@/utils/processSync";
 import useSyncedData from "@/hooks/useSyncedData";
 import useCompleteProcess from "@/hooks/useCompleteProcess";
+import { updateProgress } from "@/lib/data";
+import useGetAuthToken from "@/hooks/useGetAuthToken";
+
 const SyncButton = () => {
   const { setModalType, setModalState } = useModalStore();
 
   // Broadcast event hook
   const broadcast = useBroadcastEvent();
   const { id } = useRoom();
+  const authToken = useGetAuthToken();
   const [myPresence] = useMyPresence();
   const updateMyPresence = useUpdateMyPresence();
   const { currentProcess } = myPresence;
@@ -98,6 +104,9 @@ const SyncButton = () => {
         setModalType("complete");
         setModalState(true);
         completeProcess();
+        if (authToken) {
+          updateProgress(authToken, id, latestUndoneStep);
+        }
         return;
       }
       updateMySyncState(false);
@@ -105,6 +114,9 @@ const SyncButton = () => {
       setModalType("synced");
       setModalState(true);
       completeProcess();
+      if (authToken) {
+        updateProgress(authToken, id, latestUndoneStep);
+      }
     }
 
     //10단계에서만 적용되는 시나리오 전송 로직

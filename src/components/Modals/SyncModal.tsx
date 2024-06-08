@@ -1,11 +1,7 @@
-import {
-  useStorage,
-  useMutation,
-  useUpdateMyPresence,
-} from "~/liveblocks.config";
+import { useStorage, useUpdateMyPresence } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
 import { Process } from "@/lib/types";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 import { Camera } from "@/lib/types";
 import Lottie from "react-lottie";
 import checkJson from "~/public/lotties/check.json";
@@ -15,7 +11,7 @@ interface ModalProps {
 }
 
 const SyncedModal = ({ setCamera }: ModalProps) => {
-  const { setModalState } = useModalStore();
+  const { setModalType, setModalState } = useModalStore();
   const updateMyPresence = useUpdateMyPresence();
 
   const process = useStorage((root) => root.process);
@@ -35,6 +31,19 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
       currentProcess: latestUndoneStep,
       isSynced: false,
     });
+    const localStorageProcess = JSON.parse(
+      localStorage.getItem("isFirstVisitedStep") as string,
+    );
+
+    if (localStorageProcess[latestUndoneStep - 1] === false) {
+      setModalType("guide");
+      setModalState(true);
+      localStorageProcess[latestUndoneStep - 1] = true;
+      localStorage.setItem(
+        "isFirstVisitedStep",
+        JSON.stringify(localStorageProcess),
+      );
+    }
   };
 
   const defaultOptions = {

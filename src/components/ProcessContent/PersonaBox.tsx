@@ -14,8 +14,10 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
-
     const layerId = nanoid();
+    const personaCounts = liveLayerIds
+      .map((id) => layers.get(id))
+      .filter((v) => v?.get("type") === 7).length;
     const personaLayer = new LiveObject<Layer>({
       type: LayerType.Persona,
       title: "persona",
@@ -26,8 +28,8 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
       ],
       width: 380,
       height: 250,
-      x: 450,
-      y: 3150,
+      x: 450 + personaCounts * 50,
+      y: 3150 + personaCounts * 50,
     });
     liveLayerIds.push(layerId);
     layers.set(layerId, personaLayer);

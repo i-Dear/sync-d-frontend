@@ -55,6 +55,7 @@ const Room = ({ roomId }: RoomProps) => {
             "5": 0,
           }),
           totalCount: 0,
+          voteMap: new LiveList([false, false, false, false, false]),
         }),
         syncCount: 0,
         epics: new LiveList<Epic>(),

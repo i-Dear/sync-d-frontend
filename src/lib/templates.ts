@@ -468,7 +468,7 @@ export const syncTemplates: Template[] = [
     title:
       "앞선 단계에서 제공된 시나리오로 만든 Epic과 유저스토리에요. \nEpic은 큰 단위의 작업이고, 유저스토리는 유저가 취할 수 있는 액션이에요. \n싱크대가 제공한 Epic과 유저스토리를 수정하고 보완해주세요!",
     x: 75,
-    y: 10100,
+    y: 10150,
     width: 380,
     height: 300,
   },

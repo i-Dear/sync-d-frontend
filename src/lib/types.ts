@@ -29,8 +29,12 @@ export type Process = {
 export type ProjectInfo = {
   name: string;
   id: string;
+  projectImg: string;
   description: string;
+  lastModifiedDate: string;
+  progress: number;
   role: string;
+  userEmails: string[];
 };
 
 export type UserInfo = {
@@ -181,7 +185,7 @@ export type VoteLayer = {
   value?: string;
   fill?: string;
   title?: string;
-  length: number;
+  number: number;
 };
 
 export type Point = {

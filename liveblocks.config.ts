@@ -82,6 +82,7 @@ type Storage = {
       "5": number;
     }>;
     totalCount: number;
+    voteMap: LiveList<boolean>;
   }>;
   syncCount: number;
   epics: LiveList<Epic>;

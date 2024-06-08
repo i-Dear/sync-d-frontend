@@ -10,15 +10,17 @@ import DoubleQuoteCloseIcon from "~/public/DoubleQouteClose";
 export default function VoteBox(props: VoteBoxTemplate) {
   const { id, title, x, y, width, height, value } = props;
   const [isHovered, setIsHovered] = useState(false);
-  const templates = useStorage((root) => root.templates);
 
   const handleAdd = useMutation(({ storage }) => {
     const layers = storage.get("layers");
     const liveLayerIds = storage.get("layerIds");
+    const voteMap = storage.get("voteList").get("voteMap");
     const voteCounts = liveLayerIds
       .map((id) => layers.get(id))
       .filter((v) => v?.get("type") === 8).length;
     if (voteCounts >= 5) return;
+    const number = voteMap.findIndex((v) => !v);
+    storage.get("voteList").get("voteMap").set(number, true);
     const layerId = nanoid();
     const voteLayer = new LiveObject<Layer>({
       type: LayerType.Vote,
@@ -26,9 +28,9 @@ export default function VoteBox(props: VoteBoxTemplate) {
       value: "",
       width: 560,
       height: 220,
-      x: 650,
-      y: 2125,
-      length: voteCounts + 1,
+      x: 650 + number * 50,
+      y: 2125 + number * 50,
+      number: number,
     });
     liveLayerIds.push(layerId);
     layers.set(layerId, voteLayer);
