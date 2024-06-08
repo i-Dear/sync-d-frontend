@@ -18,11 +18,11 @@ const useSyncedData = () => {
       ) as Process;
       const step = latestUndoneProcess?.step;
 
-      if (step === 4) {
+      if (step === 3) {
         //문제의식
         const { winningVote } = voteResult();
         console.log(winningVote, "이긴 표 ");
-      } else if (step === 5) {
+      } else if (step === 4) {
         //페르소나 단계
         const personaData = [] as Persona[];
         const personas = layerIds
@@ -37,11 +37,8 @@ const useSyncedData = () => {
               detail: value[2].value,
             });
         });
-        console.log(personaData, "페르소나 데이터");
-        setSyncedData(personaData);
-        console.log(syncedData);
-        fetchSyncedData(id, syncedData as SyncedData, 4);
-      } else if (step === 9) {
+        fetchSyncedData(id, personaData, 4);
+      } else if (step === 8) {
         //결정 단계가 끝나면
         const coreData = {
           coreTarget: "",
@@ -71,10 +68,8 @@ const useSyncedData = () => {
           (coreData.coreCause = coreCause.value as string),
           (coreData.solution = solution.value as string),
           (coreData.coreValue = coreValue.value as string);
-        console.log("coreData", coreData);
         setSyncedData(coreData);
-        console.log(syncedData);
-        fetchSyncedData(id, syncedData as SyncedData, 8);
+        fetchSyncedData(id, coreData, 8);
       } else if (step === 11) {
         const epicData = [] as Epic[];
         const epics = layerIds
