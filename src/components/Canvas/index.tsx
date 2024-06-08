@@ -506,23 +506,23 @@ const Canvas = () => {
   // }, [resetTemplate]);
   const { isModalOpen, setModalState, setModalType } = useModalStore();
 
-  const checkFirstProject = () => {
-    if (localStorage.getItem("isFirstProject")) {
+  const checkFirstVistiedStep = () => {
+    if (localStorage.getItem("isFirstVisitedStep")) {
       return;
     } else {
-      const isFirstProjectArray = new Array(12).fill(false);
-      isFirstProjectArray[0] = true; // 첫 번째 값을 true로 설정
+      const isFirstVisitedStepArray = new Array(12).fill(false);
+      isFirstVisitedStepArray[0] = true; // 첫 번째 값을 true로 설정
 
       localStorage.setItem(
-        "isFirstProject",
-        JSON.stringify(isFirstProjectArray),
+        "isFirstVisitedStep",
+        JSON.stringify(isFirstVisitedStepArray),
       );
 
       setModalState(true), setModalType("guide");
     }
   };
 
-  checkFirstProject();
+  checkFirstVistiedStep();
 
   return (
     <div>

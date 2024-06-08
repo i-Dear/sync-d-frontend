@@ -37,7 +37,7 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
       isSynced: false,
     });
     const localStorageProcess = JSON.parse(
-      localStorage.getItem("isFirstProject") as string,
+      localStorage.getItem("isFirstVisitedStep") as string,
     );
 
     if (localStorageProcess[latestUndoneStep - 1] === false) {
@@ -45,7 +45,7 @@ const SyncedModal = ({ setCamera }: ModalProps) => {
       setModalState(true);
       localStorageProcess[latestUndoneStep - 1] = true;
       localStorage.setItem(
-        "isFirstProject",
+        "isFirstVisitedStep",
         JSON.stringify(localStorageProcess),
       );
     }
