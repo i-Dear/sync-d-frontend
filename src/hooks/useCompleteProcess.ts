@@ -12,6 +12,7 @@ const useCompleteProcess = () => {
   return useMutation(
     ({ storage }) => {
       if (!latestUndoneStep) return;
+      sendSyncedData();
       const storageProcess = storage.get("process");
       const updatedProcess = {
         ...storageProcess.get(latestUndoneStep - 1),
@@ -19,7 +20,6 @@ const useCompleteProcess = () => {
       } as Process;
       storageProcess.set(latestUndoneStep - 1, updatedProcess);
       console.log("completed process", latestUndoneStep);
-      sendSyncedData();
     },
     [process],
   );
