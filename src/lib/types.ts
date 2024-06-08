@@ -382,3 +382,18 @@ export type SerializableNode = LsonObject & {
     isParent?: boolean;
   };
 };
+export type Persona = {
+  info: string;
+  personality: string;
+  detail: string;
+};
+
+export type Core = {
+  coreTarget: string;
+  coreProblem: string;
+  coreCause: string;
+  solution: string;
+  coreValue: string;
+};
+
+export type SyncedData = Epic[] | Persona[] | Core;
