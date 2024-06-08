@@ -89,6 +89,7 @@ export const fetchSyncedData = async (
 ) => {
   const formData = new FormData();
   formData.append("projectStage", JSON.stringify(projectStage));
+  formData.append("projectId", id);
   if (projectStage === 3) {
     formData.append("problem", JSON.stringify(data));
   }
