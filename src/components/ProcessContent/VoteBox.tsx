@@ -26,8 +26,8 @@ export default function VoteBox(props: VoteBoxTemplate) {
       type: LayerType.Vote,
       title: "",
       value: "",
-      width: 560,
-      height: 220,
+      width: 520,
+      height: 200,
       x: 650 + number * 50,
       y: 2125 + number * 50,
       number: number,
@@ -65,9 +65,9 @@ export default function VoteBox(props: VoteBoxTemplate) {
         />
         <g>
           <foreignObject
-            x={x + 50}
-            y={y + 50}
-            width={200}
+            x={x + 38}
+            y={y + 38}
+            width={100}
             height={100}
             onMouseEnter={() => {
               setIsHovered(true);
@@ -76,14 +76,14 @@ export default function VoteBox(props: VoteBoxTemplate) {
             onMouseLeave={() => setIsHovered(false)}
             className="cursor-pointer"
           >
-            <PlusMarkIcon fill="#D4EAFB " width={100} height={100} />
+            <PlusMarkIcon fill="#D4EAFB " width={75} height={75} />
           </foreignObject>
         </g>
       </g>
 
       <foreignObject
-        x={x + 225}
-        y={y + 25}
+        x={x + 180}
+        y={y}
         width={300}
         height={50}
         style={{
@@ -103,15 +103,15 @@ export default function VoteBox(props: VoteBoxTemplate) {
         </div>
       </foreignObject>
       <foreignObject
-        x={x + 225}
-        y={y + 100}
+        x={x + 180}
+        y={y + 60}
         width={300}
         height={100}
         style={{ backgroundColor: isHovered ? "#D5D6D6" : "#F0F2F5" }}
         className="cursor-pointer rounded-xl"
       >
         <div
-          className={`font-Manrope text-bold flex h-full w-full select-none  justify-normal  p-[2rem] text-3xl text-zinc-600 outline-none`}
+          className={`font-Manrope text-bold flex h-full w-full select-none  justify-normal  p-[1.6rem] text-3xl text-zinc-600 outline-none`}
         >
           문제를 설명해주세요!
         </div>

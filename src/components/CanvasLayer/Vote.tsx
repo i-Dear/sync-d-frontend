@@ -38,8 +38,8 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
   return (
     <g onPointerDown={(e) => onPointerDown(e, id)}>
       <rect
-        x={x - 10}
-        y={y - 10}
+        x={x - 20}
+        y={y - 20}
         rx={10}
         ry={10}
         width={width}
@@ -55,10 +55,10 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
           style={{
             transform: `translate(${x}px, ${y}px)`,
           }}
-          cx={100}
-          cy={100}
-          rx={100}
-          ry={100}
+          cx={75}
+          cy={75}
+          rx={75}
+          ry={75}
           fill={"#FFF"}
           stroke="#D4EAFB"
           strokeWidth="4"
@@ -66,8 +66,8 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
         />
         <g>
           <text
-            x={x + 70}
-            y={y + 135}
+            x={x + 42}
+            y={y + 116}
             fontFamily="Arial"
             fontSize="110"
             fill="#D4EAFB"
@@ -77,8 +77,8 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
         </g>
       </g>
       <foreignObject
-        x={x + 225}
-        y={y + 25}
+        x={x + 180}
+        y={y}
         width={300}
         height={50}
         style={{
@@ -99,8 +99,8 @@ export default function Persona({ layer, onPointerDown, id }: VoteProps) {
         </div>
       </foreignObject>
       <foreignObject
-        x={x + 225}
-        y={y + 100}
+        x={x + 180}
+        y={y + 60}
         width={300}
         height={100}
         style={{ backgroundColor: "#F0F2F5" }}

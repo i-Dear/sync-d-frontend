@@ -20,7 +20,7 @@ export default function EpicBox(props: EpicBoxTemplate) {
       type: LayerType.Epic,
       title: "주체",
       length: 3,
-      width: 380,
+      width: 300,
       height: 0,
       value: [
         {
@@ -36,18 +36,17 @@ export default function EpicBox(props: EpicBoxTemplate) {
           name: "유저스토리",
         },
       ],
-      x: 100,
+      x: 110,
       y: 10100,
     });
     liveLayerIds.push(layerId);
     layers.set(layerId, EpicLayer);
-    console.log("addEpicLayer");
   }, []);
 
   return (
     <g>
       <rect
-        width={width ? width : 380}
+        width={width ? width : 340}
         x={x}
         y={y}
         rx={10}
@@ -55,18 +54,18 @@ export default function EpicBox(props: EpicBoxTemplate) {
         height={height ? height : 300}
         fill={isHovered ? "#369EFF" : "#FFF"}
         stroke={"#D4EAFB"}
-        strokeWidth="4"
+        strokeWidth="2"
         onClick={() => handleAdd()}
         onMouseEnter={() => {
           setIsHovered(true);
         }}
         onMouseLeave={() => setIsHovered(false)}
-        className="cursor-pointer"
+        className="cursor-pointer overflow-hidden rounded-[1.2rem]"
       />
 
       <foreignObject
-        x={x + 135}
-        y={y + 95}
+        x={x + 90}
+        y={y + 70}
         width={100}
         height={100}
         onClick={() => handleAdd()}
