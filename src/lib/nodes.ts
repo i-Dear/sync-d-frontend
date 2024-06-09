@@ -98,9 +98,6 @@ export default [
     data: {
       label:
         "이전 단계에서 우리가 탐구한 각 페르소나의 문제 상황을 정리해보세요!\n2분간, 간결하고 명확하게 작성하여 공유해주세요! 모든건 익명이니까 우리, 눈치보지마요 👀",
-      arrowStyle: {
-        transform: "rotate(-50deg) translate(0.5rem, -0.5rem)",
-      },
     },
     position: { x: 100, y: 35 },
   },

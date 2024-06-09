@@ -1,3 +1,5 @@
+import { CoreDetail, EpicInfo, PersonaInfo } from "./types";
+
 export const getUserInfo = async (token: string) => {
   try {
     const response = await fetch(
@@ -59,31 +61,73 @@ export const updateProgress = async (
   token: string,
   projectId: string,
   projectStage: number,
+  problem?: string,
+  personaInfos?: PersonaInfo[],
+  whyWhatHowImage?: Blob,
+  coreDetails?: CoreDetail,
+  businessModelImage?: Blob,
+  epics?: EpicInfo[],
+  menuTreeImage?: Blob,
 ) => {
-  try {
-    const response = await fetch(
-      `https://syncd-backend.dev.i-dear.org/v1/project/sync`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          projectId,
-          projectStage,
-        }),
-      },
-    );
+  const formData = new FormData();
 
-    if (!response.ok) {
-      throw new Error("프로젝트 진행 상태 업데이트에 실패했습니다.");
-    }
+  formData.append("projectId", projectId);
+  formData.append("projectStage", projectStage.toString());
 
-    return true;
-  } catch (error) {
-    console.error("프로젝트 진행 상태 업데이트에 실패 했습니다.", error);
-    return false;
+  switch (projectStage) {
+    case 3:
+      if (problem) formData.append("problem", problem);
+      break;
+    case 4:
+      if (personaInfos)
+        formData.append("personaInfos", JSON.stringify(personaInfos));
+      break;
+    case 7:
+      console.log("whyWhatHowImage", whyWhatHowImage);
+      if (whyWhatHowImage)
+        formData.append(
+          "whyWhatHowImage",
+          whyWhatHowImage,
+          "whyWhatHowImage.png",
+        );
+      break;
+    case 8:
+      if (coreDetails)
+        formData.append("coreDetails", JSON.stringify(coreDetails));
+      break;
+    case 9:
+      console.log("businessModelImage", businessModelImage);
+      if (businessModelImage)
+        formData.append(
+          "businessModelImage",
+          businessModelImage,
+          "businessModelImage.png",
+        );
+      break;
+    case 11:
+      if (epics) formData.append("epics", JSON.stringify(epics));
+      break;
+    case 12:
+      if (menuTreeImage)
+        formData.append("menuTreeImage", menuTreeImage, "menuTreeImage.png");
+      break;
+    default:
+      break;
   }
+
+  console.log("formData Contents", Array.from(formData.entries()));
+
+  fetch(`https://syncd-backend.dev.i-dear.org/v1/project/sync`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  })
+    .then((data) => {
+      console.log("Successfully sent image to backend", data);
+    })
+    .catch((error) => {
+      console.error("Error sending image to backend", error);
+    });
 };
