@@ -14,7 +14,6 @@ import ReactFlow, {
   useReactFlow,
   PanOnScrollMode,
   Edge,
-  Panel,
   getNodesBounds,
 } from "reactflow";
 
