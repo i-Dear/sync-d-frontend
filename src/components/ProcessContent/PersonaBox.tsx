@@ -26,8 +26,8 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
         { title: "personality", value: "특징" },
         { title: "detail", value: "상세정보" },
       ],
-      width: 380,
-      height: 250,
+      width: 340,
+      height: 260,
       x: 450 + personaCounts * 50,
       y: 3150 + personaCounts * 50,
     });
@@ -39,7 +39,7 @@ export default function PersonaBox(props: PersonaBoxTemplate) {
   return (
     <g>
       <rect
-        width={width ? width : 800}
+        width={width ? width : 600}
         x={x}
         y={y}
         rx={10}

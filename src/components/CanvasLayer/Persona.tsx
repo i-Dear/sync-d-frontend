@@ -39,11 +39,11 @@ export default function Persona({ layer, onPointerDown, id }: PersonaProps) {
     <foreignObject
       x={x}
       y={y}
-      width={width ? width : 300}
+      width={width ? width : 250}
       height={height ? height : 250}
       style={{ background: "#E9F5FF" }}
-      className={cn("h-[250] flex-col rounded-lg p-[2rem]", {
-        "border border-2 border-primary": isFocused,
+      className={cn("h-[250] flex-col rounded-[1.2rem] p-[2rem]", {
+        "border-2 border-primary": isFocused,
       })}
       onPointerDown={(e) => onPointerDown(e, id)}
       onFocus={handleFocus}
@@ -54,16 +54,16 @@ export default function Persona({ layer, onPointerDown, id }: PersonaProps) {
         onChange={(e) => {
           handleChangeValue("info", e.target.value);
         }}
-        className={`font-Manrope flex h-[30px] w-full items-center justify-normal text-3xl font-black text-primary-400 outline-none`}
+        className={` mb-[1rem] flex w-full items-center justify-start text-3xl font-bold text-primary-400 outline-none`}
       />
       <ContentEditable
         html={value[1].value}
         onChange={(e) => handleChangeValue("personality", e.target.value)}
-        className={`font-Manrope mb-[2rem] h-[50px] w-full items-start justify-normal rounded-lg bg-primary-300  p-[2px] text-2xl font-medium text-black outline-none`}
+        className={` mb-[2rem] h-[50px] w-full items-start justify-normal rounded-[0.8rem] bg-primary-300  p-[1rem] text-2xl font-normal text-black outline-none`}
       />
       <ContentEditable
         html={value[2].value}
-        className={`font-Manrope h-[116px] max-h-[116px] w-full justify-normal rounded-lg bg-primary-300  p-[3px] text-2xl text-black outline-none`}
+        className={` h-[116px] max-h-[116px] w-full justify-normal rounded-[0.8rem] bg-primary-300 p-[1rem]  text-2xl font-normal text-black outline-none`}
         onChange={(e) => {
           handleChangeValue("detail", e.target.value);
         }}
