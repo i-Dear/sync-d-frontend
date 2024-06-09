@@ -391,12 +391,12 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   }, []);
 
   useEffect(() => {
-    const latestDoneProcess = process.findLast(
-      (process) => process.done,
-    ) as Process;
+    const latestDoneProcess =
+      (process.findLast((process) => process.done) as Process)?.step || 0;
 
-    // Assuming latestDoneProcess.step is a number and valid key for captureOptions Map
-    captureNodes(latestDoneProcess.step);
+    captureNodes(latestDoneProcess);
+
+    console.log("capture", latestDoneProcess);
   }, [process]);
 
   return (
