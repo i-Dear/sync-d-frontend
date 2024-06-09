@@ -6,6 +6,8 @@ import EllipsisVertical from "~/public/ellipsis-vertical.svg";
 import ProjectDetailBox from "./ProjectDetailBox";
 import { useToggle } from "@/hooks/useToggle";
 import { Progress } from "./Common/Progress";
+import { getResult } from "@/lib/data";
+import useGetAuthToken from "@/hooks/useGetAuthToken";
 
 const ProjectCard = ({ project }: { project: ProjectInfo }) => {
   const [detailBoxPosition, setDetailBoxPosition] = useState<{
@@ -13,6 +15,7 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
     y: number;
   } | null>(null);
   const [isDetailBoxOpen, setIsDetailBoxOpen] = useToggle();
+  const authToken = useGetAuthToken();
 
   const handleEllipsisClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -22,6 +25,13 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
       y: boundingRect.top - boundingRect.height, // Position above the button
     });
     setIsDetailBoxOpen();
+  };
+
+  const handleResultButtonClick = () => {
+    if (!authToken) return;
+    getResult(authToken, project.id).then((data) => {
+      window.location.href = `${data.pdfUrl}`;
+    });
   };
 
   useEffect(() => {
@@ -91,7 +101,10 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
         </div>
       </Link>
       {project.progress === 12 && (
-        <button className="absolute bottom-[3.6rem] right-[1rem] h-[3.2rem] w-[6.6rem] rounded-[0.8rem] bg-primary text-[1.4rem] font-semibold text-white">
+        <button
+          onClick={handleResultButtonClick}
+          className="absolute bottom-[3.6rem] right-[1rem] h-[3.2rem] w-[6.6rem] rounded-[0.8rem] bg-primary text-[1.4rem] font-semibold text-white"
+        >
           결과 &gt;
         </button>
       )}

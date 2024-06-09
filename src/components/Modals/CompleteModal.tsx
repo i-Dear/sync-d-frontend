@@ -1,7 +1,12 @@
+import useGetAuthToken from "@/hooks/useGetAuthToken";
+import { getResult } from "@/lib/data";
 import Lottie from "react-lottie";
+import { useRoom } from "~/liveblocks.config";
 import clapJson from "~/public/lotties/clap.json";
 
 const CompleteModal = () => {
+  const authToken = useGetAuthToken();
+  const { id } = useRoom();
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -9,6 +14,13 @@ const CompleteModal = () => {
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
+  };
+
+  const handleResultButtonClick = () => {
+    if (!authToken) return;
+    getResult(authToken, id).then((data) => {
+      window.location.href = `${data.pdfUrl}`;
+    });
   };
 
   return (
@@ -20,7 +32,10 @@ const CompleteModal = () => {
       <span className="text-[1.6rem] font-normal text-div-text">
         모든 단계를 완료했습니다!
       </span>
-      <button className="mt-[0.4rem] w-fit cursor-pointer rounded-[1.2rem] bg-primary-500 px-[1.2rem] py-[0.8rem] text-center text-[1.4rem] font-semibold text-white">
+      <button
+        onClick={handleResultButtonClick}
+        className="mt-[0.4rem] w-fit cursor-pointer rounded-[1.2rem] bg-primary-500 px-[1.2rem] py-[0.8rem] text-center text-[1.4rem] font-semibold text-white"
+      >
         결과 확인 바로가기
       </button>
     </div>
