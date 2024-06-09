@@ -131,3 +131,40 @@ export const updateProgress = async (
       console.error("Error sending image to backend", error);
     });
 };
+
+type Result = {
+  pdfUrl: string;
+};
+
+export const getResult = async (
+  token: string,
+  projectId: string,
+): Promise<Result> => {
+  try {
+    const response = await fetch(
+      `https://syncd-backend.dev.i-dear.org/v1/project/result`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          projectId,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("프로젝트 결과 조회에 실패했습니다.");
+    }
+
+    const data = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    console.error("프로젝트 결과 조회에 실패했습니다.", error);
+    return { pdfUrl: "" };
+  }
+};
