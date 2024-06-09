@@ -9,7 +9,7 @@ import { SetStateAction } from "react";
 import { Camera } from "@/lib/types";
 import Lottie from "react-lottie";
 import checkJson from "~/public/lotties/check.json";
-
+import useCountVoteResult from "@/hooks/useCountVoteResult";
 interface ModalProps {
   setCamera: React.Dispatch<SetStateAction<Camera>>;
 }
@@ -24,36 +24,11 @@ const VoteCompleteModal = ({ setCamera }: ModalProps) => {
   ) as Process;
   const latestUndoneStep = latestUndoneProcess?.step;
 
-  const countVoteResult = useMutation(({ storage }) => {
-    const voteList = storage.get("voteList");
-    const voteCount = voteList.get("voteCount");
-
-    const voteCountObject = voteCount.toObject();
-    let maxVotes = 0;
-    let winningVote = null;
-
-    for (const [key, value] of Object.entries(voteCountObject)) {
-      if (value > maxVotes) {
-        maxVotes = value;
-        winningVote = key;
-      }
-    }
-    const initVote = () => {
-      voteCount.update({
-        "1": 0,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-      });
-      voteList.set("totalCount", 0);
-    };
-    return { winningVote, initVote };
-  }, []);
+  const voteResult = useCountVoteResult();
 
   const handleClick = () => {
-    const { initVote } = countVoteResult();
-    initVote();
+    // const { initVote } = voteResult();
+    // initVote();
     setModalState(false);
     setCamera(() => ({
       x: latestUndoneProcess.camera.x,
@@ -65,7 +40,7 @@ const VoteCompleteModal = ({ setCamera }: ModalProps) => {
     });
   };
 
-  const { winningVote } = countVoteResult();
+  const { winningVote } = voteResult();
 
   const defaultOptions = {
     loop: false,

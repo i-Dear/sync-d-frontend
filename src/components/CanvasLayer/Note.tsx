@@ -1,8 +1,7 @@
 import { NoteLayer } from "@/lib/types";
-import { cn, colorToCss } from "@/lib/utils";
+import { colorToCss } from "@/lib/utils";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import { useMutation } from "~/liveblocks.config";
-import { TextLayer } from "@/lib/types";
 import React, { useState } from "react";
 
 type NoteProps = {
@@ -34,12 +33,6 @@ export default function Note({
     updateValue(newValue);
   };
 
-  const handleFocus = () => {
-    if (isPlaceholderVisible) {
-      setPlaceholderVisible(false);
-    }
-  };
-
   return (
     <foreignObject
       x={x}
@@ -53,7 +46,7 @@ export default function Note({
       <ContentEditable
         html={value || " "}
         onChange={handleContentChange}
-        className="flex h-full w-full justify-normal p-[1rem] outline-none "
+        className=" h-full w-full  p-[1rem] outline-none "
         style={{
           fontSize: 14,
           color: "black",

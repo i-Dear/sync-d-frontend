@@ -5,9 +5,11 @@ import {
   useBroadcastEvent,
 } from "~/liveblocks.config";
 import useModalStore from "@/store/useModalStore";
-import { useState } from "react";
+import { use, useState } from "react";
 import { VoteBoxTemplate, TemplateType, Process } from "@/lib/types";
-
+import useSyncedData from "@/hooks/useSyncedData";
+import useCompleteProcess from "@/hooks/useCompleteProcess";
+import useGetAuthToken from "@/hooks/useGetAuthToken";
 type voteCandidate = 1 | 2 | 3 | 4 | 5;
 const VoteModal = () => {
   const broadcast = useBroadcastEvent();
@@ -16,7 +18,7 @@ const VoteModal = () => {
   const [voteCompleted, setVoteCompleted] = useState<boolean>(false);
   const others = useOthers().length;
   const totalPeople = others + 1;
-
+  const authToken = useGetAuthToken();
   const handleVote = (key: voteCandidate) => () => {
     setVote(key);
     setVoteCompleted(true);
@@ -29,22 +31,8 @@ const VoteModal = () => {
     }
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
   };
-  const process = useStorage((root) => root.process);
 
-  const latestUndoneProcess = process.find((process) => !process.done);
-  const latestUndoneStep = latestUndoneProcess?.step;
-  const completeProcess = useMutation(
-    ({ storage }) => {
-      if (!latestUndoneStep) return;
-      const storageProcess = storage.get("process");
-      const updatedProcess = {
-        ...storageProcess.get(latestUndoneStep - 1),
-        done: true,
-      } as Process;
-      storageProcess.set(latestUndoneStep - 1, updatedProcess);
-    },
-    [process],
-  );
+  const completeProcess = useCompleteProcess(authToken!);
 
   const voteList = useStorage((root) => root.voteList);
   const layers = useStorage((root) => root.layers);
@@ -68,8 +56,6 @@ const VoteModal = () => {
       const newTotalCount = prevTotalCount + 1;
       voteList.set("totalCount", newTotalCount);
 
-      console.log("prevTotalCount", prevTotalCount);
-      console.log("newTotalCount", newTotalCount);
       //마지막 투표자는 투표단계 완료 이니시
       if (newTotalCount === totalPeople) {
         broadcast({ type: "VOTE_COMPLETED", message: "vote Complete!" });

@@ -13,6 +13,8 @@ import {
 import useModalStore from "@/store/useModalStore";
 import { Template, Epic, Process } from "@/lib/types";
 import { fetchScenario, addEpicLayer } from "@/utils/processSync";
+import useSyncedData from "@/hooks/useSyncedData";
+import useCompleteProcess from "@/hooks/useCompleteProcess";
 import { updateProgress } from "@/lib/data";
 import useGetAuthToken from "@/hooks/useGetAuthToken";
 
@@ -54,18 +56,7 @@ const SyncButton = () => {
   ) as Process;
   const latestUndoneStep = latestUndoneProcess?.step;
 
-  const completeProcess = useMutation(
-    ({ storage }) => {
-      if (!latestUndoneStep) return;
-      const storageProcess = storage.get("process");
-      const updatedProcess = {
-        ...storageProcess.get(latestUndoneStep - 1),
-        done: true,
-      } as Process;
-      storageProcess.set(latestUndoneStep - 1, updatedProcess);
-    },
-    [process],
-  );
+  const completeProcess = useCompleteProcess(authToken!);
 
   useEffect(() => {
     setMySyncState(false);
@@ -113,20 +104,6 @@ const SyncButton = () => {
       setModalType("synced");
       setModalState(true);
       completeProcess();
-      if (authToken) {
-        updateProgress(
-          authToken,
-          id,
-          latestUndoneStep,
-          "",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-        );
-      }
     }
   };
 

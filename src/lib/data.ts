@@ -1,4 +1,4 @@
-import { CoreDetail, EpicInfo, PersonaInfo } from "./types";
+import { CoreDetail, Epic, PersonaInfo } from "./types";
 
 export const getUserInfo = async (token: string) => {
   try {
@@ -66,7 +66,7 @@ export const updateProgress = async (
   whyWhatHowImage?: Blob,
   coreDetails?: CoreDetail,
   businessModelImage?: Blob,
-  epics?: EpicInfo[],
+  epics?: Epic[],
   menuTreeImage?: Blob,
 ) => {
   const formData = new FormData();
@@ -76,7 +76,9 @@ export const updateProgress = async (
 
   switch (projectStage) {
     case 3:
-      if (problem) formData.append("problem", problem);
+      if (problem) {
+        formData.append("problem", problem);
+      }
       break;
     case 4:
       if (personaInfos)
@@ -120,7 +122,7 @@ export const updateProgress = async (
   fetch(`https://syncd-backend.dev.i-dear.org/v1/project/sync`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
     body: formData,
   })

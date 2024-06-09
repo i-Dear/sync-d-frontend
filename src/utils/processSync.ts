@@ -9,7 +9,7 @@ import { Epic, Layer } from "@/lib/types";
 import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
 import { useStorage } from "~/liveblocks.config";
 import { nanoid } from "nanoid";
-
+import { SyncedData } from "@/lib/types";
 interface ResponseData {
   epics: Epic[];
 }
@@ -80,4 +80,45 @@ export const addEpicLayer = (
   });
   liveLayerIds.push(layerId);
   layers.set(layerId, epicLayer);
+};
+
+export const fetchSyncedData = async (
+  id: string,
+  data: SyncedData,
+  projectStage: number,
+) => {
+  const formData = new FormData();
+  formData.append("projectStage", JSON.stringify(projectStage));
+  formData.append("projectId", id);
+  if (projectStage === 3) {
+    console.log("data", data);
+    formData.append("problem", JSON.stringify(data));
+  }
+  if (projectStage === 4) {
+    console.log("data", data);
+    formData.append("personaInfos", JSON.stringify(data));
+  }
+  if (projectStage === 8) {
+    console.log("data", data);
+    formData.append("coreDetails", JSON.stringify(data));
+  }
+  if (projectStage === 11) {
+    console.log("data", data);
+    formData.append("epics", JSON.stringify(data));
+  }
+  try {
+    const response = await fetch(
+      "https://syncd-backend.dev.i-dear.org/v1/project/sync",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+        body: formData,
+      },
+    );
+    console.log("response", response);
+  } catch (error) {
+    console.log("error", error);
+  }
 };

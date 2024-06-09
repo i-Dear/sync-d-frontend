@@ -386,7 +386,6 @@ export type SerializableNode = LsonObject & {
     isParent?: boolean;
   };
 };
-
 export type PersonaInfo = {
   info: string;
   personality: string;
@@ -400,6 +399,8 @@ export type CoreDetail = {
   solution: string;
   coreValue: string;
 };
+
+export type SyncedData = Epic[] | PersonaInfo[] | CoreDetail | string;
 
 export type EpicInfo = {
   id: string;
