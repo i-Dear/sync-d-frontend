@@ -75,6 +75,14 @@ const SyncButton = () => {
   const handleClick = async () => {
     updateMySyncState(true);
     if (syncCount + 1 === totalMembers) {
+      if ([7, 9].includes(currentProcess)) {
+        updateMySyncState(false);
+        broadcast({ type: "ALL_SYNCED", message: "sync Complete!" });
+        setModalType("synced");
+        setModalState(true);
+        completeProcess();
+        return;
+      }
       if (currentProcess === 10) {
         broadcast({
           type: "SCENARIO_MODAL_ON",
@@ -98,9 +106,6 @@ const SyncButton = () => {
         setModalType("complete");
         setModalState(true);
         completeProcess();
-        if (authToken) {
-          updateProgress(authToken, id, latestUndoneStep);
-        }
         return;
       }
       updateMySyncState(false);
@@ -109,11 +114,20 @@ const SyncButton = () => {
       setModalState(true);
       completeProcess();
       if (authToken) {
-        updateProgress(authToken, id, latestUndoneStep);
+        updateProgress(
+          authToken,
+          id,
+          latestUndoneStep,
+          "",
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+        );
       }
     }
-
-    //10단계에서만 적용되는 시나리오 전송 로직
   };
 
   const updateEpic = useMutation(({ storage }, epics) => {
