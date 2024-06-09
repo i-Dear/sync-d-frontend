@@ -400,4 +400,4 @@ export type Core = {
   coreValue: string;
 };
 
-export type SyncedData = Epic[] | Persona[] | Core;
+export type SyncedData = Epic[] | Persona[] | Core | string;

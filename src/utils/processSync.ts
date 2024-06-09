@@ -91,9 +91,11 @@ export const fetchSyncedData = async (
   formData.append("projectStage", JSON.stringify(projectStage));
   formData.append("projectId", id);
   if (projectStage === 3) {
+    console.log("data", data);
     formData.append("problem", JSON.stringify(data));
   }
   if (projectStage === 4) {
+    console.log("data", data);
     formData.append("personaInfos", JSON.stringify(data));
   }
   if (projectStage === 8) {
@@ -101,6 +103,7 @@ export const fetchSyncedData = async (
     formData.append("coreDetails", JSON.stringify(data));
   }
   if (projectStage === 11) {
+    console.log("data", data);
     formData.append("epics", JSON.stringify(data));
   }
   try {

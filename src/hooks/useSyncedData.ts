@@ -1,6 +1,13 @@
 import { useMutation, useRoom } from "~/liveblocks.config";
 import { InputFormBoxTemplate, PersonaContent, Process } from "@/lib/types";
-import { UserStory, Epic, Persona, SyncedData, Core } from "@/lib/types";
+import {
+  UserStory,
+  Epic,
+  Persona,
+  SyncedData,
+  Core,
+  VoteLayer,
+} from "@/lib/types";
 import { use, useState } from "react";
 import { fetchSyncedData } from "@/utils/processSync";
 import useCountVoteResult from "./useCountVoteResult";
@@ -22,6 +29,17 @@ const useSyncedData = () => {
         //문제의식
         const { winningVote } = voteResult();
         console.log(winningVote, "이긴 표 ");
+        const voteList = layerIds
+          .map((id) => layers.get(id))
+          .filter((v) => v?.get("type") === 8);
+        voteList.map((v) => {
+          const vote = v?.toObject() as VoteLayer;
+          if (`${vote.number + 1}` === winningVote) {
+            const voteData = vote.title as string;
+            fetchSyncedData(id, voteData, 3);
+            return;
+          }
+        });
       } else if (step === 4) {
         //페르소나 단계
         const personaData = [] as Persona[];
@@ -86,6 +104,7 @@ const useSyncedData = () => {
           });
         });
         setSyncedData(epicData);
+        fetchSyncedData(id, epicData, 11);
       } else {
       }
 

@@ -56,22 +56,7 @@ const SyncButton = () => {
   ) as Process;
   const latestUndoneStep = latestUndoneProcess?.step;
 
-  const sendSyncedData = useSyncedData();
   const completeProcess = useCompleteProcess();
-  // const completeProcess = useMutation(
-  //   ({ storage }) => {
-  //     if (!latestUndoneStep) return;
-  //     const storageProcess = storage.get("process");
-  //     const updatedProcess = {
-  //       ...storageProcess.get(latestUndoneStep - 1),
-  //       done: true,
-  //     } as Process;
-  //     storageProcess.set(latestUndoneStep - 1, updatedProcess);
-  //     console.log("completed process", latestUndoneStep);
-  //     sendSyncedData();
-  //   },
-  //   [process],
-  // );
 
   useEffect(() => {
     setMySyncState(false);
@@ -104,9 +89,9 @@ const SyncButton = () => {
         setModalType("complete");
         setModalState(true);
         completeProcess();
-        if (authToken) {
-          updateProgress(authToken, id, latestUndoneStep);
-        }
+        // if (authToken) {
+        //   updateProgress(authToken, id, latestUndoneStep);
+        // }
         return;
       }
       updateMySyncState(false);
@@ -115,7 +100,7 @@ const SyncButton = () => {
       setModalState(true);
       completeProcess();
       if (authToken) {
-        updateProgress(authToken, id, latestUndoneStep);
+        // updateProgress(authToken, id, latestUndoneStep);
       }
     }
 
