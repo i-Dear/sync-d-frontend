@@ -9,6 +9,7 @@ import { use, useState } from "react";
 import { VoteBoxTemplate, TemplateType, Process } from "@/lib/types";
 import useSyncedData from "@/hooks/useSyncedData";
 import useCompleteProcess from "@/hooks/useCompleteProcess";
+import useGetAuthToken from "@/hooks/useGetAuthToken";
 type voteCandidate = 1 | 2 | 3 | 4 | 5;
 const VoteModal = () => {
   const broadcast = useBroadcastEvent();
@@ -17,7 +18,7 @@ const VoteModal = () => {
   const [voteCompleted, setVoteCompleted] = useState<boolean>(false);
   const others = useOthers().length;
   const totalPeople = others + 1;
-
+  const authToken = useGetAuthToken();
   const handleVote = (key: voteCandidate) => () => {
     setVote(key);
     setVoteCompleted(true);
@@ -31,7 +32,7 @@ const VoteModal = () => {
     //유저의 투표 상태 및 투표 정보 업데이트 추가 필요
   };
 
-  const completeProcess = useCompleteProcess();
+  const completeProcess = useCompleteProcess(authToken!);
 
   const voteList = useStorage((root) => root.voteList);
   const layers = useStorage((root) => root.layers);

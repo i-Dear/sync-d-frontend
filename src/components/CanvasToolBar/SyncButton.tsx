@@ -56,7 +56,7 @@ const SyncButton = () => {
   ) as Process;
   const latestUndoneStep = latestUndoneProcess?.step;
 
-  const completeProcess = useCompleteProcess();
+  const completeProcess = useCompleteProcess(authToken!);
 
   useEffect(() => {
     setMySyncState(false);
@@ -104,20 +104,6 @@ const SyncButton = () => {
       setModalType("synced");
       setModalState(true);
       completeProcess();
-      if (authToken) {
-        updateProgress(
-          authToken,
-          id,
-          latestUndoneStep,
-          "",
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-        );
-      }
     }
   };
 
