@@ -30,7 +30,7 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => {
   const handleResultButtonClick = () => {
     if (!authToken) return;
     getResult(authToken, project.id).then((data) => {
-      window.location.href = `${data.pdfUrl}`;
+      window.open(data.pdfUrl, "_blank");
     });
   };
 
