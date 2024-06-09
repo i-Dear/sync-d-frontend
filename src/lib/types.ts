@@ -386,13 +386,13 @@ export type SerializableNode = LsonObject & {
     isParent?: boolean;
   };
 };
-export type Persona = {
+export type PersonaInfo = {
   info: string;
   personality: string;
   detail: string;
 };
 
-export type Core = {
+export type CoreDetail = {
   coreTarget: string;
   coreProblem: string;
   coreCause: string;
@@ -400,4 +400,10 @@ export type Core = {
   coreValue: string;
 };
 
-export type SyncedData = Epic[] | Persona[] | Core | string;
+export type SyncedData = Epic[] | PersonaInfo[] | CoreDetail | string;
+
+export type EpicInfo = {
+  id: string;
+  name: string;
+  userStories: UserStory[];
+};

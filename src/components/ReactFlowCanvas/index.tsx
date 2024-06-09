@@ -14,9 +14,10 @@ import ReactFlow, {
   useReactFlow,
   PanOnScrollMode,
   Edge,
+  getNodesBounds,
 } from "reactflow";
 
-import { useMutation, useStorage } from "~/liveblocks.config";
+import { useMutation, useRoom, useStorage } from "~/liveblocks.config";
 import FloatingEdge from "./FloatingEdge";
 import StakeholderConnectionLine from "./StakeholderConnectionLine";
 import StakeholderNode from "./Node/StakeholderNode";
@@ -33,15 +34,18 @@ import AnnotationNode from "./Node/AnnotationNode";
 import PageNode from "./Node/PageNode";
 import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
+import { toPng } from "html-to-image";
 import { LiveObject } from "@liveblocks/client";
-import { serializeNode } from "@/lib/utils";
-import { SerializableNode } from "@/lib/types";
+import { convertDataUrlToBlob, serializeNode } from "@/lib/utils";
+import { Process, SerializableNode } from "@/lib/types";
 import useNodes from "@/lib/useNodes";
 import {
   isNodeDimensionChanges,
   isNodePositionChanges,
   isNodeRemoveChanges,
 } from "@/lib/guard";
+import useGetAuthToken from "@/hooks/useGetAuthToken";
+import { updateProgress } from "@/lib/data";
 
 type Viewport = { x: number; y: number; zoom: number };
 
@@ -81,14 +85,45 @@ const defaultEdgeOptions = {
   },
 };
 
+type CaptureOption = {
+  viewport: { x: number; y: number; zoom: number };
+  nodeTypes: string[];
+};
+
+const captureOptions = new Map<number, CaptureOption>([
+  [
+    7,
+    {
+      viewport: { x: 0, y: 0, zoom: 1 },
+      nodeTypes: ["input", "areaNode", "middleNode"],
+    },
+  ],
+  [
+    9,
+    {
+      viewport: { x: 0, y: -1000, zoom: 1 },
+      nodeTypes: ["stakeholderNode"],
+    },
+  ],
+  [
+    12,
+    {
+      viewport: { x: 0, y: -2000, zoom: 0.9 },
+      nodeTypes: ["pageNode", "contentNode"],
+    },
+  ],
+]);
+
 const Flow = ({ currentProcess }: { currentProcess: number }) => {
   const connectingNodeId = useRef<string | null>(null);
   const liveNodeMap = useStorage((root) => root.nodes);
-  // liveNodeMap에서 Node 리스트만 따로 빼서 비직렬화 (reactFlow에서 보여줄 Nodes)
+  const process = useStorage((root) => root.process);
+  const authToken = useGetAuthToken();
   const nodes = useNodes();
   const edges = useStorage((root) => root.edges);
   const [nodeColor, setNodeColor] = useState("#121417");
   const reactFlow = useReactFlow();
+  const { id } = useRoom();
 
   reactFlow.setViewport(StepViewport[currentProcess]);
 
@@ -299,15 +334,70 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
     }
   }, []);
 
+  // Assuming captureOptions is defined as a Map somewhere above in your code
+
+  const captureNodes = (processStage: number) => {
+    if (!captureOptions.has(processStage)) {
+      return;
+    }
+
+    const option = captureOptions.get(processStage);
+    const nodes = reactFlow.getNodes();
+
+    if (!option) return;
+
+    const capturingNodes = nodes.filter((node) =>
+      option.nodeTypes.includes(node.type!),
+    );
+
+    const bounds = getNodesBounds(capturingNodes);
+
+    console.log(bounds);
+
+    reactFlow.setViewport(option.viewport);
+
+    setTimeout(() => {
+      toPng(document.querySelector(".react-flow__viewport") as HTMLElement, {
+        backgroundColor: "#ffffff",
+        width: bounds.x + bounds.width + 150,
+        height: bounds.height + 150,
+        canvasWidth: bounds.x + bounds.width + 150,
+        canvasHeight: bounds.height + 150,
+      }).then((dataUrl) => {
+        const blobData = convertDataUrlToBlob(dataUrl);
+
+        if (authToken) {
+          updateProgress(
+            authToken,
+            id,
+            processStage,
+            "",
+            undefined,
+            blobData,
+            undefined,
+            blobData,
+            undefined,
+            blobData,
+          );
+        }
+      });
+    }, 2000);
+  };
+
   useEffect(() => {
     if (nodes.length === 0) {
       init();
     }
   }, []);
 
-  // useEffect(() => {
-  //   init();
-  // }, []);
+  useEffect(() => {
+    const latestDoneProcess = process.findLast(
+      (process) => process.done,
+    ) as Process;
+
+    // Assuming latestDoneProcess.step is a number and valid key for captureOptions Map
+    captureNodes(latestDoneProcess.step);
+  }, [process]);
 
   return (
     <div className="h-full w-full grow" ref={reactFlowWrapper}>
