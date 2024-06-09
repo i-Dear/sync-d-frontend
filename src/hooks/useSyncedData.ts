@@ -3,18 +3,22 @@ import { InputFormBoxTemplate, PersonaContent, Process } from "@/lib/types";
 import {
   UserStory,
   Epic,
-  Persona,
+  PersonaInfo,
   SyncedData,
-  Core,
+  CoreDetail,
   VoteLayer,
 } from "@/lib/types";
 import { use, useState } from "react";
 import { fetchSyncedData } from "@/utils/processSync";
+import { updateProgress } from "@/lib/data";
 import useCountVoteResult from "./useCountVoteResult";
+import useGetAuthToken from "@/hooks/useGetAuthToken";
 const useSyncedData = () => {
   const [syncedData, setSyncedData] = useState<SyncedData>();
   const { id } = useRoom();
   const voteResult = useCountVoteResult();
+  const authToken = useGetAuthToken();
+
   return useMutation(
     ({ storage }) => {
       const layerIds = storage.get("layerIds");
@@ -25,7 +29,7 @@ const useSyncedData = () => {
       ) as Process;
       const step = latestUndoneProcess?.step;
 
-      if (step === 3) {
+      if (step === 3 && authToken) {
         //문제의식
         const { winningVote } = voteResult();
         console.log(winningVote, "이긴 표 ");
@@ -36,13 +40,14 @@ const useSyncedData = () => {
           const vote = v?.toObject() as VoteLayer;
           if (`${vote.number + 1}` === winningVote) {
             const voteData = vote.title as string;
-            fetchSyncedData(id, voteData, 3);
+            fetchSyncedData(id, voteData, 3); //가
+            updateProgress(authToken, id, 3, voteData);
             return;
           }
         });
       } else if (step === 4) {
         //페르소나 단계
-        const personaData = [] as Persona[];
+        const personaData = [] as PersonaInfo[];
         const personas = layerIds
           .map((id) => layers.get(id))
           .filter((v) => v?.get("type") === 7);
@@ -64,7 +69,7 @@ const useSyncedData = () => {
           coreCause: "",
           solution: "",
           coreValue: "",
-        } as Core;
+        } as CoreDetail;
         const templates = storage.get("templates").toArray();
         const coreTarget = templates.find(
           (v) => v.id === "805",
