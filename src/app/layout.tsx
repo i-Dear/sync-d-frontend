@@ -2,7 +2,6 @@ import "./globals.css";
 import "reactflow/dist/base.css";
 import "reactflow/dist/style.css";
 import type { Metadata, Viewport } from "next";
-import CustomRootLayout from "@/components/Layout/RootLayout";
 import Metrics from "@/metrics";
 
 export const metadata: Metadata = {
@@ -26,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <CustomRootLayout>{children}</CustomRootLayout>
+      <body>{children}</body>
       <Metrics />
     </html>
   );
