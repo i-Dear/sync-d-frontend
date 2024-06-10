@@ -146,7 +146,7 @@ export const getResult = async (
     const response = await fetch(
       `https://syncd-backend.dev.i-dear.org/v1/project/result`,
       {
-        method: "GET",
+        method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
