@@ -9,7 +9,7 @@ const Layout = ({
 }>) => {
   return (
     <CustomLayout>
-      <div className="flex h-full w-full">
+      <div className="flex h-full w-screen">
         <LeftNav />
         <main className="h-full w-full">{children}</main>
       </div>
