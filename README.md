@@ -33,17 +33,7 @@
 
 | 정준호 | 이재준 |
 | ---  | --- |
-| <img
-  src="https://github.com/i-Dear/sync-d-frontend/assets/121740394/8b4f3bb6-7767-45a6-97ac-e4fb5ab770e8"
-  alt="정준호 프사" />
-  <br>
-  팀장, FE, Designer
-| <img
-  src="https://avatars.githubusercontent.com/u/91151775?v=4"
-  alt="이재준 프사" />
-  <br>
-  FE
-|
+| <img src="https://avatars.githubusercontent.com/u/121740394?v=4" alt="정준호 프사" /> <br/> 팀장, FE, Designer | <img src="https://avatars.githubusercontent.com/u/91151775?v=4" alt="이재준 프사" /> <br> FE |
 
 <br>
 
