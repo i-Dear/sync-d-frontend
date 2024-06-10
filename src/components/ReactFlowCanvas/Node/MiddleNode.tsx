@@ -59,7 +59,7 @@ const MiddleNode = ({ id, data }: NodeProps) => {
 
       <div className="absolute left-[0.5rem] top-[0.5rem] flex items-center gap-[0.8rem]">
         <span
-          className="dragHandle h-[0.75rem] w-[0.75rem] cursor-grab rounded-full"
+          className="dragHandle h-[0.75rem] w-[0.75rem] rounded-full"
           style={{
             background: data.color,
           }}

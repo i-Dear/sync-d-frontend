@@ -36,7 +36,11 @@ import ContentNode from "./Node/ContentNode";
 import AreaNode from "./Node/AreaNode";
 import { toPng } from "html-to-image";
 import { LiveObject } from "@liveblocks/client";
-import { convertDataUrlToBlob, serializeNode } from "@/lib/utils";
+import {
+  convertDataUrlToBlob,
+  extractPosition,
+  serializeNode,
+} from "@/lib/utils";
 import { Process, SerializableNode } from "@/lib/types";
 import useNodes from "@/lib/useNodes";
 import {
@@ -179,24 +183,33 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
   );
 
   const onConnectEnd = useCallback(
-    (event: any) => {
+    (event: MouseEvent | TouchEvent) => {
       if (!connectingNodeId.current) return;
       const sourceNodeType = liveNodeMap.get(connectingNodeId.current)?.type;
 
-      // 허공에 연결했을 때만 새로운 노드 생성
-      const targetIsPane = event.target.classList.contains("react-flow__pane");
+      if (!reactFlowInstance) {
+        return;
+      }
+
+      let x, y;
+
+      if ("touches" in event) {
+        x = event.changedTouches[0].clientX;
+        y = event.changedTouches[0].clientY;
+      } else {
+        x = event.clientX;
+        y = event.clientY;
+      }
+
+      const dropTarget = document.elementFromPoint(x, y);
+
+      const targetIsPane =
+        dropTarget && dropTarget.classList.contains("react-flow__pane");
 
       if (targetIsPane && sourceNodeType !== "stakeholderNode") {
         const id = nanoid();
 
-        if (!reactFlowInstance) {
-          return;
-        }
-
-        const position = reactFlowInstance.screenToFlowPosition({
-          x: event.clientX,
-          y: event.clientY,
-        });
+        const position = reactFlowInstance.screenToFlowPosition({ x, y });
 
         const previousNodeData = liveNodeMap.get(
           connectingNodeId.current,
@@ -243,6 +256,9 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
 
       const type = event.dataTransfer.getData("application/reactflow");
 
+      const { x, y } = extractPosition(event);
+      console.log(x, y, type);
+
       if (typeof type === "undefined" || !type) {
         return;
       }
@@ -251,10 +267,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
         return;
       }
 
-      const position = reactFlowInstance.screenToFlowPosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
+      const position = reactFlowInstance.screenToFlowPosition({ x, y });
 
       const id = nanoid();
       const newNode = {
@@ -420,6 +433,7 @@ const Flow = ({ currentProcess }: { currentProcess: number }) => {
         panOnDrag={false}
         panOnScroll={true}
         panOnScrollMode={PanOnScrollMode.Horizontal}
+        className="touchdevice-flow"
       >
         <Controls />
       </ReactFlow>

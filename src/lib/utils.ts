@@ -283,3 +283,21 @@ export const convertDataUrlToBlob = (dataUrl: string) => {
 
   return new Blob([ab], { type: mimeString });
 };
+
+export const isTouchDevice = () => {
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+};
+
+export const extractPosition = (
+  event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+): {
+  x: number;
+  y: number;
+} => {
+  if ("touches" in event && event.touches.length > 0) {
+    return { x: event.touches[0].clientX, y: event.touches[0].clientY };
+  } else if ("clientX" in event) {
+    return { x: event.clientX, y: event.clientY };
+  }
+  return { x: 0, y: 0 };
+};
