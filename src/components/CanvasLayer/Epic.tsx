@@ -57,7 +57,7 @@ export default function Epic({
     prevStory.push({ id: prevStory[prevStory.length - 1].id + 1, name: "" });
     const newStory = prevStory;
     liveLayers.get(id)?.set("value", newStory);
-    const newHeight = newStory.length * 70 + 160;
+    const newHeight = newStory.length * 60 + 150;
     liveLayers.get(id)?.set("height", newHeight);
   }, []);
 
@@ -70,7 +70,7 @@ export default function Epic({
     const prevStory = liveLayers.get(id)?.get("value") as UserStory[];
     const newStory = prevStory.filter((_, i) => i !== index);
     liveLayers.get(id)?.set("value", newStory);
-    const newHeight = newStory.length * 70 + 160;
+    const newHeight = newStory.length * 60 + 150;
     liveLayers.get(id)?.set("height", newHeight);
   }, []);
 
@@ -93,7 +93,7 @@ export default function Epic({
       x={x}
       y={y}
       width={width}
-      height={height === 0 ? length * 70 + 160 : height}
+      height={height === 0 ? length * 60 + 150 : height}
       style={{ background: "#E9F5FF" }}
       onPointerDown={(e) => onPointerDown(e, id)}
       onFocus={handleFocus}
@@ -111,7 +111,7 @@ export default function Epic({
           color: "white",
         }}
       />
-      <div className="my-[2rem] flex flex-col gap-[2rem]">
+      <div className="my-[1rem] flex flex-col gap-[1rem]">
         {value &&
           value.map((item, index) => (
             <div className="relative" key={item.id}>

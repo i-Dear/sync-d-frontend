@@ -274,7 +274,7 @@ export function MusicPlayer() {
                 className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-primary"
                 onClick={toggleMute}
               >
-                <div className="flex h-[2rem] w-[2rem] items-center justify-center">
+                <div className="flex h-[20px] w-[20px] items-center justify-center">
                   <MuteIcon />
                 </div>
               </div>
@@ -283,7 +283,7 @@ export function MusicPlayer() {
                 className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-primary"
                 onClick={toggleMute}
               >
-                <div className="flex h-[2rem] w-[2rem] items-center justify-center">
+                <div className="flex h-[20px] w-[20px] items-center justify-center">
                   <MuteOffIcon />
                 </div>
               </div>
