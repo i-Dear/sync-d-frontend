@@ -31,17 +31,19 @@
 
 <div align="center">
 
-| 김태욱                                                                                                                  | 오동재                                                                                                                        | 이재준                                                                                                                    | 이찬주                                                                                                                     | 정준호 |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------ |
-| https://github.com/yeon1615https://avatars.githubusercontent.com/u/106502312?v=4" height=150 width=150> <br/> @yeon1615 | https://github.com/Cheorizzanghttps://avatars.githubusercontent.com/u/112460466?v=4" height=150 width=150> <br/> @Cheorizzang | https://github.com/heejiyanghttps://avatars.githubusercontent.com/u/112460506?v=4" height=150 width=150> <br/> @heejiyang | https://github.com/journey-jihttps://avatars.githubusercontent.com/u/76766459?v=4" height=150 width=150> <br/> @journey-ji | <img   |
-
-src=”https://avatars.githubusercontent.com/u/121740394?v=4”
-height=150
-width=150>
-<br/>
-@jjunohj |
-
-</div>
+| 정준호 | 이재준 |
+| ---  | --- |
+| <img
+  src="https://github.com/i-Dear/sync-d-frontend/assets/121740394/8b4f3bb6-7767-45a6-97ac-e4fb5ab770e8"
+  alt="정준호 프사" />
+  <br>
+  팀장, FE, Designer
+| <img
+  src="https://avatars.githubusercontent.com/u/91151775?v=4"
+  alt="이재준 프사" />
+  <br>
+  FE
+|
 
 <br>
 
