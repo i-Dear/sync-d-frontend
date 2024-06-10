@@ -33,8 +33,9 @@
 
 | 정준호 | 이재준 |
 | ---  | --- |
-| <img src="https://avatars.githubusercontent.com/u/121740394?v=4" alt="정준호 프사" /> <br/> 팀장, FE, Designer | <img src="https://avatars.githubusercontent.com/u/91151775?v=4" alt="이재준 프사" /> <br> FE |
+| <img src="https://avatars.githubusercontent.com/u/121740394?v=4" alt="정준호 프사" /> <br/> <div align="center"> <span>팀장, FE, 디자인</span> </div> | <img src="https://avatars.githubusercontent.com/u/91151775?v=4" alt="이재준 프사" /> <br/> <div align="center"> <span>FE</span> </div> |
 
+</div>
 <br>
 
 ## 1. 개발 환경
