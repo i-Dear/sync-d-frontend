@@ -1,4 +1,4 @@
-import TopNavBar from "@/components/Layout/TopNavBar";
+import CustomLayout from "@/components/Layout/CustomLayout";
 
 const Layout = ({
   children,
@@ -6,12 +6,9 @@ const Layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="flex h-screen w-screen flex-col items-start justify-start">
-      <TopNavBar />
-      <div className="flex w-full" style={{ height: "calc(100vh - 4.8rem)" }}>
-        <main className="h-full w-full">{children}</main>
-      </div>
-    </div>
+    <CustomLayout>
+      <main className="h-full w-full">{children}</main>
+    </CustomLayout>
   );
 };
 

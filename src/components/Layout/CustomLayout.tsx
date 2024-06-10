@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import TopNavBar from "./TopNavBar";
 
-const CustomRootLayout = ({ children }: { children: React.ReactNode }) => {
+const CustomLayout = ({ children }: { children: React.ReactNode }) => {
   const [vh, setVh] = useState("100vh");
 
   useEffect(() => {
@@ -18,22 +19,21 @@ const CustomRootLayout = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <html lang="ko">
-      <body
-        style={{
-          height: `calc(var(--vh, 1vh) * 100)`,
-        }}
-        className="relative mx-auto flex w-screen flex-col items-center"
+    <div
+      style={{
+        height: `calc(var(--vh, 1vh) * 100)`,
+      }}
+      className="relative mx-auto flex w-screen flex-col items-center"
+    >
+      <TopNavBar />
+      <main
+        style={{ height: `calc(var(--vh, 1vh) * 100 - 48px)` }}
+        className="flex flex-col items-center justify-center"
       >
-        <main
-          style={{ height: `calc(var(--vh, 1vh) * 100)` }}
-          className="flex flex-col items-center justify-center"
-        >
-          {children}
-        </main>
-      </body>
-    </html>
+        {children}
+      </main>
+    </div>
   );
 };
 
-export default CustomRootLayout;
+export default CustomLayout;
