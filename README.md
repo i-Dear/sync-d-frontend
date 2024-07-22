@@ -3,6 +3,7 @@
 ![i-dear_Sync-D.png](https://github.com/i-Dear/sync-d-frontend/assets/121740394/a32eab2b-1d4b-4c08-b7fd-9700c68a0fd5)
 
 - 배포 URL : [https://syncd.i-dear.org/](https://syncd.i-dear.org/)
+- 현재 백엔드 도메인 이전 작업중으로 [https://vercel-sync-d-frontend.vercel.app/](https://vercel-sync-d-frontend.vercel.app/) URL을 이용해주세요
 
 ## 프로젝트 소개
 
